@@ -4,8 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "npm run build --prefix frontend",
+    "install": "npm install && npm install -- prefix frontend",
     "start": "node app.js",
-    "server": "nodemon app.js"
+    "server": "nodemon app.js",
+    "frontend": "npm start --prefix frontend"
   },
   "author": "",
   "license": "ISC",
