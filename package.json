@@ -4,10 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "adaptable-postbuild": "npm run build --prefix frontend",
     "install": "npm install && npm --prefix frontend install frontend",
-    "build": "npm run build --prefix frontend",
     "start": "node app.js",
-    "server": "nodemon app.js"
+    "server": "nodemon app.js",
+    "dev": "concurrently \"npm run server\" \"npm run frontend\"",
+    "build": "npm run build --prefix backend"
   },
   "author": "",
   "license": "ISC",
