@@ -39,10 +39,10 @@ router.post('/login', async (req, res) => {
     const user = await User.findOne({email: email})
 
     // No user found
-    if (!user) return res.json({message: 'Could not find a user with this email'})
+    if (!user) return res.status(404).json({message: 'Could not find a user with this email'})
 
     // Incorrect password
-    if (!bcrypt.compareSync(password, user.password)) return res.json({message: 'Incorrect password'})
+    if (!bcrypt.compareSync(password, user.password)) return res.status(401).json({message: 'Incorrect password'})
 
     const payload = {
         id: user.id,
