@@ -4,7 +4,10 @@ const mongoose = require('mongoose')
 const express = require('express')
 const db = require('./config/keys').mongoURI
 const transactions = require('./routes/api/transactions')
-
+const users = require('./routes/api/users')
+const auth = require('./routes/api/auth')
+const passport = require('passport')
+const cors = require('cors')
 const app = express()
 
 if (process.env.NODE_ENV === 'production') {
@@ -12,6 +15,8 @@ if (process.env.NODE_ENV === 'production') {
   app.get('/', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
   })
+} else {
+  app.use(cors())
 }
 
 // app.use(express.static(path.join(__dirname, "./frontend/build")))
@@ -24,15 +29,23 @@ if (process.env.NODE_ENV === 'production') {
 //   )
 // })
 
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
 mongoose
   .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("Connected to MongoDB successfully"))
   .catch(err => console.log(err));
 
 
-app.get("/", (req, res) => res.send("Hello World"));
+// app.get("/", (req, res) => res.send("Hello World"));
+
+app.use(passport.initialize())
+require('./config/passport')
 
 app.use('/api/transactions', transactions)
+app.use('/api/users', users)
+app.use('/api/auth', auth)
 
 const PORT = process.env.PORT || 8001
 
