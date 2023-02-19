@@ -1,37 +1,35 @@
-import { useState, ChangeEvent } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { IAxiosError } from "../../interfaces/IAxiosError";
+import { ChangeEvent, useState } from "react";
+import axios from 'axios'
 
-interface ILoginCredentials {
+
+export interface ISignupCredentials {
     email: string,
-    password: string
+    password: string,
+    repeatPassword: string
 }
 
-export default function Login () {
-    let navigate = useNavigate()
-    const [ loginCredentials, setLoginCredentials ] = useState<ILoginCredentials>({email: '', password: ''})
+export default function Signup () {
+    const defaultSignupData: ISignupCredentials = {
+        email: '',
+        password: '',
+        repeatPassword: ''
+    }
+
+    const [ signupCredentials, setSignupCredentials ] = useState<ISignupCredentials>(defaultSignupData)
     const [ errors, setErrors ] = useState<string[]>([])
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
-        setLoginCredentials({
-            ...loginCredentials,
+        setSignupCredentials({
+            ...signupCredentials,
             [e.target.name]: e.target.value
         })
     }
 
     const handleSubmit = (e: ChangeEvent<HTMLFormElement>): void => {
         e.preventDefault()
-
-        axios.post('/api/auth/login', loginCredentials)
-            .then((user) =>{
-                localStorage.setItem('token', user.data.token)
-                navigate('/protected')
-            })
-            .catch((err: IAxiosError) => {
-                setErrors([err.response.data.message])
-            })
+        console.log('signup data:', signupCredentials)
     }
+
 
   return (
     <>
@@ -46,18 +44,25 @@ export default function Login () {
             <input
                 type='text'
                 placeholder='Email'
-                value={loginCredentials.email || ''}
+                value={signupCredentials.email || ''}
                 onChange={handleInputChange}
                 name='email'
             />
             <input
                 type='password'
                 placeholder='Password'
-                value={loginCredentials.password || ''}
+                value={signupCredentials.password || ''}
                 onChange={handleInputChange}
                 name='password'
             />
-            <button>Login</button>
+            <input
+                type='password'
+                placeholder='Repeat Password'
+                value={signupCredentials.repeatPassword || ''}
+                onChange={handleInputChange}
+                name='repeatPassword'
+            />
+            <button>Signup</button>
         </form>
     </>
   );
