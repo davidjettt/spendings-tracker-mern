@@ -6,6 +6,7 @@ const passport = require('passport')
 const User = require('../../models/User')
 const keys = require('../../config/keys')
 
+// checks for logged in user
 router.get('/currentUser', passport.authenticate('jwt', {session: false}), (req, res) => {
     res.json({
         id: req.user.id,
@@ -13,6 +14,7 @@ router.get('/currentUser', passport.authenticate('jwt', {session: false}), (req,
     })
 })
 
+// signup
 router.post('/signup', async (req, res) => {
     const { email, password } = req.body
     const userEmail = await User.findOne({email: email})
@@ -34,12 +36,16 @@ router.post('/signup', async (req, res) => {
     })
 })
 
+// login route
 router.post('/login', async (req, res) => {
     const { email, password } = req.body
     const user = await User.findOne({email: email})
 
     // No user found
-    if (!user) return res.status(404).json({message: 'Could not find a user with this email'})
+    if (!user) {
+        res.status(404)
+        return res.json({message: 'Could not find a user with this email'})
+    }
 
     // Incorrect password
     if (!bcrypt.compareSync(password, user.password)) return res.status(401).json({message: 'Incorrect password'})
