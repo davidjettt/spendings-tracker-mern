@@ -29,7 +29,7 @@ export default function Login () {
                 navigate('/protected')
             })
             .catch((err: IAxiosError) => {
-                setErrors([err.response.data.message])
+                setErrors([...err.response.data.errors])
             })
     }
 

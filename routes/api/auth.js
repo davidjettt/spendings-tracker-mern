@@ -5,6 +5,9 @@ const jwt = require('jsonwebtoken')
 const passport = require('passport')
 const User = require('../../models/User')
 const keys = require('../../config/keys')
+const { validationResult } = require('express-validator')
+const validateSignup = require('../../validations/signup')
+const validateLogin = require('../../validations/login')
 
 // checks for logged in user
 router.get('/currentUser', passport.authenticate('jwt', {session: false}), (req, res) => {
@@ -15,13 +18,14 @@ router.get('/currentUser', passport.authenticate('jwt', {session: false}), (req,
 })
 
 // signup
-router.post('/signup', async (req, res) => {
-    const { email, password } = req.body
-    const userEmail = await User.findOne({email: email})
+router.post('/signup', validateSignup, async (req, res) => {
+    const errors = validationResult(req)
 
-    if (userEmail) {
-        return res.json({message: 'User already exists'})
+    if (!errors.isEmpty()) {
+        return res.status(400).json({errors: errors.array().map(err => `${err.msg}`)})
     }
+
+    const { email, password } = req.body
 
     const newUser = await new User({
         email,
@@ -30,25 +34,31 @@ router.post('/signup', async (req, res) => {
 
     await newUser.save()
 
-    return res.json({
+    const payload = {
         id: newUser.id,
         email: newUser.email
+    }
+    const token = jwt.sign(payload, keys.secretOrKey, {expiresIn: 604800})
+
+    return res.json({
+        id: newUser.id,
+        email: newUser.email,
+        token: 'Bearer ' + token
     })
 })
 
 // login route
-router.post('/login', async (req, res) => {
+router.post('/login', validateLogin, async (req, res) => {
     const { email, password } = req.body
     const user = await User.findOne({email: email})
 
-    // No user found
-    if (!user) {
-        res.status(404)
-        return res.json({message: 'Could not find a user with this email'})
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return res.status(400).json({errors: errors.array().map(err => `${err.msg}`)})
     }
 
-    // Incorrect password
-    if (!bcrypt.compareSync(password, user.password)) return res.status(401).json({message: 'Incorrect password'})
+    // // Incorrect password
+    if (!bcrypt.compareSync(password, user.password)) return res.status(401).json({errors: ['Incorrect password']})
 
     const payload = {
         id: user.id,

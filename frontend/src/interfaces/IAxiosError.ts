@@ -1,7 +1,7 @@
 export interface IAxiosError {
     response: {
         data: {
-            message: string
+            errors: string[]
         },
         status: number
     }
