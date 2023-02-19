@@ -1,6 +1,7 @@
 import { ChangeEvent, useState } from "react";
 import axios from 'axios'
-
+import { useNavigate } from "react-router-dom";
+import { IAxiosError } from "../../interfaces/IAxiosError";
 
 export interface ISignupCredentials {
     email: string,
@@ -9,6 +10,7 @@ export interface ISignupCredentials {
 }
 
 export default function Signup () {
+    let navigate = useNavigate()
     const defaultSignupData: ISignupCredentials = {
         email: '',
         password: '',
@@ -26,8 +28,26 @@ export default function Signup () {
     }
 
     const handleSubmit = (e: ChangeEvent<HTMLFormElement>): void => {
+        setErrors([])
         e.preventDefault()
         console.log('signup data:', signupCredentials)
+
+        if (signupCredentials.password !== signupCredentials.repeatPassword) {
+            setErrors(['Passwords need to be the same'])
+            return
+        }
+
+        axios.post('/api/auth/signup', signupCredentials)
+            .then((user) => {
+                localStorage.setItem('token', user.data.token)
+                navigate('/protected')
+            })
+            .catch((err: IAxiosError) => {
+                console.log('axio err', err)
+                console.log('errors', [...err.response.data.errors])
+                setErrors([...err.response.data.errors])
+            })
+
     }
 
 
