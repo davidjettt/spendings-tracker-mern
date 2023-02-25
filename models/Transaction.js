@@ -18,7 +18,7 @@ const TransactionSchema = new Schema(
         notes: {
             type: String
         },
-        userEmail: {
+        userId: {
             type: String,
             required: true
         }
