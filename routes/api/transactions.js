@@ -10,5 +10,11 @@ router.get('/', async (req, res) => {
 
 })
 
+// delete a transaction
+router.delete('/:transactionId', async(req, res) => {
+    const transaction = await Transaction.findOneAndDelete({_id: req.params.transactionId})
+    return res.json({message: "Successfully deleted transaction"})
+})
+
 
 module.exports = router

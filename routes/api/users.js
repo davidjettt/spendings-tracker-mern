@@ -3,8 +3,6 @@ const router = express.Router()
 const User = require('../../models/User')
 const Transaction = require('../../models/Transaction')
 
-
-
 // get all users
 router.get('/', async (req, res) => {
     const users = await User.find({}).select('-password')
@@ -22,7 +20,7 @@ router.get('/:userId/transactions', async (req, res) => {
 
 // post a new transaction
 router.post('/:userId/transactions', async (req, res) => {
-    const { name, category, amount, notes  } = req.body
+    const { name, category, amount, notes, date  } = req.body
     const userId = req.params.userId
 
     const newTransaction = await Transaction.create({
@@ -30,16 +28,25 @@ router.post('/:userId/transactions', async (req, res) => {
         category,
         amount,
         notes,
-        userId
+        userId,
+        date
     })
 
     return res.json(newTransaction)
 })
 
 // update an existing transaction
-router.put('/:userId/transac')
+router.put('/:userId/transactions/:transactionId', async (req, res) => {
+    const userId = req.params.userId
 
-// delete a transaction
+    const filter = {_id: req.params.transactionId}
+    const options = req.body
+    const transaction = await Transaction.findOneAndUpdate(filter, options, {new: true, upsert: true})
+
+    return res.json(transaction)
+
+
+})
 
 
 module.exports = router
