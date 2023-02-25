@@ -2,6 +2,7 @@ import { useState, ChangeEvent } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { IAxiosError } from "../../interfaces/IAxiosError";
+import { useCurrentUser } from "../../context/CurrentUserContext";
 
 interface ILoginCredentials {
     email: string,
@@ -9,6 +10,8 @@ interface ILoginCredentials {
 }
 
 export default function Login () {
+    const { setCurrentUser } = useCurrentUser()
+
     let navigate = useNavigate()
     const [ loginCredentials, setLoginCredentials ] = useState<ILoginCredentials>({email: '', password: ''})
     const [ errors, setErrors ] = useState<string[]>([])
@@ -26,6 +29,7 @@ export default function Login () {
         axios.post('/api/auth/login', loginCredentials)
             .then((user) =>{
                 localStorage.setItem('token', user.data.token)
+                setCurrentUser(user.data)
                 navigate('/protected')
             })
             .catch((err: IAxiosError) => {
