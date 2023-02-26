@@ -1,6 +1,7 @@
 import { ChangeEvent, useState } from 'react'
 import axios from 'axios'
 import { ITransactionData } from '../../interfaces/ITransactionData'
+import Calendar from '../Calendar/Calendar'
 
 export interface ITransactionFormProps {
 }
@@ -12,6 +13,7 @@ export default function TransactionForm (props: ITransactionFormProps) {
 })
 
   const defaultData = {
+    _id: '',
     name: '',
     category: '',
     date: '',
@@ -45,7 +47,7 @@ export default function TransactionForm (props: ITransactionFormProps) {
   return (
     <>
         <form onSubmit={handleSubmit}>
-          <h1>Transaction Form</h1>
+          <h1 className='text-primary'>Transaction Form</h1>
           <input
             type='text'
             name='name'
@@ -59,6 +61,8 @@ export default function TransactionForm (props: ITransactionFormProps) {
             <option value='Travel'>Travel</option>
             <option value='Meals'>Meals</option>
             <option value='Groceries'>Groceries</option>
+            <option value='Shopping'>Shopping</option>
+            <option value='Other'>Other</option>
           </select>
           <input
             type='text'
@@ -67,6 +71,7 @@ export default function TransactionForm (props: ITransactionFormProps) {
             value={transactionData.date}
             onChange={handleInputChange}
           />
+          <Calendar />
           <input
             type='number'
             name='amount'

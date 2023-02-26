@@ -3,11 +3,13 @@ import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 import Charts from "../Charts/Charts";
+import TransactionsList from "../Transactions/TransactionsList";
 import TransactionForm from "../Transactions/TransactionForm";
+import { Link } from "react-router-dom";
 export interface IAppProps {
 }
 
-export default function Protected (props: IAppProps) {
+export default function Dashboard (props: IAppProps) {
     const { currentUser } = useContext(CurrentUserContext)
     let navigate = useNavigate()
     const [ user ] = useState({
@@ -35,24 +37,14 @@ export default function Protected (props: IAppProps) {
         })
     },[])
 
-    const handleLogout = (): void => {
-        localStorage.removeItem('token')
-        localStorage.removeItem('email')
-        localStorage.removeItem('id')
-        // console.log('axios header', axios.defaults.headers.common['Authorization'])
-        // delete axios.defaults.headers.common['Authorization']
-        navigate('/')
-    }
-
   return (
     <>
         {loadPage && <div>
-            <h1>Protected</h1>
-            <h2>{user.id}</h2>
-            <h2>{user.email}</h2>
-            <TransactionForm />
+            <h1>Dashboard</h1>
+            {/* <h2>{user.id}</h2>
+            <h2>{user.email}</h2> */}
             <Charts />
-            <button onClick={handleLogout}>Logout</button>
+            <TransactionsList />
         </div>}
     </>
   );
