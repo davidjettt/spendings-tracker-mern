@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from "react";
+import { useState, useEffect, ChangeEvent } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { IAxiosError } from "../../interfaces/IAxiosError";
@@ -10,11 +10,28 @@ interface ILoginCredentials {
 }
 
 export default function Login () {
-    const { setCurrentUser } = useCurrentUser()
-
     let navigate = useNavigate()
+
+    const { currentUser, setCurrentUser } = useCurrentUser()
+
+    const [ loadPage, setLoadPage ] = useState<boolean>(false)
     const [ loginCredentials, setLoginCredentials ] = useState<ILoginCredentials>({email: '', password: ''})
     const [ errors, setErrors ] = useState<string[]>([])
+
+    // checks if token in local storage is a valid token
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+        axios.get('/api/auth/currentUser', {
+            headers: {
+                Authorization: token
+            }
+        }).then(res => {
+            navigate('/protected')
+        }).catch(err => {
+            console.log('err', err)
+            setLoadPage(true)
+        })
+    },[])
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
         setLoginCredentials({
@@ -29,6 +46,8 @@ export default function Login () {
         axios.post('/api/auth/login', loginCredentials)
             .then((user) =>{
                 localStorage.setItem('token', user.data.token)
+                localStorage.setItem('email', user.data.email)
+                localStorage.setItem('id', user.data.id)
                 setCurrentUser(user.data)
                 navigate('/protected')
             })
@@ -46,7 +65,7 @@ export default function Login () {
                 </div>
             ))}
         </div>}
-        <form onSubmit={handleSubmit}>
+        {loadPage && <form onSubmit={handleSubmit}>
             <input
                 type='text'
                 placeholder='Email'
@@ -62,7 +81,7 @@ export default function Login () {
                 name='password'
             />
             <button>Login</button>
-        </form>
+        </form>}
     </>
   );
 }
