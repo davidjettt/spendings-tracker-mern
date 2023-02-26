@@ -11,7 +11,14 @@ router.get('/', async (req, res) => {
 
 // get all user transactions
 router.get('/:userId/transactions', async (req, res) => {
+    const { month, year } = req.query
     const userId = req.params.userId
+
+    if (year) {
+        const transactions = await Transaction.find({userId: userId})
+    }
+
+
     const transactions = await Transaction.find({userId: userId})
 
     return res.json(transactions)

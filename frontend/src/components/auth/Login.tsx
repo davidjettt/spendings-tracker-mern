@@ -12,7 +12,7 @@ interface ILoginCredentials {
 export default function Login () {
     let navigate = useNavigate()
 
-    const { currentUser, setCurrentUser } = useCurrentUser()
+    const { setCurrentUser } = useCurrentUser()
 
     const [ loadPage, setLoadPage ] = useState<boolean>(false)
     const [ loginCredentials, setLoginCredentials ] = useState<ILoginCredentials>({email: '', password: ''})
@@ -31,7 +31,7 @@ export default function Login () {
             console.log('err', err)
             setLoadPage(true)
         })
-    },[])
+    },[navigate])
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
         setLoginCredentials({
@@ -44,16 +44,23 @@ export default function Login () {
         e.preventDefault()
 
         axios.post('/api/auth/login', loginCredentials)
-            .then((user) =>{
-                localStorage.setItem('token', user.data.token)
-                localStorage.setItem('email', user.data.email)
-                localStorage.setItem('id', user.data.id)
-                setCurrentUser(user.data)
-                navigate('/protected')
-            })
-            .catch((err: IAxiosError) => {
-                setErrors([...err.response.data.errors])
-            })
+        .then((user) =>{
+            localStorage.setItem('token', user.data.token)
+            localStorage.setItem('email', user.data.email)
+            localStorage.setItem('id', user.data.id)
+            setCurrentUser(user.data)
+            navigate('/protected')
+        })
+        .catch((err: IAxiosError) => {
+            setErrors([...err.response.data.errors])
+        })
+    }
+
+    const handleDemoLogin = (): void => {
+        setLoginCredentials({
+            email: 'demo@aa.io',
+            password: 'benjaminbutton123'
+        })
     }
 
   return (
@@ -65,23 +72,39 @@ export default function Login () {
                 </div>
             ))}
         </div>}
-        {loadPage && <form onSubmit={handleSubmit}>
-            <input
-                type='text'
-                placeholder='Email'
-                value={loginCredentials.email || ''}
-                onChange={handleInputChange}
-                name='email'
-            />
-            <input
-                type='password'
-                placeholder='Password'
-                value={loginCredentials.password || ''}
-                onChange={handleInputChange}
-                name='password'
-            />
-            <button>Login</button>
-        </form>}
+        {loadPage &&
+            <form
+                className="flex flex-col"
+                onSubmit={handleSubmit}
+            >
+                <input
+                    className="shadow appearance-none border rounded focus:outline-none"
+                    type='text'
+                    placeholder='Email'
+                    value={loginCredentials.email || ''}
+                    onChange={handleInputChange}
+                    name='email'
+                />
+                <input
+                    className="border rounded"
+                    type='password'
+                    placeholder='Password'
+                    value={loginCredentials.password || ''}
+                    onChange={handleInputChange}
+                    name='password'
+                />
+                <button
+                    className="border rounded px-2"
+                >
+                    Login
+                </button>
+                <button
+                    className="border rounded px-2"
+                    onClick={handleDemoLogin}
+                >
+                    Demo Login
+                </button>
+            </form>}
     </>
   );
 }
