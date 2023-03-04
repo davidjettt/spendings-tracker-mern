@@ -9,7 +9,7 @@ interface ILoginCredentials {
     password: string
 }
 
-export default function Login () {
+export default function Login ({setShowNavBar}: any) {
     let navigate = useNavigate()
 
     const { setCurrentUser } = useCurrentUser()
@@ -26,7 +26,7 @@ export default function Login () {
                 Authorization: token
             }
         }).then(res => {
-            navigate('/protected')
+            navigate('/dashboard')
         }).catch(err => {
             console.log('err', err)
             setLoadPage(true)
@@ -49,7 +49,8 @@ export default function Login () {
             localStorage.setItem('email', user.data.email)
             localStorage.setItem('id', user.data.id)
             setCurrentUser(user.data)
-            navigate('/protected')
+            setShowNavBar(true)
+            navigate('/dashboard')
         })
         .catch((err: IAxiosError) => {
             setErrors([...err.response.data.errors])
