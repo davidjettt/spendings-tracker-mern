@@ -3,11 +3,21 @@ const router = express.Router()
 const User = require('../../models/User')
 const Transaction = require('../../models/Transaction')
 
-// test route
-router.get('/transactions/test', async (req, res) => {
+// filtering by specified timeframe and group by category with amount for each category
+router.get('/:userId/transactions/aggregate', async (req, res) => {
+    const { month, year } = req.query
     const userId = req.params.userId
 
-    const all = await Transaction.find({})
+    let endMonthInt = Number(month) + 1
+    let endYearInt = Number(year)
+
+    if (endMonthInt === 13) {
+        endMonthInt = 1
+        endYearInt += 1
+    }
+
+    const endMonth = endMonthInt.toString()
+    const endYear = endYearInt.toString()
 
     // const groupMonths = await Transaction.aggregate([
     //     {$group: {
@@ -16,32 +26,34 @@ router.get('/transactions/test', async (req, res) => {
     //     }}
     // ]);
 
-
+    // filtering by specified timeframe and group by category with amount for each category
     const transactions = await Transaction.aggregate([
-        { $match: { amount: { $gte: 800}}},
-        { $group: { _id: null, amount: { $sum: "$amount" } } },
+        { $match: {userId: userId} },
+        { $match: {date: { $gte: new Date(`${year}-${month.padStart(2, '0')}-01T00:00:00Z`), $lt: new Date(`${endYear}-${endMonth.padStart(2, '0')}-01T00:00:00Z`)}}},
+        { $group: {_id: '$category', total: { $sum: '$amount' }} },
+        { $sort: {total: -1} }
     ])
 
-    const transDate = await Transaction.find({
-        '$expr': {'$group': {_id: '$category'}},
-        date: {
-            $gte: new Date('2022-01-01T00:00:00Z'),
-            $lt: new Date('2023-01-01T00:00:00Z')
-        }
-    }).exec((err) => {
-        if (err) {
-            console.log('ERR', err)
-        }
-    })
+    // const transDate = await Transaction.find({
+    //     '$expr': {'$group': {_id: '$category'}},
+    //     date: {
+    //         $gte: new Date('2022-01-01T00:00:00Z'),
+    //         $lt: new Date('2023-01-01T00:00:00Z')
+    //     }
+    // }).exec((err) => {
+    //     if (err) {
+    //         console.log('ERR', err)
+    //     }
+    // })
 
-    const category = await Transaction.aggregate([
-        {$project: {_id: 1, name: 1, amount: 1, category: 1, notes: 1, date: 1, userId: 1}},
-        { $match: { date: { $gte: new Date('2022-01-01T00:00:00Z'), $lt: new Date('2023-01-01T00:00:00Z')}}},
-        {$group: {_id: '$category'}},
+    // const category = await Transaction.aggregate([
+    //     {$project: {_id: 1, name: 1, amount: 1, category: 1, notes: 1, date: 1, userId: 1}},
+    //     { $match: { date: { $gte: new Date('2022-01-01T00:00:00Z'), $lt: new Date('2023-01-01T00:00:00Z')}}},
+    //     {$group: {_id: '$category'}},
 
-    ])
+    // ])
 
-    return res.json(category)
+    return res.json(transactions)
 })
 
 // get all users
@@ -52,13 +64,7 @@ router.get('/', async (req, res) => {
 
 // get all user transactions
 router.get('/:userId/transactions', async (req, res) => {
-    const { month, year } = req.query
     const userId = req.params.userId
-
-    if (year) {
-        const transactions = await Transaction.find({userId: userId})
-    }
-
 
     const transactions = await Transaction.find({userId: userId})
 
@@ -92,9 +98,9 @@ router.put('/:userId/transactions/:transactionId', async (req, res) => {
     const transaction = await Transaction.findOneAndUpdate(filter, options, {new: true, upsert: true})
 
     return res.json(transaction)
-
-
 })
+
+// get user transactions based on month
 
 
 module.exports = router
