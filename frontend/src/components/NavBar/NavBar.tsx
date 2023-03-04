@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 export interface INavBarProps {
 }
 
-export default function NavBar (props: INavBarProps) {
+export default function NavBar ({setShowNavBar}: any) {
     let navigate = useNavigate()
 
     const handleLogout = (): void => {
@@ -13,6 +13,7 @@ export default function NavBar (props: INavBarProps) {
         localStorage.removeItem('id')
         // console.log('axios header', axios.defaults.headers.common['Authorization'])
         // delete axios.defaults.headers.common['Authorization']
+        setShowNavBar(false)
         navigate('/')
     }
   return (

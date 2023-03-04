@@ -12,6 +12,7 @@ import NavBar from "./components/NavBar/NavBar";
 
 function App() {
   const [ showNavBar, setShowNavBar ] = useState<boolean>(false)
+
   useEffect(() => {
     const token = localStorage.getItem('token')
     axios.get('/api/auth/currentUser', {
@@ -30,9 +31,9 @@ function App() {
     <div className="App">
       <CurrentUserProvider>
         <BrowserRouter>
-          {showNavBar && <NavBar />}
+          {showNavBar && <NavBar setShowNavBar={setShowNavBar} />}
           <Routes>
-            <Route path='/' element={<Splash />}/>
+            <Route path='/' element={<Splash setShowNavBar={setShowNavBar} />}/>
             <Route path='/signup' element={<Signup />} />
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/chart' element={<Charts />} />

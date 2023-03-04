@@ -15,16 +15,20 @@ const TransactionSchema = new Schema(
             type: Number,
             required: true
         },
+        // date: {
+        //     month: {
+        //         type: String
+        //     },
+        //     day: {
+        //         type: String
+        //     },
+        //     year: {
+        //         type: String
+        //     }
+        // },
         date: {
-            month: {
-                type: Number
-            },
-            day: {
-                type: Number
-            },
-            year: {
-                type: Number
-            }
+            type: Date,
+            required: true
         },
         notes: {
             type: String

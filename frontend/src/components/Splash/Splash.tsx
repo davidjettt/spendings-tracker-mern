@@ -3,7 +3,7 @@ import Login from "../auth/Login";
 export interface ISplashProps {
 }
 
-export default function Splash (props: ISplashProps) {
+export default function Splash ({setShowNavBar}: any) {
   return (
     <>
         <div
@@ -14,7 +14,7 @@ export default function Splash (props: ISplashProps) {
             >
                 Spendings Tracker
             </h1>
-            <Login />
+            <Login setShowNavBar={setShowNavBar} />
     </div>
     </>
   );
