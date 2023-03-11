@@ -1,11 +1,12 @@
 import { Chart } from 'react-google-charts'
 import { useState } from 'react'
+import { ICategoryTotals } from './Charts'
 
 export interface IColumnChartProps {
-    name: string
+    chartData: ICategoryTotals
 }
 
-export default function ColumnChart ({chartData}: any) {
+export default function ColumnChart ({ chartData }: IColumnChartProps) {
    /**
     TODO Figure out how to send data to charts
     Option 1: send 1 big object and then extract data to save in state in chart component
@@ -24,14 +25,14 @@ export default function ColumnChart ({chartData}: any) {
 
     const data = [
         ["Element", "Density", { role: "style" }],
-        ['Meals', 50, 'blue'],
-        ["Travel", 8.94, "#b87333"], // RGB value
-        ["Groceries", 10.49, "silver"], // English color name
-        ["Electronics", 19.3, "gold"],
-        ["Entertainment", 21.45, "color: #e5e4e2"], // CSS-style declaration
-        ['Shopping', 23, 'orange'],
+        ['Meals', chartData['Meals'], 'blue'],
+        ["Travel", chartData['Travel'], "#b87333"], // RGB value
+        ["Groceries", chartData['Groceries'], "silver"], // English color name
+        ["Electronics", chartData['Electronics'], "gold"],
+        ["Entertainment", chartData['Entertainment'], "color: pink"], // CSS-style declaration
+        ['Shopping', chartData['Shopping'], 'orange'],
         ['Utilities', 23, 'green'],
-        ['Other', 23, 'gray'],
+        ['Other', chartData['Other'], 'gray'],
       ]
 
     console.log('data', chartData)
