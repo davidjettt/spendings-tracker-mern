@@ -2,8 +2,7 @@ import { Chart } from 'react-google-charts'
 import { useState } from 'react'
 
 export interface IColumnChartProps {
-    category: string,
-    total: number
+    name: string
 }
 
 export default function ColumnChart ({chartData}: any) {

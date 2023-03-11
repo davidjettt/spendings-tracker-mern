@@ -1,5 +1,5 @@
 import { Chart } from 'react-google-charts'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, FC } from 'react'
 import axios from 'axios'
 import ColumnChart from './ColumnChart'
 
@@ -43,7 +43,7 @@ export default function Charts (props: IChartsProps) {
 
   return (
     <>
-      <ColumnChart chartData={data}/>
+      <ColumnChart chartData={{name: 'yes'}}/>
 
     </>
   );
