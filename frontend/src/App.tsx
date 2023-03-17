@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { BrowserRouter, Navigate, Route, Router, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Router, Routes, useNavigate } from "react-router-dom";
 import Dashboard from "./components/Dashboard/Dashboard";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import Signup from "./components/auth/Signup";
@@ -11,7 +11,7 @@ import TransactionForm from "./components/Transactions/TransactionForm";
 import NavBar from "./components/NavBar/NavBar";
 
 function App() {
-  const [ showNavBar, setShowNavBar ] = useState<boolean>(false)
+  const [ loadPage, setLoadPage ] = useState<boolean>(false)
 
   useEffect(() => {
     const token = localStorage.getItem('token')
@@ -20,10 +20,9 @@ function App() {
             Authorization: token
         }
     }).then(res => {
-      console.log('HERE')
-      setShowNavBar(true)
+
     }).catch(err => {
-        console.log('err', err)
+      console.error('error', err)
     })
 },[])
 
@@ -33,12 +32,12 @@ function App() {
         <BrowserRouter>
           {/* {showNavBar && <NavBar setShowNavBar={setShowNavBar} />} */}
           <Routes>
-            <Route path='/' element={<Splash setShowNavBar={setShowNavBar} />}/>
+            <Route path='/' element={<Splash />}/>
             <Route path='/signup' element={<Signup />} />
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/chart' element={<Charts />} />
             <Route path='/transaction-form' element={<TransactionForm />} />
-            {/* <Route path='*' element={<Navigate to='/' replace />} */}
+            <Route path="*" element={<Navigate to="/dashboard" replace />} />
           </Routes>
         </BrowserRouter>
       </CurrentUserProvider>
