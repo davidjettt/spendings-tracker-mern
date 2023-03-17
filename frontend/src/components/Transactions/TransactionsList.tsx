@@ -21,6 +21,8 @@ export default function TransactionsList (props: ITransactionsListProps) {
             })
     }, [])
 
+    console.log('Transactions list', transactions)
+
   return (
     <div>
         {

@@ -6,6 +6,7 @@ import Charts from "../Charts/Charts";
 import TransactionsList from "../Transactions/TransactionsList";
 import TransactionForm from "../Transactions/TransactionForm";
 import { Link } from "react-router-dom";
+import NavBar from "../NavBar/NavBar";
 export interface IAppProps {
 }
 
@@ -28,24 +29,30 @@ export default function Dashboard (props: IAppProps) {
                 Authorization: token
             }
         }).then(res => {
-            console.log('res', res)
             setLoadPage(true)
         }).catch(err => {
-            console.log('err', err)
+            console.error('err', err)
             // Redirect user back to login page
             navigate('/')
         })
     },[])
 
   return (
-    <>
-        {loadPage && <div>
-            <h1>Dashboard</h1>
-            {/* <h2>{user.id}</h2>
-            <h2>{user.email}</h2> */}
-            <Charts />
-            <TransactionsList />
-        </div>}
-    </>
+    <div
+        className="dashboard-main-container flex h-[100%]"
+    >
+      <NavBar />
+        {loadPage &&
+            <div
+                className="dashboard w-[95%]"
+            >
+                <h1>Month/Year dropdown goes here</h1>
+                {/* <h2>{user.id}</h2>
+                <h2>{user.email}</h2> */}
+                <Charts />
+                <TransactionsList />
+            </div>
+        }
+    </div>
   );
 }

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 export interface INavBarProps {
 }
 
-export default function NavBar ({setShowNavBar}: any) {
+export default function NavBar () {
     let navigate = useNavigate()
 
     const handleLogout = (): void => {
@@ -13,11 +13,12 @@ export default function NavBar ({setShowNavBar}: any) {
         localStorage.removeItem('id')
         // console.log('axios header', axios.defaults.headers.common['Authorization'])
         // delete axios.defaults.headers.common['Authorization']
-        setShowNavBar(false)
         navigate('/')
     }
   return (
-        <nav>
+        <nav
+            className="nav-bar flex flex-col w-[5%] border"
+        >
             <Link
                 className="border rounded px-2"
                 to='/dashboard'
@@ -31,11 +32,12 @@ export default function NavBar ({setShowNavBar}: any) {
                 Post a transaction
             </Link>
             <button
-                className="border rounded px-2"
+                className="logout-button border rounded px-2"
                 onClick={handleLogout}
             >
                 LOGOUT
             </button>
+            <button>TOGGLE</button>
         </nav>
   );
 }
