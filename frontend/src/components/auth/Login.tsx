@@ -9,7 +9,7 @@ interface ILoginCredentials {
     password: string
 }
 
-export default function Login ({setShowNavBar}: any) {
+export default function Login () {
     let navigate = useNavigate()
 
     const { setCurrentUser } = useCurrentUser()
@@ -28,7 +28,6 @@ export default function Login ({setShowNavBar}: any) {
         }).then(res => {
             navigate('/dashboard')
         }).catch(err => {
-            console.log('err', err)
             setLoadPage(true)
         })
     },[navigate])
@@ -49,7 +48,6 @@ export default function Login ({setShowNavBar}: any) {
             localStorage.setItem('email', user.data.email)
             localStorage.setItem('id', user.data.id)
             setCurrentUser(user.data)
-            setShowNavBar(true)
             navigate('/dashboard')
         })
         .catch((err: IAxiosError) => {

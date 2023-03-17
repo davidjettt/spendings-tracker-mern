@@ -1,9 +1,11 @@
+import { Link } from "react-router-dom";
 import Login from "../auth/Login";
+import Signup from "../auth/Signup";
 
 export interface ISplashProps {
 }
 
-export default function Splash ({setShowNavBar}: any) {
+export default function Splash () {
   return (
     <>
         <div
@@ -14,7 +16,10 @@ export default function Splash ({setShowNavBar}: any) {
             >
                 Spendings Tracker
             </h1>
-            <Login setShowNavBar={setShowNavBar} />
+            <Login />
+            <Link to='/signup'>
+              Sign up
+            </Link>
     </div>
     </>
   );
