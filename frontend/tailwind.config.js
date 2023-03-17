@@ -21,7 +21,15 @@ module.exports = {
       'gray-dark': '#273444',
       'gray': '#8492a6',
       'gray-light': '#d3dce6',
-      'primary': '#ff39db'
+      'primary': '#ff39db',
+      'royalBlue': '#0052FF',
+      'Entertainment': '#CC8899',
+      'Meals': '#0CBBD4',
+      'Groceries': '#449F46',
+      'Electronics': '#E63936',
+      'Travel': '#FFEB3F',
+      'Shopping': '#FF9802',
+      'Other': '#90A4AF'
     },
     fontFamily: {
       sans: ['Graphik', 'sans-serif'],

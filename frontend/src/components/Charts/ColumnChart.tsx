@@ -25,14 +25,14 @@ export default function ColumnChart ({ chartData }: IColumnChartProps) {
 
     const data = [
         ["Element", "Density", { role: "style" }],
-        ['Meals', chartData['Meals'], 'blue'],
-        ["Travel", chartData['Travel'], "#b87333"], // RGB value
-        ["Groceries", chartData['Groceries'], "silver"], // English color name
-        ["Electronics", chartData['Electronics'], "gold"],
-        ["Entertainment", chartData['Entertainment'], "color: pink"], // CSS-style declaration
-        ['Shopping', chartData['Shopping'], 'orange'],
+        ['Meals', chartData['Meals'], '#0CBBD4'],
+        ["Travel", chartData['Travel'], "#FFEB3F"], // RGB value
+        ["Groceries", chartData['Groceries'], "#449F46"], // English color name
+        ["Electronics", chartData['Electronics'], "#E63936"],
+        ["Entertainment", chartData['Entertainment'], "#CC8899"], // CSS-style declaration
+        ['Shopping', chartData['Shopping'], '#FF9802'],
         ['Utilities', 23, 'green'],
-        ['Other', chartData['Other'], 'gray'],
+        ['Other', chartData['Other'], '#90A4AF'],
       ]
 
     console.log('data', chartData)
@@ -47,9 +47,12 @@ export default function ColumnChart ({ chartData }: IColumnChartProps) {
           width: '85%',
           height: '85%',
         },
+        bar: { groupWidth: "35%" }
       };
   return (
-    <>
+    <div
+      className='column-chart-container w-[50%]'
+    >
         <Chart
             chartType="ColumnChart"
             width="100%"
@@ -57,6 +60,6 @@ export default function ColumnChart ({ chartData }: IColumnChartProps) {
             data={data}
             options={options}
         />
-    </>
+    </div>
   );
 }

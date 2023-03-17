@@ -2,6 +2,7 @@ import { ChangeEvent, useState } from 'react'
 import axios from 'axios'
 import { ITransactionData } from '../../interfaces/ITransactionData'
 import Calendar from '../Calendar/Calendar'
+import NavBar from '../NavBar/NavBar'
 
 export interface ITransactionFormProps {
 }
@@ -45,7 +46,10 @@ export default function TransactionForm (props: ITransactionFormProps) {
   }
 
   return (
-    <>
+    <div
+      className='transactions-form-main-container flex'
+    >
+        <NavBar />
         <form onSubmit={handleSubmit}>
           <h1 className='text-primary'>Transaction Form</h1>
           <input
@@ -87,6 +91,6 @@ export default function TransactionForm (props: ITransactionFormProps) {
           />
           <button>Submit</button>
         </form>
-    </>
+    </div>
   );
 }

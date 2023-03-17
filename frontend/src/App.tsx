@@ -28,10 +28,10 @@ function App() {
 },[])
 
   return (
-    <div className="App">
+    <div className="App h-[100vh]">
       <CurrentUserProvider>
         <BrowserRouter>
-          {showNavBar && <NavBar setShowNavBar={setShowNavBar} />}
+          {/* {showNavBar && <NavBar setShowNavBar={setShowNavBar} />} */}
           <Routes>
             <Route path='/' element={<Splash setShowNavBar={setShowNavBar} />}/>
             <Route path='/signup' element={<Signup />} />

@@ -2,6 +2,7 @@ import { Chart } from 'react-google-charts'
 import { useState, useEffect, FC } from 'react'
 import axios from 'axios'
 import ColumnChart from './ColumnChart'
+import DonutChart from './DonutChart'
 
 export interface IChartsProps {
 }
@@ -62,8 +63,11 @@ export default function Charts (props: IChartsProps) {
 
 
   return (
-    <>
+    <div
+      className='charts-main-container w-full flex'
+    >
+      <DonutChart chartData={data} />
       <ColumnChart chartData={data}/>
-    </>
+    </div>
   );
 }
