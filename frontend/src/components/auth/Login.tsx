@@ -17,7 +17,6 @@ interface ILoginProps {
 export default function Login ({ isLoggedIn, setIsLoggedIn }: ILoginProps) {
     let navigate = useNavigate()
     const { setCurrentUser } = useCurrentUser()
-
     const [ loadPage, setLoadPage ] = useState<boolean>(false)
     const [ loginCredentials, setLoginCredentials ] = useState<ILoginCredentials>({email: '', password: ''})
     const [ errors, setErrors ] = useState<string[]>([])

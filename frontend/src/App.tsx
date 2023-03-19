@@ -1,10 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import axios from "axios";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Dashboard from "./components/Dashboard/Dashboard";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import Signup from "./components/auth/Signup";
-import Charts from "./components/Charts/Charts";
 import Splash from "./components/Splash/Splash";
 import CurrentUserProvider from "./context/CurrentUserContext";
 import TransactionForm from "./components/Transactions/TransactionForm";
@@ -14,18 +13,18 @@ import AuthRoute from "./components/auth/AuthRoute";
 function App() {
   const [ isLoggedIn, setIsLoggedIn ] = useState<boolean>(false)
 
-//   useEffect(() => {
-//     const token = localStorage.getItem('token')
-//     axios.get('/api/auth/currentUser', {
-//         headers: {
-//             Authorization: token
-//         }
-//     }).then(res => {
-//       setIsLoggedIn(true)
-//     }).catch(err => {
-//       setIsLoggedIn(false)
-//     })
-// },[])
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    axios.get('/api/auth/currentUser', {
+        headers: {
+            Authorization: token
+        }
+    }).then(res => {
+      setIsLoggedIn(true)
+    }).catch(err => {
+      setIsLoggedIn(false)
+    })
+},[])
 
   return (
     <div className="App h-[100vh]">
@@ -46,7 +45,6 @@ function App() {
               </ProtectedRoute>
             }
             />
-            <Route path='/chart' element={<Charts />} />
             <Route path='/transaction-form' element={
               <ProtectedRoute isLoggedIn={isLoggedIn}>
                 <TransactionForm setIsLoggedIn={setIsLoggedIn} />

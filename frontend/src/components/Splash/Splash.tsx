@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import Login from "../auth/Login";
-import Signup from "../auth/Signup";
 
 export interface ISplashProps {
   isLoggedIn: boolean,

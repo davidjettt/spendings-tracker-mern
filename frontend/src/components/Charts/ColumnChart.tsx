@@ -25,17 +25,15 @@ export default function ColumnChart ({ chartData }: IColumnChartProps) {
 
     const data = [
         ["Element", "Density", { role: "style" }],
-        ['Meals', chartData['Meals'], '#0CBBD4'],
-        ["Travel", chartData['Travel'], "#FFEB3F"], // RGB value
+        ['Meals', chartData['Meals'], '#DC3913'],
+        ["Travel", chartData['Travel'], "#3366CC"], // RGB value
         ["Groceries", chartData['Groceries'], "#449F46"], // English color name
-        ["Electronics", chartData['Electronics'], "#E63936"],
-        ["Entertainment", chartData['Entertainment'], "#CC8899"], // CSS-style declaration
+        ["Electronics", chartData['Electronics'], "#0199C6"],
+        ["Entertainment", chartData['Entertainment'], "#990099"], // CSS-style declaration
         ['Shopping', chartData['Shopping'], '#FF9802'],
-        ['Utilities', 23, 'green'],
+        // ['Utilities', 23, 'green'],
         ['Other', chartData['Other'], '#90A4AF'],
       ]
-
-    console.log('data', chartData)
 
     const options = {
         animation: {
@@ -47,16 +45,18 @@ export default function ColumnChart ({ chartData }: IColumnChartProps) {
           width: '85%',
           height: '85%',
         },
-        bar: { groupWidth: "35%" }
+        bar: { groupWidth: "35%" },
+        legend: 'none',
+        // 'height': 500
       };
   return (
     <div
-      className='column-chart-container w-[50%]'
+      className='column-chart-container w-[33%] h-[100px]'
     >
         <Chart
             chartType="ColumnChart"
             width="100%"
-            height="400px"
+            height="auto"
             data={data}
             options={options}
         />

@@ -24,7 +24,14 @@ export default function TransactionsList (props: ITransactionsListProps) {
     console.log('Transactions list', transactions)
 
   return (
-    <div>
+    <div
+        className='transactions-list-main-container border-2 h-[40%] overflow-auto'
+    >
+        <h1
+            className='transactions-list-title text-royalBlue text-lg font-medium'
+        >
+            Transactions
+        </h1>
         {
             transactions &&
             transactions.map((trans, idx) => (

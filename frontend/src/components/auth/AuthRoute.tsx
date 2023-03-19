@@ -8,22 +8,22 @@ interface IAuthRouteProps {
 }
 
 export default function AuthRoute (props: IAuthRouteProps) {
-    const [isLoggedIn2, setIsLoggedIn2] = useState(false)
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
 
-    useEffect(() => {
-        const token = localStorage.getItem('token')
-        axios.get('/api/auth/currentUser', {
-            headers: {
-                Authorization: token
-            }
-            }).then(res => {
-            setIsLoggedIn2(true)
-            }).catch(err => {
-            setIsLoggedIn2(false)
-        })
-    },[])
+    // useEffect(() => {
+    //     const token = localStorage.getItem('token')
+    //     axios.get('/api/auth/currentUser', {
+    //         headers: {
+    //             Authorization: token
+    //         }
+    //         }).then(res => {
+    //         setIsLoggedIn(true)
+    //         }).catch(err => {
+    //         setIsLoggedIn(false)
+    //     })
+    // },[])
 
-  if (isLoggedIn2) {
+  if (props.isLoggedIn) {
     return <Navigate to='/dashboard' replace />
   }
   return props.children

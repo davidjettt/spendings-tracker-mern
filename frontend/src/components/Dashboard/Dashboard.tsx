@@ -7,6 +7,7 @@ import TransactionsList from "../Transactions/TransactionsList";
 import TransactionForm from "../Transactions/TransactionForm";
 import { Link } from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
+import ChartLegend from "../Charts/ChartLegend";
 
 
 interface IDashboardProps {
@@ -43,7 +44,7 @@ export default function Dashboard ({ setIsLoggedIn }: IDashboardProps) {
 
   return (
     <div
-        className="dashboard-main-container flex h-[100%]"
+        className="dashboard-main-container flex h-[100%] overflow-hidden"
     >
       <NavBar setIsLoggedIn={setIsLoggedIn} />
         {loadPage &&
@@ -54,6 +55,7 @@ export default function Dashboard ({ setIsLoggedIn }: IDashboardProps) {
                 {/* <h2>{user.id}</h2>
                 <h2>{user.email}</h2> */}
                 <Charts />
+                {/* <ChartLegend /> */}
                 <TransactionsList />
             </div>
         }
