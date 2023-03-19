@@ -51,12 +51,12 @@ export default function ColumnChart ({ chartData }: IColumnChartProps) {
       };
   return (
     <div
-      className='column-chart-container w-[33%] h-[100px]'
+      className='column-chart-container w-[33%] h-[90%]'
     >
         <Chart
             chartType="ColumnChart"
             width="100%"
-            height="auto"
+            height="100%"
             data={data}
             options={options}
         />

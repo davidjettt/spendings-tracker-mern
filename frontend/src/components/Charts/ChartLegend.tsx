@@ -6,7 +6,7 @@ export interface IChartLegendProps {
 export default function ChartLegend (props: IChartLegendProps) {
   return (
     <div
-        className='legend-outer-container w-full flex justify-center'
+        className='legend-outer-container w-full h-[10%] flex justify-center'
     >
         <div
             className='legend-inner-container w-[60%] flex justify-evenly'

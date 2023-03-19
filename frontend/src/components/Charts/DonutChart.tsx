@@ -36,7 +36,7 @@ export default function DonutChart ({ chartData }: IDonutChartProps) {
 
   return (
     <div
-      className='donut-chart-container w-[33%]'
+      className='donut-chart-container w-[33%] h-[90%]'
     >
       <Chart
         chartType="PieChart"

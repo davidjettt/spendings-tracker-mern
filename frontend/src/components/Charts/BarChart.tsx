@@ -39,7 +39,7 @@ export default function BarChart ({ chartData }: IBarChartProps) {
 
   return (
     <div
-      className='bar-chart-container w-[33%]'
+      className='bar-chart-container w-[33%] h-[90%]'
     >
         <Chart
             chartType="BarChart"
