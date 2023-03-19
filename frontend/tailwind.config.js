@@ -12,6 +12,7 @@ module.exports = {
       'desktop': '1280px',
     },
     colors: {
+      'offWhite': '#f5f5f5',
       'blue': '#1fb6ff',
       'purple': '#7e5bef',
       'pink': '#ff49db',

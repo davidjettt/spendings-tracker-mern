@@ -13,7 +13,7 @@ export default function DonutChart ({ chartData }: IDonutChartProps) {
         ["Groceries", chartData['Groceries']],
         ["Travel", chartData['Travel']],
         ["Shopping", chartData['Shopping']],
-        ["Electronics", chartData['Electronics']],
+        ["Utilities", chartData['Utilities']],
         ["Other", chartData['Other']],
       ];
 

@@ -14,8 +14,8 @@ export default function ChartLegend (props: IChartLegendProps) {
             <span className='entertainment'>
                 ⚫️ Entertainment
             </span>
-            <span className='electronics'>
-                ⚫️ Electronics
+            <span className='utilities'>
+                ⚫️ Utilities
             </span>
             <span className='travel'>
                 ⚫️ Travel

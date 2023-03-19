@@ -8,7 +8,7 @@ interface IBarChartProps {
 export default function BarChart ({ chartData }: IBarChartProps) {
 
     const data = [
-        ["Month", "Travel", "Meals", "Electronics", "Groceries", "Shopping", "Entertainment"],
+        ["Month", "Travel", "Meals", "Utilities", "Groceries", "Shopping", "Entertainment"],
         ["January", 1000, 400, 200, 222,222,0],
         ["Feburary", 1170, 460, 250, 222,222,222],
         ["March", 660, 1120, 300, 222,222,222],
@@ -19,8 +19,9 @@ export default function BarChart ({ chartData }: IBarChartProps) {
         chartArea: { width: "50%" },
         isStacked: true,
         hAxis: {
-          title: "Category",
+          title: "",
           minValue: 0,
+          format: 'currency'
         },
         vAxis: {
           title: "Month",
