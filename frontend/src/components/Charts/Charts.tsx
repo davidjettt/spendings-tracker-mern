@@ -1,8 +1,9 @@
-import { Chart } from 'react-google-charts'
 import { useState, useEffect, FC } from 'react'
 import axios from 'axios'
 import ColumnChart from './ColumnChart'
 import DonutChart from './DonutChart'
+import ChartLegend from './ChartLegend'
+import BarChart from './BarChart'
 
 export interface IChartsProps {
 }
@@ -64,10 +65,12 @@ export default function Charts (props: IChartsProps) {
 
   return (
     <div
-      className='charts-main-container w-full flex'
+      className='charts-main-container w-full flex flex-wrap content-start h-[60%]'
     >
       <DonutChart chartData={data} />
       <ColumnChart chartData={data}/>
+      <BarChart chartData={data} />
+      <ChartLegend />
     </div>
   );
 }

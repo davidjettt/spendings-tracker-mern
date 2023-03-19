@@ -6,10 +6,10 @@ module.exports = {
   ],
   theme: {
     screens: {
-      sm: '480px',
-      md: '768px',
-      lg: '976px',
-      xl: '1440px',
+      'phone': '480px',
+      'tablet': '640px',
+      'laptop': '1024px',
+      'desktop': '1280px',
     },
     colors: {
       'blue': '#1fb6ff',
@@ -24,16 +24,19 @@ module.exports = {
       'primary': '#ff39db',
       'royalBlue': '#0052FF',
       'Entertainment': '#CC8899',
-      'Meals': '#0CBBD4',
+      'Meals': '#DC3913',
       'Groceries': '#449F46',
-      'Electronics': '#E63936',
-      'Travel': '#FFEB3F',
+      'Electronics': '#0199C6',
+      'Travel': '#3366CC',
       'Shopping': '#FF9802',
       'Other': '#90A4AF'
     },
     fontFamily: {
       sans: ['Graphik', 'sans-serif'],
       serif: ['Merriweather', 'serif'],
+    },
+    dropShadow: {
+      'test': '0 0 0 rgb(0,50,50)'
     },
     extend: {
       spacing: {

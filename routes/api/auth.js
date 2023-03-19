@@ -10,7 +10,7 @@ const validateSignup = require('../../validations/signup')
 const validateLogin = require('../../validations/login')
 
 // checks for logged in user
-router.get('/currentUser', passport.authenticate('jwt', {session: false}), (req, res) => {
+router.get('/currentUser', passport.authenticate('jwt', {session: false, failureMessage: false}), (req, res) => {
     res.json({
         id: req.user.id,
         email: req.user.email

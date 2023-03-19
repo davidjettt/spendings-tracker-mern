@@ -1,21 +1,21 @@
 import { Chart } from 'react-google-charts'
+import { ICategoryTotals } from './Charts';
 
-export interface IBarChartProps {
+interface IBarChartProps {
+  chartData: ICategoryTotals
 }
 
-export default function BarChart (props: IBarChartProps) {
+export default function BarChart ({ chartData }: IBarChartProps) {
 
     const data = [
-        ["Month", "Travel", "Meals", "Electronics", "Groceries", "Utilites", "Entertainment"],
-        ["January", 1000, 400, 200, 222,222,222],
+        ["Month", "Travel", "Meals", "Electronics", "Groceries", "Shopping", "Entertainment"],
+        ["January", 1000, 400, 200, 222,222,0],
         ["Feburary", 1170, 460, 250, 222,222,222],
         ["March", 660, 1120, 300, 222,222,222],
-        ["April", 1030, 540, 350, 222,222,222],
-        ["May", 0,0,0,0,0,0]
       ];
 
       const options = {
-        title: "Monthly Spending",
+        title: "Monthly Total",
         chartArea: { width: "50%" },
         isStacked: true,
         hAxis: {
@@ -25,18 +25,30 @@ export default function BarChart (props: IBarChartProps) {
         vAxis: {
           title: "Month",
         },
+        series: {
+          0: {color: '#3366CC'},
+          1: {color: '#DC3913'},
+          2: {color: '#0199C6'},
+          3: {color: '#449F46'},
+          4: {color: '#FF9802'},
+          5: {color: '#990099'},
+          6: {color: '#90A4AF'}
+        },
+        // 'height': 600
       };
 
   return (
-    <>
+    <div
+      className='bar-chart-container w-[33%]'
+    >
         <Chart
             chartType="BarChart"
             width="100%"
-            height="400px"
+            height="100%"
             data={data}
             options={options}
         />
 
-    </>
+    </div>
   );
 }

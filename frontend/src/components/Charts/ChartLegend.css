@@ -1,0 +1,30 @@
+.entertainment {
+    color: transparent;
+    text-shadow: 0 0 0 #990099;
+}
+
+.meals {
+    color: transparent;
+    text-shadow: 0 0 0 #DC3913;
+}
+
+.groceries {
+    color: transparent;
+    text-shadow: 0 0 0 #449F46;
+}
+.electronics {
+    color: transparent;
+    text-shadow: 0 0 0 #0199C6;
+}
+.travel {
+    color: transparent;
+    text-shadow: 0 0 0 #3366CC;
+}
+.shopping {
+    color: transparent;
+    text-shadow: 0 0 0 #FF9802;
+}
+.other {
+    color: transparent;
+    text-shadow: 0 0 0 #90A4AF;
+}

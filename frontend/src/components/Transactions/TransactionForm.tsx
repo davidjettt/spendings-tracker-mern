@@ -5,9 +5,10 @@ import Calendar from '../Calendar/Calendar'
 import NavBar from '../NavBar/NavBar'
 
 export interface ITransactionFormProps {
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function TransactionForm (props: ITransactionFormProps) {
+export default function TransactionForm ({setIsLoggedIn}: ITransactionFormProps) {
   const [ user ] = useState({
     id: localStorage.getItem('id'),
     email: localStorage.getItem('email')
@@ -49,7 +50,7 @@ export default function TransactionForm (props: ITransactionFormProps) {
     <div
       className='transactions-form-main-container flex'
     >
-        <NavBar />
+        <NavBar setIsLoggedIn={setIsLoggedIn} />
         <form onSubmit={handleSubmit}>
           <h1 className='text-primary'>Transaction Form</h1>
           <input
