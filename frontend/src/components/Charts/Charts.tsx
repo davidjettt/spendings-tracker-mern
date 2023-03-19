@@ -12,7 +12,7 @@ export interface ICategoryTotals {
   Entertainment: number,
   Meals: number,
   Groceries: number,
-  Electronics: number,
+  Utilities: number,
   Travel: number,
   Shopping: number,
   Other: number
@@ -36,7 +36,7 @@ export default function Charts (props: IChartsProps) {
     'Entertainment': 0,
     'Meals': 0,
     'Groceries': 0,
-    'Electronics': 0,
+    'Utilities': 0,
     'Travel': 0,
     'Shopping': 0,
     'Other': 0
@@ -49,7 +49,7 @@ export default function Charts (props: IChartsProps) {
             Entertainment: 0,
             Meals: 0,
             Groceries: 0,
-            Electronics: 0,
+            Utilities: 0,
             Travel: 0,
             Shopping: 0,
             Other: 0
