@@ -4,12 +4,16 @@ import { ITransactionData } from '../../interfaces/ITransactionData'
 import NavBar from '../NavBar/NavBar'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
+import { UseQueryResult } from '@tanstack/react-query'
 
-export interface ITransactionFormProps {
+interface ITransactionFormProps {
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
+  setTransactions: React.Dispatch<React.SetStateAction<ITransactionData[]>>
+  transactions: ITransactionData[]
+  chartDataQuery: UseQueryResult<void, unknown>
 }
 
-export default function TransactionForm ({setIsLoggedIn}: ITransactionFormProps) {
+export default function TransactionForm ({chartDataQuery, setIsLoggedIn, transactions, setTransactions}: ITransactionFormProps) {
   const [ user ] = useState({
     id: localStorage.getItem('id'),
     email: localStorage.getItem('email')
@@ -40,7 +44,12 @@ export default function TransactionForm ({setIsLoggedIn}: ITransactionFormProps)
     console.log('data before submitting', transactionData)
     axios.post(`/api/users/${user.id}/transactions`, transactionData)
         .then((transaction) => {
-          console.log('success')
+          setTransactions([
+            ...transactions,
+            transaction.data
+          ])
+          setTransactionData(defaultData)
+          chartDataQuery.refetch()
         })
         .catch((err) => {
           console.log('transaction error', err)
@@ -51,7 +60,7 @@ export default function TransactionForm ({setIsLoggedIn}: ITransactionFormProps)
     <div
       className='transaction-form-main-container flex'
     >
-        <NavBar setIsLoggedIn={setIsLoggedIn} />
+        {/* <NavBar setIsLoggedIn={setIsLoggedIn} /> */}
         <div
           className='transaction-form-container w-[95%] flex justify-center'
         >

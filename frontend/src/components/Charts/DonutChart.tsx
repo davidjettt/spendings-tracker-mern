@@ -1,5 +1,5 @@
 import { Chart } from 'react-google-charts'
-import { ICategoryTotals } from './Charts';
+import { ICategoryTotals } from '../../interfaces/ICategoryTotals';
 
 export interface IDonutChartProps {
   chartData: ICategoryTotals

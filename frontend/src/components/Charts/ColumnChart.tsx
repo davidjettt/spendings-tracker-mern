@@ -1,6 +1,6 @@
 import { Chart } from 'react-google-charts'
 import { useState } from 'react'
-import { ICategoryTotals } from './Charts'
+import { ICategoryTotals } from '../../interfaces/ICategoryTotals'
 
 export interface IColumnChartProps {
     chartData: ICategoryTotals
@@ -31,7 +31,6 @@ export default function ColumnChart ({ chartData }: IColumnChartProps) {
         ["Utilities", chartData['Utilities'], "#0199C6"],
         ["Entertainment", chartData['Entertainment'], "#990099"], // CSS-style declaration
         ['Shopping', chartData['Shopping'], '#FF9802'],
-        // ['Utilities', 23, 'green'],
         ['Other', chartData['Other'], '#90A4AF'],
       ]
 
@@ -48,6 +47,9 @@ export default function ColumnChart ({ chartData }: IColumnChartProps) {
         // tooltip: {isHtml: true},
         vAxis: {
           format: '$###,##0'
+        },
+        hAxis: {
+          textPosition: 'none'
         },
         bar: { groupWidth: "35%" },
         legend: 'none',

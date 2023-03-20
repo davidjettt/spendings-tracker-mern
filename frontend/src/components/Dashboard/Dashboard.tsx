@@ -5,14 +5,21 @@ import { CurrentUserContext } from "../../context/CurrentUserContext";
 import Charts from "../Charts/Charts";
 import TransactionsList from "../Transactions/TransactionsList";
 import TransactionForm from "../Transactions/TransactionForm";
+import Transactions from "../Transactions/Transactions";
 import { Link } from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
-import ChartLegend from "../Charts/ChartLegend";
+import { ICategoryTotals } from "../../interfaces/ICategoryTotals";
+import { useQuery } from "@tanstack/react-query";
 
 
 interface IDashboardProps {
     isLoggedIn: boolean,
     setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+interface ICategoryTotalResponse {
+    _id: string,
+    total: number
 }
 
 export default function Dashboard ({ setIsLoggedIn }: IDashboardProps) {
@@ -22,41 +29,57 @@ export default function Dashboard ({ setIsLoggedIn }: IDashboardProps) {
         id: localStorage.getItem('id'),
         email: localStorage.getItem('email')
     })
-
-    const [ loadPage, setLoadPage ] = useState<boolean>(false)
-
     console.log('user', currentUser)
 
-    useEffect(() => {
-        const token = localStorage.getItem('token')
-        axios.get('/api/auth/currentUser', {
-            headers: {
-                Authorization: token
+    const year: string  = '2023'
+    const month: string = '1'
+    const [chartData, setChartData] = useState<ICategoryTotals>({
+        'Entertainment': 0,
+        'Meals': 0,
+        'Groceries': 0,
+        'Utilities': 0,
+        'Travel': 0,
+        'Shopping': 0,
+        'Other': 0
+    })
+
+    const chartDataQuery = useQuery(
+        ['chartData'],
+        () => {
+          axios.get(`/api/users/${user.id}/transactions/aggregate?year=${year}&month=${month}`)
+          .then((response) => {
+            const data: ICategoryTotals = {
+              Entertainment: 0,
+              Meals: 0,
+              Groceries: 0,
+              Utilities: 0,
+              Travel: 0,
+              Shopping: 0,
+              Other: 0
             }
-        }).then(res => {
-            setLoadPage(true)
-        }).catch(err => {
-            console.error('err', err)
-            // Redirect user back to login page
-            navigate('/')
-        })
-    },[])
+            response.data.forEach((ele: ICategoryTotalResponse) => {
+              data[ele._id as keyof typeof data] = ele.total
+            })
+            setChartData(data)
+          })
+        }
+      )
+
 
   return (
     <div
         className="dashboard-main-container flex h-[100%] overflow-hidden"
     >
       <NavBar setIsLoggedIn={setIsLoggedIn} />
-        {loadPage &&
+        {
             <div
                 className="dashboard w-[95%]"
             >
                 <h1>Month/Year dropdown goes here</h1>
                 {/* <h2>{user.id}</h2>
                 <h2>{user.email}</h2> */}
-                <Charts />
-                {/* <ChartLegend /> */}
-                <TransactionsList />
+                <Charts chartData={chartData} chartDataQuery={chartDataQuery} />
+                <Transactions setIsLoggedIn={setIsLoggedIn} chartDataQuery={chartDataQuery} />
             </div>
         }
     </div>

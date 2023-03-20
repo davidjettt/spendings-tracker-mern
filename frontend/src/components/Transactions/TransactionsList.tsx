@@ -3,35 +3,43 @@ import { useState, useEffect } from 'react'
 import { ITransactionData } from '../../interfaces/ITransactionData';
 import TransactionOptions from './TransactionOptions';
 import 'date-fns'
+import TransactionForm from './TransactionForm';
+import { UseQueryResult } from '@tanstack/react-query';
 
-export interface ITransactionsListProps {
+interface ITransactionsListProps {
+    setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
+    chartDataQuery: UseQueryResult<void, unknown>
+    transactions: ITransactionData[]
 }
 
 
 export default function TransactionsList (props: ITransactionsListProps) {
-    const [ transactions, setTransactions ] = useState<ITransactionData[]>([])
-    const [ user ] = useState({
-        id: localStorage.getItem('id')
-    })
+    // const [ transactions, setTransactions ] = useState<ITransactionData[]>([])
+    const [showForm, setShowForm] = useState(false)
+    // const [ user ] = useState({
+    //     id: localStorage.getItem('id')
+    // })
 
 
-    useEffect(() => {
-        axios.get(`/api/users/${user.id}/transactions`)
-            .then((trans) => {
-                setTransactions(trans.data)
-            })
-    }, [])
+    // useEffect(() => {
+    //     axios.get(`/api/users/${user.id}/transactions`)
+    //         .then((trans) => {
+    //             setTransactions(trans.data)
+    //         })
+    // }, [])
 
-    console.log('Transactions list', transactions)
+    const handleClick = () => {
+        setShowForm(!showForm)
+    }
 
   return (
     <div
-        className='transactions-list-main-container border h-[40%] overflow-auto p-5'
+        className='transactions-list-main-container border h-[40%] p-5 overflow-y-auto'
     >
+        <button onClick={handleClick} className='border'>Post transaction</button>
         <div
             className='transactions-list-heading-container'
         >
-            <button className='border'>Post transaction</button>
             <h1
                 className='transactions-list-title text-royalBlue text-2xl mb-5 font-[600]'
             >
@@ -39,7 +47,7 @@ export default function TransactionsList (props: ITransactionsListProps) {
             </h1>
 
         </div>
-        <table className='transaction-table w-full table-auto'>
+        {!showForm ? <table className='transaction-table w-full table-auto'>
             <thead>
                 <tr>
                     <th className='w-[10%] text-left'>Date</th>
@@ -51,8 +59,8 @@ export default function TransactionsList (props: ITransactionsListProps) {
             </thead>
             <tbody className=''>
             {
-                transactions &&
-                transactions.map((trans, idx) => (
+                props.transactions &&
+                props.transactions.map((trans, idx) => (
                     <tr key={idx}>
                         <td>
                             {trans.date?.slice(0,10)}
@@ -69,12 +77,14 @@ export default function TransactionsList (props: ITransactionsListProps) {
                         <td>
                             {trans.notes}
                         </td>
-                        {/* <TransactionOptions transactionId={trans._id} /> */}
                     </tr>
                 ))
             }
             </tbody>
-        </table>
+        </table> :
+        <div></div>
+        // <TransactionForm chartDataQuery={props.chartDataQuery} setIsLoggedIn={props.setIsLoggedIn} transactions={transactions} setTransactions={setTransactions} />
+        }
     </div>
   );
 }

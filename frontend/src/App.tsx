@@ -9,8 +9,11 @@ import CurrentUserProvider from "./context/CurrentUserContext";
 import TransactionForm from "./components/Transactions/TransactionForm";
 import NavBar from "./components/NavBar/NavBar";
 import AuthRoute from "./components/auth/AuthRoute";
+import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query'
+
 
 function App() {
+  const client = new QueryClient()
   const [ isLoggedIn, setIsLoggedIn ] = useState<boolean>(false)
 
   useEffect(() => {
@@ -28,33 +31,36 @@ function App() {
 
   return (
     <div className="App h-[100vh]">
-      <CurrentUserProvider>
-        <BrowserRouter>
-          {/* {showNavBar && <NavBar setShowNavBar={setShowNavBar} />} */}
-          <Routes>
-            <Route path='/' element={<Splash isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />}/>
-            <Route path='/signup' element={
-              <AuthRoute isLoggedIn={isLoggedIn}>
-                <Signup />
-              </AuthRoute>
-            }
-            />
-            <Route path='/dashboard' element={
-              <ProtectedRoute isLoggedIn={isLoggedIn}>
-                <Dashboard isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-              </ProtectedRoute>
-            }
-            />
-            <Route path='/transaction-form' element={
-              <ProtectedRoute isLoggedIn={isLoggedIn}>
-                <TransactionForm setIsLoggedIn={setIsLoggedIn} />
-              </ProtectedRoute>
-            }
-            />
-            <Route path="*" element={<Navigate to="/dashboard" replace />} />
-          </Routes>
-        </BrowserRouter>
-      </CurrentUserProvider>
+      <QueryClientProvider client={client}>
+        {/* <ReactQueryDevtools /> */}
+        <CurrentUserProvider>
+          <BrowserRouter>
+            {/* {showNavBar && <NavBar setShowNavBar={setShowNavBar} />} */}
+            <Routes>
+              <Route path='/' element={<Splash isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />}/>
+              <Route path='/signup' element={
+                <AuthRoute isLoggedIn={isLoggedIn}>
+                  <Signup />
+                </AuthRoute>
+              }
+              />
+              <Route path='/dashboard' element={
+                <ProtectedRoute isLoggedIn={isLoggedIn}>
+                  <Dashboard isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+                </ProtectedRoute>
+              }
+              />
+              {/* <Route path='/transaction-form' element={
+                <ProtectedRoute isLoggedIn={isLoggedIn}>
+                  <TransactionForm setIsLoggedIn={setIsLoggedIn} />
+                </ProtectedRoute>
+              }
+              /> */}
+              <Route path="*" element={<Navigate to="/dashboard" replace />} />
+            </Routes>
+          </BrowserRouter>
+        </CurrentUserProvider>
+      </QueryClientProvider>
     </div>
   );
 }
