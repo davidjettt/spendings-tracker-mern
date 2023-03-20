@@ -54,7 +54,7 @@ export default function TransactionForm ({chartDataQuery, setIsLoggedIn}: ITrans
     console.log('data before submitting', transactionData)
 
     newTransactionMutation.mutate(transactionData)
-    chartDataQuery.refetch()
+    chartDataQuery?.refetch()
     setTransactionData(defaultData)
   }
 
@@ -92,7 +92,7 @@ export default function TransactionForm ({chartDataQuery, setIsLoggedIn}: ITrans
               <option value='Utilities'>Utilities</option>
               <option value='Entertainment'>Entertainment</option>
               <option value='Travel'>Travel</option>
-              <option value='Meals'>Meals</option>
+              <option value='FoodDrink'>Food & Drink</option>
               <option value='Groceries'>Groceries</option>
               <option value='Shopping'>Shopping</option>
               <option value='Other'>Other</option>

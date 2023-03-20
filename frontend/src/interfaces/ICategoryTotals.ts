@@ -1,6 +1,6 @@
 export interface ICategoryTotals {
     Entertainment: number,
-    Meals: number,
+    FoodDrink: number,
     Groceries: number,
     Utilities: number,
     Travel: number,

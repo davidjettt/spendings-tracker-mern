@@ -23,8 +23,8 @@ export default function ChartLegend (props: IChartLegendProps) {
             <span className='groceries'>
                 ⚫️ Groceries
             </span>
-            <span className='meals'>
-                ⚫️ Meals
+            <span className='foodDrink'>
+                ⚫️ Food & Drink
             </span>
             <span className='shopping'>
                 ⚫️ Shopping

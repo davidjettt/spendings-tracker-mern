@@ -60,7 +60,7 @@ router.get('/:userId/transactions/aggregate', async (req, res) => {
     //     {$group: {_id: '$category'}},
 
     // ])
-    console.log('Formattted data backend', formattedTransactions)
+    // console.log('Formattted data backend', formattedTransactions)
     return res.json(formattedTransactions)
 })
 

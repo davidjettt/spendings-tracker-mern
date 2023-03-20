@@ -30,12 +30,6 @@ export default function NavBar ({setIsLoggedIn}: INavbarProps) {
             >
                 Dashboard
             </Link>
-            {/* <Link
-                className="border rounded px-2"
-                to='/transaction-form'
-            >
-                Post a transaction
-            </Link> */}
             <button
                 className="logout-button border rounded px-2"
                 onClick={handleLogout}

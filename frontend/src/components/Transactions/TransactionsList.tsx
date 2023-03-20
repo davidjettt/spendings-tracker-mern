@@ -45,7 +45,7 @@ export default function TransactionsList (props: ITransactionsListProps) {
                             {trans.name}
                         </td>
                         <td>
-                            {trans.category}
+                            {trans.category === 'FoodDrink' ? 'Food & Drink' : trans.category}
                         </td>
                         <td className='text-green'>
                             +${trans.amount}

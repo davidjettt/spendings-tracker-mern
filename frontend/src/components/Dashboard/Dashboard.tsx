@@ -28,7 +28,7 @@ export default function Dashboard ({ setIsLoggedIn }: IDashboardProps) {
     const [filterYear, setFilterYear] = useState<string>('2023')
     const [chartData, setChartData] = useState<ICategoryTotals>({
         'Entertainment': 0,
-        'Meals': 0,
+        'FoodDrink': 0,
         'Groceries': 0,
         'Utilities': 0,
         'Travel': 0,
@@ -68,7 +68,7 @@ export default function Dashboard ({ setIsLoggedIn }: IDashboardProps) {
     // const chartDataQuery = useQuery(
     //     ['chartData'],
     //     () => {
-    //       return axios.get(`/api/users/${user.id}/transactions/aggregate?year=${year}&month=${month}`)
+    //       return axios.get(`/api/users/${user.id}/transactions/aggregate?year=${filterYear}&month=${filterMonth}`)
     //       .then((response) => {
     //         console.log('I AM FETCHING AGAIN')
     //         const data: ICategoryTotals = {

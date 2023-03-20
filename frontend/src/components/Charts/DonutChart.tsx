@@ -10,7 +10,7 @@ export default function DonutChart ({ chartData }: IDonutChartProps) {
     const data = [
         ["Task", "Hours per Day"],
         ["Entertainment", chartData['Entertainment'] ],
-        ["Meals", chartData['Meals']],
+        ["FoodDrink", chartData['FoodDrink']],
         ["Groceries", chartData['Groceries']],
         ["Travel", chartData['Travel']],
         ["Shopping", chartData['Shopping']],
