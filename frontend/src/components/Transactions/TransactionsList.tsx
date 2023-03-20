@@ -1,10 +1,6 @@
-import axios from 'axios';
-import { useState, useEffect } from 'react'
 import { ITransactionData } from '../../interfaces/ITransactionData';
-import TransactionOptions from './TransactionOptions';
-import 'date-fns'
-import TransactionForm from './TransactionForm';
 import { UseQueryResult } from '@tanstack/react-query';
+import 'date-fns'
 
 interface ITransactionsListProps {
     setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
@@ -14,29 +10,9 @@ interface ITransactionsListProps {
 
 
 export default function TransactionsList (props: ITransactionsListProps) {
-    // const [ transactions, setTransactions ] = useState<ITransactionData[]>([])
-    const [showForm, setShowForm] = useState(false)
-    // const [ user ] = useState({
-    //     id: localStorage.getItem('id')
-    // })
-
-
-    // useEffect(() => {
-    //     axios.get(`/api/users/${user.id}/transactions`)
-    //         .then((trans) => {
-    //             setTransactions(trans.data)
-    //         })
-    // }, [])
-
-    const handleClick = () => {
-        setShowForm(!showForm)
-    }
 
   return (
-    <div
-        className='transactions-list-main-container border h-[40%] p-5 overflow-y-auto'
-    >
-        <button onClick={handleClick} className='border'>Post transaction</button>
+    <>
         <div
             className='transactions-list-heading-container'
         >
@@ -47,7 +23,7 @@ export default function TransactionsList (props: ITransactionsListProps) {
             </h1>
 
         </div>
-        {!showForm ? <table className='transaction-table w-full table-auto'>
+        <table className='transaction-table w-full table-auto'>
             <thead>
                 <tr>
                     <th className='w-[10%] text-left'>Date</th>
@@ -81,10 +57,7 @@ export default function TransactionsList (props: ITransactionsListProps) {
                 ))
             }
             </tbody>
-        </table> :
-        <div></div>
-        // <TransactionForm chartDataQuery={props.chartDataQuery} setIsLoggedIn={props.setIsLoggedIn} transactions={transactions} setTransactions={setTransactions} />
-        }
-    </div>
+        </table>
+    </>
   );
 }

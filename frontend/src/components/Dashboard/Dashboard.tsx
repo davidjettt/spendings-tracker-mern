@@ -1,15 +1,13 @@
 import axios from "axios";
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 import Charts from "../Charts/Charts";
-import TransactionsList from "../Transactions/TransactionsList";
-import TransactionForm from "../Transactions/TransactionForm";
 import Transactions from "../Transactions/Transactions";
-import { Link } from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
 import { ICategoryTotals } from "../../interfaces/ICategoryTotals";
 import { useQuery } from "@tanstack/react-query";
+import { ICategoryTotalAPIResponse } from "../../interfaces/ICategoryTotalAPIResponse";
 
 
 interface IDashboardProps {
@@ -17,10 +15,7 @@ interface IDashboardProps {
     setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-interface ICategoryTotalResponse {
-    _id: string,
-    total: number
-}
+
 
 export default function Dashboard ({ setIsLoggedIn }: IDashboardProps) {
     const { currentUser } = useContext(CurrentUserContext)
@@ -57,7 +52,7 @@ export default function Dashboard ({ setIsLoggedIn }: IDashboardProps) {
               Shopping: 0,
               Other: 0
             }
-            response.data.forEach((ele: ICategoryTotalResponse) => {
+            response.data.forEach((ele: ICategoryTotalAPIResponse) => {
               data[ele._id as keyof typeof data] = ele.total
             })
             setChartData(data)
@@ -76,8 +71,6 @@ export default function Dashboard ({ setIsLoggedIn }: IDashboardProps) {
                 className="dashboard w-[95%]"
             >
                 <h1>Month/Year dropdown goes here</h1>
-                {/* <h2>{user.id}</h2>
-                <h2>{user.email}</h2> */}
                 <Charts chartData={chartData} chartDataQuery={chartDataQuery} />
                 <Transactions setIsLoggedIn={setIsLoggedIn} chartDataQuery={chartDataQuery} />
             </div>

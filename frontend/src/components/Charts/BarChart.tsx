@@ -35,6 +35,7 @@ export default function BarChart ({ chartData }: IBarChartProps) {
           5: {color: '#990099'},
           6: {color: '#90A4AF'}
         },
+        legend: 'none'
         // 'height': 600
       };
 

@@ -17,32 +17,30 @@ export default function Transactions (props: ITransactionsProps) {
         id: localStorage.getItem('id')
     })
 
-    const transactionsQuery = useQuery(
-        ['transactions'],
-        () => {
-            axios.get(`/api/users/${user.id}/transactions`)
-                .then((response) => {
-                    setTransactions(response.data)
-                })
-        }
-    )
+    function getTransactions() {
+        return axios.get(`/api/users/${user.id}/transactions`).then(res => res.data)
+    }
 
+    const transactionsQuery = useQuery({
+        queryKey: ['transactions'],
+        queryFn: getTransactions
+    })
 
   return (
     <div
         className="transactions-main-container border h-[40%] p-5 overflow-auto"
     >
         <button
-            className="transactions-toggle-button"
+            className="transactions-toggle-button border bg-royalBlue text-offWhite p-2 rounded-md"
             onClick={() => setShowForm(!showForm)}
         >
-            {!showForm ? 'Transactions' : 'Post Transaction'}
+            {!showForm ? 'Post a Transaction' : 'See Transactions'}
         </button>
         {
             !showForm ?
-                <TransactionsList transactions={transactions} setIsLoggedIn={props.setIsLoggedIn} chartDataQuery={props.chartDataQuery}/>
+                <TransactionsList transactions={transactionsQuery.data} setIsLoggedIn={props.setIsLoggedIn} chartDataQuery={props.chartDataQuery}/>
                 :
-                <TransactionForm transactions={transactions} setTransactions={setTransactions} chartDataQuery={props.chartDataQuery} setIsLoggedIn={props.setIsLoggedIn} />
+                <TransactionForm chartDataQuery={props.chartDataQuery} setIsLoggedIn={props.setIsLoggedIn} />
         }
     </div>
   );

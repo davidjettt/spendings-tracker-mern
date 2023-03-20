@@ -7,12 +7,6 @@ export interface IColumnChartProps {
 }
 
 export default function ColumnChart ({ chartData }: IColumnChartProps) {
-   /**
-    TODO Figure out how to send data to charts
-    Option 1: send 1 big object and then extract data to save in state in chart component
-    Option 2: Extract data & save to state in Charts component and then send as a prop
-    */
-
 
     const [ mealsTotal, setMealsTotal ] = useState(0)
     const [ travelTotal, setTravelTotal ] = useState(0)

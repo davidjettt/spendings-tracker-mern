@@ -1,26 +1,22 @@
 import { ChangeEvent, useState } from 'react'
 import axios from 'axios'
 import { ITransactionData } from '../../interfaces/ITransactionData'
-import NavBar from '../NavBar/NavBar'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
-import { UseQueryResult } from '@tanstack/react-query'
+import { useMutation, useQueryClient, UseQueryResult } from '@tanstack/react-query'
 
 interface ITransactionFormProps {
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
-  setTransactions: React.Dispatch<React.SetStateAction<ITransactionData[]>>
-  transactions: ITransactionData[]
   chartDataQuery: UseQueryResult<void, unknown>
 }
 
-export default function TransactionForm ({chartDataQuery, setIsLoggedIn, transactions, setTransactions}: ITransactionFormProps) {
+export default function TransactionForm ({chartDataQuery, setIsLoggedIn}: ITransactionFormProps) {
   const [ user ] = useState({
     id: localStorage.getItem('id'),
     email: localStorage.getItem('email')
 })
 
   const defaultData = {
-    _id: '',
     name: '',
     category: '',
     date: '',
@@ -28,8 +24,22 @@ export default function TransactionForm ({chartDataQuery, setIsLoggedIn, transac
     notes: '',
     userId: user.id
   }
+
+  function addTransaction(data: ITransactionData) {
+    return axios.post(`/api/users/${user.id}/transactions`, data)
+  }
+
   const [ transactionData, setTransactionData ] = useState<ITransactionData>(defaultData)
-  const [startDate, setStartDate] = useState(new Date())
+  const queryClient = useQueryClient()
+  const newTransactionMutation = useMutation({
+    mutationFn: addTransaction,
+      // onSuccess: newTransaction => {
+      //   queryClient.setQueryData(['transactions', newTransaction.data._id], newTransaction.data)
+      // }
+    onSuccess: () => {
+      queryClient.invalidateQueries(['transactions'])
+    }
+  })
 
   const handleInputChange = (e: ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>): void => {
     setTransactionData({
@@ -42,25 +52,15 @@ export default function TransactionForm ({chartDataQuery, setIsLoggedIn, transac
     e.preventDefault()
 
     console.log('data before submitting', transactionData)
-    axios.post(`/api/users/${user.id}/transactions`, transactionData)
-        .then((transaction) => {
-          setTransactions([
-            ...transactions,
-            transaction.data
-          ])
-          setTransactionData(defaultData)
-          chartDataQuery.refetch()
-        })
-        .catch((err) => {
-          console.log('transaction error', err)
-        })
+
+    newTransactionMutation.mutate(transactionData)
+    chartDataQuery.refetch()
   }
 
   return (
     <div
       className='transaction-form-main-container flex'
     >
-        {/* <NavBar setIsLoggedIn={setIsLoggedIn} /> */}
         <div
           className='transaction-form-container w-[95%] flex justify-center'
         >
@@ -134,7 +134,8 @@ export default function TransactionForm ({chartDataQuery, setIsLoggedIn, transac
               />
             </label>
             <button
-              className='transaction-form-button bg-royalBlue text-offWhite p-2 rounded-md'
+              className={`transaction-form-button bg-royalBlue text-offWhite p-2 rounded-md disabled:${newTransactionMutation.isLoading ? 'opacity-70' : 'opacity-100'}`}
+              disabled={newTransactionMutation.isLoading}
             >
               Submit
             </button>

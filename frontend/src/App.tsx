@@ -6,14 +6,20 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import Signup from "./components/auth/Signup";
 import Splash from "./components/Splash/Splash";
 import CurrentUserProvider from "./context/CurrentUserContext";
-import TransactionForm from "./components/Transactions/TransactionForm";
 import NavBar from "./components/NavBar/NavBar";
 import AuthRoute from "./components/auth/AuthRoute";
-import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 
 function App() {
-  const client = new QueryClient()
+  const client = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false
+      }
+    }
+  })
   const [ isLoggedIn, setIsLoggedIn ] = useState<boolean>(false)
 
   useEffect(() => {
@@ -32,7 +38,7 @@ function App() {
   return (
     <div className="App h-[100vh]">
       <QueryClientProvider client={client}>
-        {/* <ReactQueryDevtools /> */}
+        <ReactQueryDevtools />
         <CurrentUserProvider>
           <BrowserRouter>
             {/* {showNavBar && <NavBar setShowNavBar={setShowNavBar} />} */}
@@ -50,12 +56,6 @@ function App() {
                 </ProtectedRoute>
               }
               />
-              {/* <Route path='/transaction-form' element={
-                <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <TransactionForm setIsLoggedIn={setIsLoggedIn} />
-                </ProtectedRoute>
-              }
-              /> */}
               <Route path="*" element={<Navigate to="/dashboard" replace />} />
             </Routes>
           </BrowserRouter>
