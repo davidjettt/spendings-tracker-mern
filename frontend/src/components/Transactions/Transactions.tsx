@@ -17,8 +17,10 @@ export default function Transactions (props: ITransactionsProps) {
         id: localStorage.getItem('id')
     })
 
-    function getTransactions() {
-        return axios.get(`/api/users/${user.id}/transactions`).then(res => res.data)
+    async function getTransactions() {
+        const response = await axios.get(`/api/users/${user.id}/transactions`)
+        return response.data
+        // return axios.get(`/api/users/${user.id}/transactions`).then(res => res.data)
     }
 
     const transactionsQuery = useQuery({

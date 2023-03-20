@@ -55,7 +55,10 @@ export default function TransactionForm ({chartDataQuery, setIsLoggedIn}: ITrans
 
     newTransactionMutation.mutate(transactionData)
     chartDataQuery.refetch()
+    setTransactionData(defaultData)
   }
+
+  if (newTransactionMutation.isLoading) return <h1>.......LOADING..........</h1>
 
   return (
     <div

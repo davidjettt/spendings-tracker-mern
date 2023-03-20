@@ -6,6 +6,7 @@ export interface IDonutChartProps {
 }
 
 export default function DonutChart ({ chartData }: IDonutChartProps) {
+  console.log('donut', chartData)
     const data = [
         ["Task", "Hours per Day"],
         ["Entertainment", chartData['Entertainment'] ],

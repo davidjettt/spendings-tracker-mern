@@ -33,6 +33,14 @@ router.get('/:userId/transactions/aggregate', async (req, res) => {
         { $group: {_id: '$category', total: { $sum: '$amount' }} },
         { $sort: {total: -1} }
     ])
+    const formattedTransactions = {}
+
+    transactions.forEach((transaction) => {
+        const category = transaction._id
+        const total = transaction.total
+        formattedTransactions[category] = total
+    })
+
 
     // const transDate = await Transaction.find({
     //     '$expr': {'$group': {_id: '$category'}},
@@ -52,8 +60,8 @@ router.get('/:userId/transactions/aggregate', async (req, res) => {
     //     {$group: {_id: '$category'}},
 
     // ])
-
-    return res.json(transactions)
+    console.log('Formattted data backend', formattedTransactions)
+    return res.json(formattedTransactions)
 })
 
 // get all users
@@ -80,7 +88,7 @@ router.post('/:userId/transactions', async (req, res) => {
     const newTransaction = await Transaction.create({
         name,
         category,
-        amount,
+        amount: parseInt(amount),
         notes,
         userId,
         date
