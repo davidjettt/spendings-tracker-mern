@@ -1,5 +1,5 @@
 export interface ITransactionData {
-    _id: string,
+    _id?: string,
     name: string,
     category: string,
     date: string,

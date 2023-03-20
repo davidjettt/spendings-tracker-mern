@@ -1,18 +1,12 @@
 import { Chart } from 'react-google-charts'
 import { useState } from 'react'
-import { ICategoryTotals } from './Charts'
+import { ICategoryTotals } from '../../interfaces/ICategoryTotals'
 
 export interface IColumnChartProps {
     chartData: ICategoryTotals
 }
 
 export default function ColumnChart ({ chartData }: IColumnChartProps) {
-   /**
-    TODO Figure out how to send data to charts
-    Option 1: send 1 big object and then extract data to save in state in chart component
-    Option 2: Extract data & save to state in Charts component and then send as a prop
-    */
-
 
     const [ mealsTotal, setMealsTotal ] = useState(0)
     const [ travelTotal, setTravelTotal ] = useState(0)
@@ -31,7 +25,6 @@ export default function ColumnChart ({ chartData }: IColumnChartProps) {
         ["Utilities", chartData['Utilities'], "#0199C6"],
         ["Entertainment", chartData['Entertainment'], "#990099"], // CSS-style declaration
         ['Shopping', chartData['Shopping'], '#FF9802'],
-        // ['Utilities', 23, 'green'],
         ['Other', chartData['Other'], '#90A4AF'],
       ]
 
@@ -48,6 +41,9 @@ export default function ColumnChart ({ chartData }: IColumnChartProps) {
         // tooltip: {isHtml: true},
         vAxis: {
           format: '$###,##0'
+        },
+        hAxis: {
+          textPosition: 'none'
         },
         bar: { groupWidth: "35%" },
         legend: 'none',

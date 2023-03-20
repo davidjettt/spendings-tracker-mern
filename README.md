@@ -4,8 +4,9 @@ This will be a spendings tracker application where users can keep track of their
 
 ## Key Features
 - User Authentication with passport.js
-- Transaction for to post new transactions
-- Charts (pie chart, bar graph, line graph) that can be filtered by week, month, and year.
+- Transaction form to post new transactions
+- Dynamic Charts (pie chart, bar graph, line graph) that can be filtered by month and year.
+- Light and dark mode
 
 ## Tech Stack
 - MongoDB

@@ -9,7 +9,7 @@ export default function ChartLegend (props: IChartLegendProps) {
         className='legend-outer-container w-full h-[10%] flex justify-center'
     >
         <div
-            className='legend-inner-container w-[60%] flex justify-evenly'
+            className='legend-inner-container w-[60%] flex justify-evenly odd:text-sm even:text-sm'
         >
             <span className='entertainment'>
                 ⚫️ Entertainment

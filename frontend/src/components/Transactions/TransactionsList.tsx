@@ -1,37 +1,21 @@
-import axios from 'axios';
-import { useState, useEffect } from 'react'
 import { ITransactionData } from '../../interfaces/ITransactionData';
-import TransactionOptions from './TransactionOptions';
+import { UseQueryResult } from '@tanstack/react-query';
 import 'date-fns'
 
-export interface ITransactionsListProps {
+interface ITransactionsListProps {
+    setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
+    chartDataQuery: UseQueryResult<void, unknown>
+    transactions: ITransactionData[]
 }
 
 
 export default function TransactionsList (props: ITransactionsListProps) {
-    const [ transactions, setTransactions ] = useState<ITransactionData[]>([])
-    const [ user ] = useState({
-        id: localStorage.getItem('id')
-    })
-
-
-    useEffect(() => {
-        axios.get(`/api/users/${user.id}/transactions`)
-            .then((trans) => {
-                setTransactions(trans.data)
-            })
-    }, [])
-
-    console.log('Transactions list', transactions)
 
   return (
-    <div
-        className='transactions-list-main-container border h-[40%] overflow-auto p-5'
-    >
+    <>
         <div
             className='transactions-list-heading-container'
         >
-            <button className='border'>Post transaction</button>
             <h1
                 className='transactions-list-title text-royalBlue text-2xl mb-5 font-[600]'
             >
@@ -51,8 +35,8 @@ export default function TransactionsList (props: ITransactionsListProps) {
             </thead>
             <tbody className=''>
             {
-                transactions &&
-                transactions.map((trans, idx) => (
+                props.transactions &&
+                props.transactions.map((trans, idx) => (
                     <tr key={idx}>
                         <td>
                             {trans.date?.slice(0,10)}
@@ -69,12 +53,11 @@ export default function TransactionsList (props: ITransactionsListProps) {
                         <td>
                             {trans.notes}
                         </td>
-                        {/* <TransactionOptions transactionId={trans._id} /> */}
                     </tr>
                 ))
             }
             </tbody>
         </table>
-    </div>
+    </>
   );
 }
