@@ -19,7 +19,7 @@ export default function ColumnChart ({ chartData }: IColumnChartProps) {
 
     const data = [
         ["Element", "Total", { role: "style" }],
-        ['Meals', chartData['Meals'], '#DC3913'],
+        ['FoodDrink', chartData['FoodDrink'], '#DC3913'],
         ["Travel", chartData['Travel'], "#3366CC"], // RGB value
         ["Groceries", chartData['Groceries'], "#449F46"], // English color name
         ["Utilities", chartData['Utilities'], "#0199C6"],

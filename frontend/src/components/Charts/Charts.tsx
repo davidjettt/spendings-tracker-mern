@@ -3,11 +3,9 @@ import DonutChart from './DonutChart'
 import ChartLegend from './ChartLegend'
 import BarChart from './BarChart'
 import { ICategoryTotals } from '../../interfaces/ICategoryTotals'
-import { UseQueryResult } from '@tanstack/react-query'
 
 interface IChartsProps {
   chartData: ICategoryTotals
-  chartDataQuery: UseQueryResult<void, unknown>
 }
 
 export default function Charts ({chartData}: IChartsProps) {

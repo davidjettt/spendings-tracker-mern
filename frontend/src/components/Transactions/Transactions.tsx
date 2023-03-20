@@ -17,8 +17,10 @@ export default function Transactions (props: ITransactionsProps) {
         id: localStorage.getItem('id')
     })
 
-    function getTransactions() {
-        return axios.get(`/api/users/${user.id}/transactions`).then(res => res.data)
+    async function getTransactions() {
+        const response = await axios.get(`/api/users/${user.id}/transactions`)
+        return response.data
+        // return axios.get(`/api/users/${user.id}/transactions`).then(res => res.data)
     }
 
     const transactionsQuery = useQuery({
@@ -28,7 +30,7 @@ export default function Transactions (props: ITransactionsProps) {
 
   return (
     <div
-        className="transactions-main-container border h-[40%] p-5 overflow-auto"
+        className="transactions-main-container border h-[40%] p-5 pb-20 overflow-auto"
     >
         <button
             className="transactions-toggle-button border bg-royalBlue text-offWhite p-2 rounded-md"

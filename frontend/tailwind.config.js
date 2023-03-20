@@ -25,7 +25,7 @@ module.exports = {
       'primary': '#ff39db',
       'royalBlue': '#0052FF',
       'Entertainment': '#CC8899',
-      'Meals': '#DC3913',
+      'FoodDrink': '#DC3913',
       'Groceries': '#449F46',
       'Electronics': '#0199C6',
       'Travel': '#3366CC',

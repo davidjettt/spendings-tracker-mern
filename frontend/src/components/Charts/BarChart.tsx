@@ -1,3 +1,4 @@
+import { UseQueryResult } from '@tanstack/react-query';
 import { Chart } from 'react-google-charts'
 import { ICategoryTotals } from '../../interfaces/ICategoryTotals';
 
