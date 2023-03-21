@@ -24,10 +24,10 @@ module.exports = {
       'gray-light': '#d3dce6',
       'primary': '#ff39db',
       'royalBlue': '#0052FF',
-      'Entertainment': '#CC8899',
+      'Entertainment': '#990099',
       'FoodDrink': '#DC3913',
       'Groceries': '#449F46',
-      'Electronics': '#0199C6',
+      'Utilities': '#0199C6',
       'Travel': '#3366CC',
       'Shopping': '#FF9802',
       'Other': '#90A4AF'

@@ -5,5 +5,5 @@ export interface ITransactionData {
     date: string,
     amount: number,
     notes: string,
-    userId: string | null
+    userId?: string | null
   }
