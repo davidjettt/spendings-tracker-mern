@@ -22,18 +22,18 @@ function App() {
   })
   const [ isLoggedIn, setIsLoggedIn ] = useState<boolean>(false)
 
-  useEffect(() => {
-    const token = localStorage.getItem('token')
-    axios.get('/api/auth/currentUser', {
-        headers: {
-            Authorization: token
-        }
-    }).then(res => {
-      setIsLoggedIn(true)
-    }).catch(err => {
-      setIsLoggedIn(false)
-    })
-},[])
+//   useEffect(() => {
+//     const token = localStorage.getItem('token')
+//     axios.get('/api/auth/currentUser', {
+//         headers: {
+//             Authorization: token
+//         }
+//     }).then(res => {
+//       setIsLoggedIn(true)
+//     }).catch(err => {
+//       setIsLoggedIn(false)
+//     })
+// },[])
 
   return (
     <div className="App h-[100vh]">
