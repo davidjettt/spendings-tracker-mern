@@ -35,8 +35,8 @@ export default function TransactionsList (props: ITransactionsListProps) {
             </thead>
             <tbody className=''>
             {
-                props.transactions &&
-                props.transactions.map((trans, idx) => (
+                props?.transactions &&
+                props?.transactions.map((trans, idx) => (
                     <tr key={idx}>
                         <td>
                             {trans.date?.slice(0,10)}
