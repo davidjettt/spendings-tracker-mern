@@ -58,7 +58,7 @@ router.post('/login', validateLogin, async (req, res) => {
     }
 
     // // Incorrect password
-    if (!bcrypt.compareSync(password, user.password)) return res.status(401).json({errors: ['Incorrect password']})
+    if (!bcrypt.compareSync(password, user.password)) return res.status(401).json({errors: ['Incorrect credentials']})
 
     const payload = {
         id: user.id,

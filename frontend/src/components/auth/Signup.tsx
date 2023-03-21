@@ -40,7 +40,7 @@ export default function Signup () {
         axios.post('/api/auth/signup', signupCredentials)
             .then((user) => {
                 localStorage.setItem('token', user.data.token)
-                navigate('/protected')
+                navigate('/dashboard')
             })
             .catch((err: IAxiosError) => {
                 console.log('axio err', err)
