@@ -3,6 +3,7 @@ const router = express.Router()
 const User = require('../../models/User')
 const Transaction = require('../../models/Transaction')
 
+// gets total of each category for specified month
 router.get('/:userId/transactions/categories/total', async (req, res) => {
     const { year, month } = req.query
     const userId = req.params.userId
@@ -250,8 +251,34 @@ router.get('/:userId/transactions/categories/total/threeMonths', async (req, res
         }
       ])
 
+    const ref = ["Month", "Entertainment", "FoodDrink", "Groceries", "Other", "Shopping", "Travel", "Utilities"]
 
-    return res.json(categoryTotalsWithMonth)
+    function compare(a,b) {
+        if (a.category < b.category) return -1
+        if (a.category > b.category) return 1
+        return 0
+    }
+
+    const formatted = []
+    while (categoryTotalsWithMonth.length) {
+        const template = ['',0,0,0,0,0,0,0]
+
+        const chartData = categoryTotalsWithMonth.shift()
+        const categoriesArr = chartData.categories
+        const month = chartData.month
+
+        template[0] = month
+        categoriesArr.sort(compare)
+        for (const obj of categoriesArr) {
+            const idx = ref.indexOf(obj.category)
+            const total = obj.total
+            template[idx] = total
+        }
+        formatted.push(template)
+
+    }
+
+    return res.json(formatted)
 })
 
 // filtering by specified timeframe and group by category with amount for each category

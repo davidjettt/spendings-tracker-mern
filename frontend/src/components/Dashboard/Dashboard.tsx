@@ -42,10 +42,7 @@ export default function Dashboard ({ setIsLoggedIn }: IDashboardProps) {
     const [filterMonth, setFilterMonth] = useState<string>('1')
     const [filterYear, setFilterYear] = useState<string>('2023')
     const [chartData, setChartData] = useState<ICategoryTotals>(defaultData)
-    // const [month1, setMonth1] = useState<ICategoryTotalsByMonth | null>(null)
-    // const [month2, setMonth2] = useState<ICategoryTotalsByMonth | null>(null)
-    // const [month3, setMonth3] = useState<ICategoryTotalsByMonth | null>(null)
-    const [threeMonthChartData, setThreeMonthChartData] = useState<ICategoryTotalsByMonth[] | []>([])
+    const [threeMonthChartData, setThreeMonthChartData] = useState<(string | number)[]>([])
 
 
     async function fetchChartData() {
@@ -78,19 +75,16 @@ export default function Dashboard ({ setIsLoggedIn }: IDashboardProps) {
 
     useEffect(() => {
       fetchChartData()
+      fetchThreeMonthChartData()
     },[filterMonth, filterYear])
 
     async function fetchThreeMonthChartData() {
       const response = await axios.get(`/api/users/${user.id}/transactions/categories/total/threeMonths?year=${filterYear}&month=${filterMonth}`)
       const data = response.data
-      console.log('THREE MONTH DATA', data)
       if (data.length === 0) {
         // TODO handle situation where no data gets returned (show message, etc.)
       }
 
-      // setMonth1(data[0])
-      // setMonth2(data[1])
-      // setMonth3(data[2])
       setThreeMonthChartData(data)
     }
 

@@ -1,34 +1,21 @@
-import { UseQueryResult } from '@tanstack/react-query';
 import { Chart } from 'react-google-charts'
-import { ICategoryTotals } from '../../interfaces/ICategoryTotals';
-import { ICategoryTotalsByMonth } from '../../interfaces/ICategoryTotalsByMonth';
-import { ISingleCategoryTotal } from '../../interfaces/ISingleCategoryTotal';
 
 interface IBarChartProps {
-  chartData: ICategoryTotals
-  // month1: ICategoryTotalsByMonth
-  // month2: ICategoryTotalsByMonth
-  // month3: ICategoryTotalsByMonth
-  threeMonthChartData: ICategoryTotalsByMonth[]
+  threeMonthChartData: (string | number)[]
 }
 
 export default function BarChart ({ threeMonthChartData }: IBarChartProps) {
-  const chartData1 = threeMonthChartData[0]
-  const chartData2 = threeMonthChartData[1]
+  console.log('BAR CHART', threeMonthChartData)
 
-  console.log('CHart before sort', chartData1)
+  const data = threeMonthChartData.length ? [
+    ["Month", "Entertainment", "Food & Drink", "Groceries", "Other", "Shopping", "Travel", "Utilities"],
+    ...threeMonthChartData
+  ] : [
+    ["Month", "Entertainment", "Food & Drink", "Groceries", "Other", "Shopping", "Travel", "Utilities"],
+    ['',0,0,0,0,0,0,0]
+  ]
 
-  chartData1.categories.sort((a: any, b: any) => b.category - a.category)
 
-  // TODO make an array with data needed to fill chart and add array to data variable
-
-  console.log('CHARTDATA 1', chartData1)
-  const data = [
-      ["Month", "Entertainment", "Food & Drink", "Groceries", "Other", "Shopping", "Travel", "Utilities"],
-      ['January',34,234,45,232,32,434, 23],
-      ["Feburary", 110, 460, 250, 222,222,222,34],
-      ["March", 660, 110, 300, 222,222,222,65],
-    ];
 
   const options = {
     title: "Monthly Total",
@@ -39,9 +26,9 @@ export default function BarChart ({ threeMonthChartData }: IBarChartProps) {
       minValue: 0,
       format: 'currency'
     },
-    vAxis: {
-      title: "Month",
-    },
+    // vAxis: {
+    //   title: "Month",
+    // },
     series: {
       0: {color: '#990099'}, // Entertainment
       1: {color: '#DC3913'}, // Food & Drink
@@ -59,13 +46,13 @@ export default function BarChart ({ threeMonthChartData }: IBarChartProps) {
     <div
       className='bar-chart-container w-[33%] h-[90%]'
     >
-        <Chart
-            chartType="BarChart"
-            width="100%"
-            height="100%"
-            data={data}
-            options={options}
-        />
+    <Chart
+        chartType="BarChart"
+        width="100%"
+        height="100%"
+        data={data}
+        options={options}
+    />
 
     </div>
   );
