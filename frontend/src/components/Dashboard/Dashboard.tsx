@@ -21,7 +21,6 @@ export default function Dashboard ({ setIsLoggedIn }: IDashboardProps) {
       // I don't think I need another fetch call. Can just fetch category totals with transactions and flatten transactions array into a list of transactions for that month and pass to transactions component
   // TODO make another fetch call in dashboard that gets 3 month transaction data and send data to bar chart component to use
   // TODO Create light/dark mode
-
     const { currentUser } = useContext(CurrentUserContext)
     const defaultData: ICategoryTotals = {
       'Entertainment': 0,
@@ -43,7 +42,6 @@ export default function Dashboard ({ setIsLoggedIn }: IDashboardProps) {
     const [filterYear, setFilterYear] = useState<string>('2023')
     const [chartData, setChartData] = useState<ICategoryTotals>(defaultData)
     const [threeMonthChartData, setThreeMonthChartData] = useState<(string | number)[]>([])
-
 
     async function fetchChartData() {
       const response = await axios.get(`/api/users/${user.id}/transactions/categories/total?year=${filterYear}&month=${filterMonth}`)
@@ -68,16 +66,6 @@ export default function Dashboard ({ setIsLoggedIn }: IDashboardProps) {
       setChartData(categoryTotals)
       return data
     }
-    const chartDataQuery = useQuery({
-      queryKey: ['chartData'],
-      queryFn: fetchChartData
-    })
-
-    useEffect(() => {
-      fetchChartData()
-      fetchThreeMonthChartData()
-    },[filterMonth, filterYear])
-
     async function fetchThreeMonthChartData() {
       const response = await axios.get(`/api/users/${user.id}/transactions/categories/total/threeMonths?year=${filterYear}&month=${filterMonth}`)
       const data = response.data
@@ -87,43 +75,29 @@ export default function Dashboard ({ setIsLoggedIn }: IDashboardProps) {
 
       setThreeMonthChartData(data)
     }
-
+    const chartDataQuery = useQuery({
+      queryKey: ['chartData'],
+      queryFn: fetchChartData
+    })
     const threeMonthChartDataQuery = useQuery({
       queryKey: ['threeMonthChartData'],
       queryFn: fetchThreeMonthChartData
     })
 
+    useEffect(() => {
+      // fetchChartData()
+      // fetchThreeMonthChartData()
+      chartDataQuery.refetch()
+      threeMonthChartDataQuery.refetch()
+    },[filterMonth, filterYear])
 
-    // const chartDataQuery = useQuery(
-    //     ['chartData'],
-    //     () => {
-    //       return axios.get(`/api/users/${user.id}/transactions/aggregate?year=${filterYear}&month=${filterMonth}`)
-    //       .then((response) => {
-    //         console.log('I AM FETCHING AGAIN')
-    //         const data: ICategoryTotals = {
-    //           Entertainment: 0,
-    //           Meals: 0,
-    //           Groceries: 0,
-    //           Utilities: 0,
-    //           Travel: 0,
-    //           Shopping: 0,
-    //           Other: 0
-    //         }
-    //         response.data.forEach((ele: ICategoryTotalAPIResponse) => {
-    //           data[ele._id as keyof typeof data] = ele.total
-    //         })
-    //         setChartData(data)
-    //         return response.data
-    //       })
-    //     }
-    //   )
 
     // if (chartDataQuery.isLoading) console.log('loading')
 
 
   return (
     <div
-        className="dashboard-main-container flex h-[100%] overflow-hidden"
+        className="dashboard-main-container flex h-[100%] overflow-hidden dark:bg-purple"
     >
       <NavBar setIsLoggedIn={setIsLoggedIn} />
         {
