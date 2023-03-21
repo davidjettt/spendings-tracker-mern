@@ -15,7 +15,21 @@ interface IDashboardProps {
 }
 
 export default function Dashboard ({ setIsLoggedIn }: IDashboardProps) {
+  // TODO have a button in transactions section that will only display transactions for a specific month based on the charts (do i need another fetch call for this?)
+      // I don't think I need another fetch call. Can just fetch category totals with transactions and flatten transactions array into a list of transactions for that month and pass to transactions component
+  // TODO make another fetch call in dashboard that gets 3 month transaction data and send data to bar chart component to use
+  // TODO Create light/dark mode
+
     const { currentUser } = useContext(CurrentUserContext)
+    const defaultData: ICategoryTotals = {
+      'Entertainment': 0,
+      'FoodDrink': 0,
+      'Groceries': 0,
+      'Utilities': 0,
+      'Travel': 0,
+      'Shopping': 0,
+      'Other': 0
+  }
     const [ user ] = useState({
         id: localStorage.getItem('id'),
         email: localStorage.getItem('email')
@@ -23,23 +37,17 @@ export default function Dashboard ({ setIsLoggedIn }: IDashboardProps) {
     console.log('DASHBOARD CURRENT USER', currentUser)
     console.log('USER LOCAL STORAGE', user)
 
-    const year: string  = '2023'
     const [filterMonth, setFilterMonth] = useState<string>('1')
     const [filterYear, setFilterYear] = useState<string>('2023')
-    const [chartData, setChartData] = useState<ICategoryTotals>({
-        'Entertainment': 0,
-        'FoodDrink': 0,
-        'Groceries': 0,
-        'Utilities': 0,
-        'Travel': 0,
-        'Shopping': 0,
-        'Other': 0
-    })
+    const [chartData, setChartData] = useState<ICategoryTotals>(defaultData)
 
     async function fetchChartData() {
       const response = await axios.get(`/api/users/${user.id}/transactions/aggregate?year=${filterYear}&month=${filterMonth}`)
-      console.log('I FETCHED AGAIN')
       console.log('FETCH RESPONSE', response.data)
+      if (Object.keys(response.data).length === 0) {
+        setChartData(defaultData)
+        return
+      }
       // const data: ICategoryTotals = {
       //   Entertainment: 0,
       //   Meals: 0,
