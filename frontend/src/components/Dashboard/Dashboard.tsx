@@ -8,6 +8,8 @@ import { ICategoryTotals } from "../../interfaces/ICategoryTotals";
 import { useQuery } from "@tanstack/react-query";
 import { ICategoryTotalAPIResponse } from "../../interfaces/ICategoryTotalAPIResponse";
 import ChartFilter from "../ChartFilter/ChartFilter";
+import { ICategoryTotalWithTransactions } from "../../interfaces/ICategoryTotalWithTransactions";
+import { ICategoryTotalsByMonth } from "../../interfaces/ICategoryTotalsByMonth";
 
 interface IDashboardProps {
     isLoggedIn: boolean,
@@ -15,45 +17,59 @@ interface IDashboardProps {
 }
 
 export default function Dashboard ({ setIsLoggedIn }: IDashboardProps) {
+  // TODO have a button in transactions section that will only display transactions for a specific month based on the charts (do i need another fetch call for this?)
+      // I don't think I need another fetch call. Can just fetch category totals with transactions and flatten transactions array into a list of transactions for that month and pass to transactions component
+  // TODO make another fetch call in dashboard that gets 3 month transaction data and send data to bar chart component to use
+  // TODO Create light/dark mode
+
     const { currentUser } = useContext(CurrentUserContext)
+    const defaultData: ICategoryTotals = {
+      'Entertainment': 0,
+      'FoodDrink': 0,
+      'Groceries': 0,
+      'Utilities': 0,
+      'Travel': 0,
+      'Shopping': 0,
+      'Other': 0
+  }
     const [ user ] = useState({
         id: localStorage.getItem('id'),
         email: localStorage.getItem('email')
     })
-    console.log('DASHBOARD CURRENT USER', currentUser)
-    console.log('USER LOCAL STORAGE', user)
+    // console.log('DASHBOARD CURRENT USER', currentUser)
+    // console.log('USER LOCAL STORAGE', user)
 
-    const year: string  = '2023'
     const [filterMonth, setFilterMonth] = useState<string>('1')
     const [filterYear, setFilterYear] = useState<string>('2023')
-    const [chartData, setChartData] = useState<ICategoryTotals>({
-        'Entertainment': 0,
-        'FoodDrink': 0,
-        'Groceries': 0,
-        'Utilities': 0,
-        'Travel': 0,
-        'Shopping': 0,
-        'Other': 0
-    })
+    const [chartData, setChartData] = useState<ICategoryTotals>(defaultData)
+    // const [month1, setMonth1] = useState<ICategoryTotalsByMonth | null>(null)
+    // const [month2, setMonth2] = useState<ICategoryTotalsByMonth | null>(null)
+    // const [month3, setMonth3] = useState<ICategoryTotalsByMonth | null>(null)
+    const [threeMonthChartData, setThreeMonthChartData] = useState<ICategoryTotalsByMonth[] | []>([])
+
 
     async function fetchChartData() {
-      const response = await axios.get(`/api/users/${user.id}/transactions/aggregate?year=${filterYear}&month=${filterMonth}`)
-      console.log('I FETCHED AGAIN')
-      console.log('FETCH RESPONSE', response.data)
-      // const data: ICategoryTotals = {
-      //   Entertainment: 0,
-      //   Meals: 0,
-      //   Groceries: 0,
-      //   Utilities: 0,
-      //   Travel: 0,
-      //   Shopping: 0,
-      //   Other: 0
-      // }
-      // response.data.forEach((ele: ICategoryTotalAPIResponse) => {
-      //   data[ele._id as keyof typeof data] = ele.total
-      // })
-      setChartData(response.data)
-      return response.data
+      const response = await axios.get(`/api/users/${user.id}/transactions/categories/total?year=${filterYear}&month=${filterMonth}`)
+      const data = response.data
+      // console.log('FETCH RESPONSE', response.data)
+      if (data.length === 0) {
+        setChartData(defaultData)
+        return
+      }
+      const categoryTotals: ICategoryTotals = {
+        Entertainment: 0,
+        FoodDrink: 0,
+        Groceries: 0,
+        Utilities: 0,
+        Travel: 0,
+        Shopping: 0,
+        Other: 0
+      }
+      data.forEach((ele: ICategoryTotalWithTransactions) => {
+        categoryTotals[ele.category as keyof typeof categoryTotals] = ele.total
+      })
+      setChartData(categoryTotals)
+      return data
     }
     const chartDataQuery = useQuery({
       queryKey: ['chartData'],
@@ -63,6 +79,25 @@ export default function Dashboard ({ setIsLoggedIn }: IDashboardProps) {
     useEffect(() => {
       fetchChartData()
     },[filterMonth, filterYear])
+
+    async function fetchThreeMonthChartData() {
+      const response = await axios.get(`/api/users/${user.id}/transactions/categories/total/threeMonths?year=${filterYear}&month=${filterMonth}`)
+      const data = response.data
+      console.log('THREE MONTH DATA', data)
+      if (data.length === 0) {
+        // TODO handle situation where no data gets returned (show message, etc.)
+      }
+
+      // setMonth1(data[0])
+      // setMonth2(data[1])
+      // setMonth3(data[2])
+      setThreeMonthChartData(data)
+    }
+
+    const threeMonthChartDataQuery = useQuery({
+      queryKey: ['threeMonthChartData'],
+      queryFn: fetchThreeMonthChartData
+    })
 
 
     // const chartDataQuery = useQuery(
@@ -102,7 +137,7 @@ export default function Dashboard ({ setIsLoggedIn }: IDashboardProps) {
                 className="dashboard w-[95%]"
             >
                 <ChartFilter setFilterMonth={setFilterMonth} setFilterYear={setFilterYear} />
-                <Charts chartData={chartData} />
+                <Charts chartData={chartData} threeMonthChartData={threeMonthChartData} />
                 <Transactions setIsLoggedIn={setIsLoggedIn} chartDataQuery={chartDataQuery} />
             </div>
         }

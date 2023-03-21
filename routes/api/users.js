@@ -3,33 +3,269 @@ const router = express.Router()
 const User = require('../../models/User')
 const Transaction = require('../../models/Transaction')
 
+router.get('/:userId/transactions/categories/total', async (req, res) => {
+    const { year, month } = req.query
+    const userId = req.params.userId
+
+    // Aggregate query to get all transactions for a specified month and the total for each category
+    const categoryTotalsByMonth = await Transaction.aggregate([
+      // Match documents within the specified month and year
+      {
+        $match: {
+          date: {
+            $gte: new Date(year, month - 1, 1),
+            $lte: new Date(year, month, 0)
+          },
+          userId: userId
+        }
+      },
+      // Group by category and sum the amount field
+      {
+        $group: {
+          _id: '$category',
+          total: { $sum: '$amount' }
+        }
+      },
+      // Project the category and total as separate fields
+      {
+        $project: {
+          _id: 0,
+          category: '$_id',
+          total: 1
+        }
+      },
+      // Sort by category ascending
+      {
+        $sort: {
+          category: 1
+        }
+      }
+    ])
+
+
+    // Aggregate query to get all transactions for a specified month and the total for each category
+    const categoryTotalsByMonthWithTransactions = await Transaction.aggregate([
+        // Match documents within the specified month and year
+        {
+        $match: {
+            date: {
+                $gte: new Date(parseInt(year), parseInt(month) - 1, 1),
+                $lte: new Date(parseInt(year), parseInt(month), 0)
+            },
+            userId: userId
+        }
+        },
+        // Group by category and sum the amount field
+        {
+        $group: {
+            _id: '$category',
+            total: { $sum: '$amount' },
+            transactions: {
+                $push: {
+                    _id: '$_id',
+                    date: '$date',
+                    name: '$name',
+                    category: '$category',
+                    amount: '$amount',
+                    notes: '$notes'
+                }
+            }
+        }
+        },
+        // Project the category, total, and transactions as separate fields
+        {
+        $project: {
+            _id: 0,
+            category: '$_id',
+            total: 1,
+            transactions: 1
+        }
+        },
+        // Sort by total descending
+        {
+        $sort: {
+            total: -1
+        }
+        }
+    ])
+    // .exec((err, results) => {
+    //     if (err) {
+    //       console.error(err);
+    //     } else {
+    //       // Flatten the transactions array
+    //       const transactions = results.reduce((acc, curr) => {
+    //         return [...acc, ...curr.transactions];
+    //       }, []);
+    //       // Sort the transactions by date ascending
+    //       transactions.sort((a, b) => a.date - b.date);
+    //       // Log the transactions and the category totals
+    //       console.log('Transactions:', transactions);
+    //       console.log('Category Totals:', results);
+    //     }
+    // })
+
+    // Flatten transactions array. Can do this in the frontend
+    const flattenedTransactions = categoryTotalsByMonthWithTransactions.reduce((acc, curr) => {
+        return [...acc, ...curr.transactions]
+    }, [])
+
+    // console.log('FLATTED', flattened)
+
+    return res.json(categoryTotalsByMonthWithTransactions)
+})
+
+// gets all transactions in a 3 month span
+router.get('/:userId/transactions/categories/total/threeMonths', async (req, res) => {
+    const {month, year} = req.query
+    const userId = req.params.userId
+
+    // const startDate = new Date(`${year}-${month.padStart(2, '0')}-01T00:00:00Z`)
+    const startDate = new Date(parseInt(year), parseInt(month) - 1, 1)
+    // const endDate = new Date(`${endYear}-${endMonth.padStart(2, '0')}-01T00:00:00Z`)
+    const endDate = new Date(startDate.getFullYear(), startDate.getMonth() + 3, 0);
+    // // Aggregate query to get category totals grouped by month
+    // const transactions = await Transaction.aggregate([
+    //     // Match documents within the last year
+    //     {
+    //       $match: {
+    //         date: {
+    //           $gte: startDate,
+    //           $lte: endDate
+    //         },
+    //         userId: userId
+    //       }
+    //     },
+    //     // Group by month and category, summing the amount field
+    //     {
+    //       $group: {
+    //         _id: {
+    //           category: '$category',
+    //           month: { $month: '$date' },
+    //           year: { $year: '$date' }
+    //         },
+    //         total: { $sum: '$amount' }
+    //       }
+    //     },
+    //     // Project the month and category as separate fields
+    //     {
+    //       $project: {
+    //         _id: 0,
+    //         category: '$_id.category',
+    //         month: '$_id.month',
+    //         monthNum: '$_id.month',
+    //         year: '$_id.year',
+    //         total: 1
+    //       }
+    //     },
+    //     // Adds the name of the month as a string
+    //     {
+    //         $addFields: {
+    //             month: {
+    //                 $let: {
+    //                     vars: {
+    //                         monthsInString: [,'January','Feburary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',' November', 'December']
+    //                     },
+    //                     in: {
+    //                         $arrayElemAt: ['$$monthsInString', '$month']
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     },
+    //     // Sort by year and month ascending
+    //     {
+    //       $sort: {
+    //         year: 1,
+    //         monthNum: 1
+    //       }
+    //     }
+    //   ])
+
+    // Aggregate query to get category totals grouped by month
+      const categoryTotalsWithMonth = await Transaction.aggregate([
+        // matches documents based on date range and userId
+        {
+          $match: {
+            date: { $gte: startDate, $lte: endDate },
+            userId: userId
+          }
+        },
+        // Group documents by month, year, and category and adds up amount
+        {
+          $group: {
+            _id: {
+              month: { $month: "$date" },
+              year: { $year: "$date" },
+              category: "$category"
+            },
+            total: { $sum: "$amount" }
+          }
+        },
+        // group the documents by month and year only, and create an array of objects containing the category and total for each category in that month and year.
+        {
+          $group: {
+            _id: {
+              month: "$_id.month",
+              year: "$_id.year"
+            },
+            categories: {
+              $push: {
+                category: "$_id.category",
+                total: "$total"
+              }
+            }
+          }
+        },
+        // Project the month, year, and category as separate fields and excludes _id
+        {
+          $project: {
+            _id: 0,
+            month: "$_id.month",
+            monthNum: '$_id.month',
+            year: "$_id.year",
+            categories: 1
+          }
+        },
+        // Adds the name of the month as a string
+        {
+            $addFields: {
+                month: {
+                    $let: {
+                        vars: {
+                            monthsInString: [,'January','Feburary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',' November', 'December']
+                        },
+                        in: {
+                            $arrayElemAt: ['$$monthsInString', '$month']
+                        }
+                    }
+                }
+            }
+        },
+        // Sort by year and month ascending
+        {
+          $sort: {
+            year: 1,
+            monthNum: 1
+          }
+        }
+      ])
+
+
+    return res.json(categoryTotalsWithMonth)
+})
+
 // filtering by specified timeframe and group by category with amount for each category
 router.get('/:userId/transactions/aggregate', async (req, res) => {
     const { month, year } = req.query
     const userId = req.params.userId
 
-    let endMonthInt = Number(month) + 1
-    let endYearInt = Number(year)
-
-    if (endMonthInt === 13) {
-        endMonthInt = 1
-        endYearInt += 1
-    }
-
-    const endMonth = endMonthInt.toString()
-    const endYear = endYearInt.toString()
-
-    // const groupMonths = await Transaction.aggregate([
-    //     {$group: {
-    //         month: {$substr: ['$date', 5, 2]}
-    //         // numberofbookings: {$sum: 1}
-    //     }}
-    // ]);
+    const startDate = new Date(parseInt(year), parseInt(month) - 1, 1)
+    const endDate = new Date(startDate.getFullYear(), startDate.getMonth() + 1, 0)
 
     // filtering by specified timeframe and group by category with amount for each category
     const transactions = await Transaction.aggregate([
         { $match: {userId: userId} },
-        { $match: {date: { $gte: new Date(`${year}-${month.padStart(2, '0')}-01T00:00:00Z`), $lt: new Date(`${endYear}-${endMonth.padStart(2, '0')}-01T00:00:00Z`)}}},
+        { $match: {date: { $gte: startDate, $lte: endDate }}},
         { $group: {_id: '$category', total: { $sum: '$amount' }} },
         { $sort: {total: -1} }
     ])
@@ -41,25 +277,6 @@ router.get('/:userId/transactions/aggregate', async (req, res) => {
         formattedTransactions[category] = total
     })
 
-
-    // const transDate = await Transaction.find({
-    //     '$expr': {'$group': {_id: '$category'}},
-    //     date: {
-    //         $gte: new Date('2022-01-01T00:00:00Z'),
-    //         $lt: new Date('2023-01-01T00:00:00Z')
-    //     }
-    // }).exec((err) => {
-    //     if (err) {
-    //         console.log('ERR', err)
-    //     }
-    // })
-
-    // const category = await Transaction.aggregate([
-    //     {$project: {_id: 1, name: 1, amount: 1, category: 1, notes: 1, date: 1, userId: 1}},
-    //     { $match: { date: { $gte: new Date('2022-01-01T00:00:00Z'), $lt: new Date('2023-01-01T00:00:00Z')}}},
-    //     {$group: {_id: '$category'}},
-
-    // ])
     // console.log('Formattted data backend', formattedTransactions)
     return res.json(formattedTransactions)
 })
