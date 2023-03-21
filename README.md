@@ -8,7 +8,6 @@ This will be a spendings tracker application where users can keep track of their
 </a>
 to visit live site
 </div>
-<br>
 
 ## Key Features
 - User Authentication with passport.js

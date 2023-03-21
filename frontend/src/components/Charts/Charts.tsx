@@ -3,11 +3,10 @@ import DonutChart from './DonutChart'
 import ChartLegend from './ChartLegend'
 import BarChart from './BarChart'
 import { ICategoryTotals } from '../../interfaces/ICategoryTotals'
-import { ICategoryTotalsByMonth } from '../../interfaces/ICategoryTotalsByMonth'
 
 interface IChartsProps {
   chartData: ICategoryTotals
-  threeMonthChartData: ICategoryTotalsByMonth[]
+  threeMonthChartData: (string | number)[]
 }
 
 export default function Charts ({chartData, threeMonthChartData}: IChartsProps) {
@@ -18,7 +17,7 @@ export default function Charts ({chartData, threeMonthChartData}: IChartsProps) 
     >
       <DonutChart chartData={chartData} />
       <ColumnChart chartData={chartData}/>
-      <BarChart chartData={chartData} threeMonthChartData={threeMonthChartData} />
+      <BarChart threeMonthChartData={threeMonthChartData} />
       <ChartLegend />
     </div>
   );
