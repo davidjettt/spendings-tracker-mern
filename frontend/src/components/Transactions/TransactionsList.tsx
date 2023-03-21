@@ -34,7 +34,7 @@ export default function TransactionsList (props: ITransactionsListProps) {
                 </tr>
             </thead>
             <tbody className=''>
-            {/* {
+            {
                 props?.transactions &&
                 props.transactions?.map((trans, idx) => (
                     <tr key={idx}>
@@ -55,7 +55,7 @@ export default function TransactionsList (props: ITransactionsListProps) {
                         </td>
                     </tr>
                 ))
-            } */}
+            }
             </tbody>
         </table>
     </>
