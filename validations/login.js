@@ -6,7 +6,7 @@ const validateLogin = [
         .custom( async (value) => {
             const user = await User.findOne({email: value})
             if (!user) {
-                throw new Error('Could not find a user with this email')
+                throw new Error('Invalid Credentials')
             }
         })
 ]

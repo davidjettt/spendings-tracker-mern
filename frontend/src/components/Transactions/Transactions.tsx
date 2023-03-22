@@ -30,7 +30,7 @@ export default function Transactions (props: ITransactionsProps) {
 
   return (
     <div
-        className="transactions-main-container bg-offWhite dark:bg-transctionsDarkMode border h-[40%] p-5 pb-20 overflow-auto"
+        className="transactions-main-container bg-offWhite dark:bg-transctionsDarkMode border w-[95%] h-[40%] pt-5 pl-5 pb-10"
     >
         <button
             className="transactions-toggle-button border-royalBlue bg-royalBlue text-offWhite p-2 rounded-md"

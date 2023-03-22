@@ -1,4 +1,5 @@
 import { ChangeEvent } from "react";
+import { useTheme } from "../../context/ThemeContext";
 
 export interface IChartFilterProps {
     setFilterMonth: React.Dispatch<React.SetStateAction<string>>
@@ -6,6 +7,7 @@ export interface IChartFilterProps {
 }
 
 export default function ChartFilter (props: IChartFilterProps) {
+    const { theme } = useTheme()
 
     const handleMonthChange = (e: ChangeEvent<HTMLSelectElement>) => {
         props.setFilterMonth(e.target.value)
@@ -18,14 +20,16 @@ export default function ChartFilter (props: IChartFilterProps) {
 
   return (
         <div
-            className="date-filter-container w-[5%] flex"
+            className="date-filter-container w-[97%] flex justify-start gap-2 ml-5 mt-2"
         >
             <label
-                className="flex flex-col"
+                className="flex flex-col items-center text-darkGray"
+                htmlFor="year-filter"
             >
                 Year
                 <select
-                    className="year-filter"
+                    id='year-filter'
+                    className={`year-filter bg-${theme === 'dark' ? 'bgDarkMode' : 'offWhite'} rounded-md focus:outline-none p-2 border`}
                     onChange={handleYearChange}
                 >
                     <option value='2023'>2023</option>
@@ -34,11 +38,13 @@ export default function ChartFilter (props: IChartFilterProps) {
                 </select>
             </label>
             <label
-                className="flex flex-col"
+                className="flex flex-col items-center text-darkGray"
+                htmlFor="month-filter"
             >
                 Month
                 <select
-                    className="month-filter"
+                    id='month-filter'
+                    className={`month-filter bg-${theme === 'dark' ? 'bgDarkMode' : 'offWhite'} rounded-md focus:outline-none p-2 border`}
                     onChange={handleMonthChange}
                 >
                     <option value='1'>1</option>

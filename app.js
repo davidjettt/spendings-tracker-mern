@@ -20,16 +20,6 @@ if (process.env.NODE_ENV === 'production') {
   app.use(cors())
 }
 
-// app.use(express.static(path.join(__dirname, "./frontend/build")))
-// app.get('*', (_, res) => {
-//   res.sendFile(
-//     path.join(__dirname, "./client/build/index.html"),
-//     function (err) {
-//       res.status(500).send(err)
-//     }
-//   )
-// })
-
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 

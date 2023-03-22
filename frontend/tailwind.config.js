@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
@@ -15,9 +16,11 @@ module.exports = {
     colors: {
       'offWhite': '#f5f5f5',
       'bgDarkMode': '#2B2A2B',
+      'darkGray': '#BFBDBF',
       'transctionsDarkMode': '#424042',
       'borderLight': '#D6D9DC',
       'blue': '#1fb6ff',
+      'red': '#FF0000',
       'purple': '#7e5bef',
       'pink': '#ff49db',
       'orange': '#ff7849',
@@ -37,7 +40,7 @@ module.exports = {
       'Other': '#90A4AF'
     },
     fontFamily: {
-      sans: ['Graphik', 'sans-serif'],
+      sans: ['sans serif', 'Roboto', 'system-ui'],
       serif: ['Merriweather', 'serif'],
     },
     dropShadow: {
@@ -49,9 +52,14 @@ module.exports = {
         '144': '36rem',
       },
       borderRadius: {
-        '4xl': '2rem',
+        '4xl': '4rem',
       }
-    }
+    },
+    variants: {
+      extend: {
+        backgroundColor: ['even', 'odd'],
+      },
+    },
   },
-  plugins: [],
+  plugins: []
 }

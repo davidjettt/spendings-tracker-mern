@@ -259,7 +259,7 @@ router.get('/:userId/transactions/categories/total/threeMonths', async (req, res
         return 0
     }
 
-    const formatted = []
+    const formattedData = []
     while (categoryTotalsWithMonth.length) {
         const template = ['',0,0,0,0,0,0,0]
 
@@ -274,11 +274,11 @@ router.get('/:userId/transactions/categories/total/threeMonths', async (req, res
             const total = obj.total
             template[idx] = total
         }
-        formatted.push(template)
+        formattedData.push(template)
 
     }
 
-    return res.json(formatted)
+    return res.json(formattedData)
 })
 
 // filtering by specified timeframe and group by category with amount for each category
@@ -323,7 +323,6 @@ router.get('/:userId/transactions', async (req, res) => {
     return res.json(transactions)
 })
 
-
 // post a new transaction
 router.post('/:userId/transactions', async (req, res) => {
     const { name, category, amount, notes, date  } = req.body
@@ -340,19 +339,6 @@ router.post('/:userId/transactions', async (req, res) => {
 
     return res.json(newTransaction)
 })
-
-// update an existing transaction
-router.put('/:userId/transactions/:transactionId', async (req, res) => {
-    const userId = req.params.userId
-
-    const filter = {_id: req.params.transactionId}
-    const options = req.body
-    const transaction = await Transaction.findOneAndUpdate(filter, options, {new: true, upsert: true})
-
-    return res.json(transaction)
-})
-
-// get user transactions based on month
 
 
 module.exports = router
