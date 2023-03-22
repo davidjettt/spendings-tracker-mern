@@ -6,7 +6,6 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import Signup from "./components/auth/Signup";
 import Splash from "./components/Splash/Splash";
 import CurrentUserProvider from "./context/CurrentUserContext";
-import NavBar from "./components/NavBar/NavBar";
 import AuthRoute from "./components/auth/AuthRoute";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -14,6 +13,7 @@ import ThemeProvider from "./context/ThemeContext";
 
 
 function App() {
+  // Initializes new instance of Query client for the entire app
   const client = new QueryClient({
     defaultOptions: {
       queries: {
@@ -23,6 +23,7 @@ function App() {
   })
   const [ isLoggedIn, setIsLoggedIn ] = useState<boolean>(false)
 
+  // Authenticates the token in order to provide access to protected routes
   useEffect(() => {
     const token = localStorage.getItem('token')
     axios.get('/api/auth/currentUser', {
@@ -34,7 +35,7 @@ function App() {
     }).catch(err => {
       setIsLoggedIn(false)
     })
-},[])
+  },[])
 
   return (
     <div className="App h-[100vh]">
@@ -43,7 +44,6 @@ function App() {
         <ThemeProvider>
           <CurrentUserProvider>
             <BrowserRouter>
-              {/* {showNavBar && <NavBar setShowNavBar={setShowNavBar} />} */}
               <Routes>
                 <Route path='/' element={<Splash isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />}/>
                 <Route path='/signup' element={

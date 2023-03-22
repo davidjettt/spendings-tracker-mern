@@ -1,15 +1,13 @@
-import axios from "axios";
 import { useState, useContext, useEffect } from "react";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
+import { ICategoryTotals } from "../../interfaces/ICategoryTotals";
+import { useQuery } from "@tanstack/react-query";
+import { ICategoryTotalWithTransactions } from "../../interfaces/ICategoryTotalWithTransactions";
+import axios from "axios";
 import Charts from "../Charts/Charts";
 import Transactions from "../Transactions/Transactions";
 import NavBar from "../NavBar/NavBar";
-import { ICategoryTotals } from "../../interfaces/ICategoryTotals";
-import { useQuery } from "@tanstack/react-query";
-import { ICategoryTotalAPIResponse } from "../../interfaces/ICategoryTotalAPIResponse";
 import ChartFilter from "../ChartFilter/ChartFilter";
-import { ICategoryTotalWithTransactions } from "../../interfaces/ICategoryTotalWithTransactions";
-import { ICategoryTotalsByMonth } from "../../interfaces/ICategoryTotalsByMonth";
 
 interface IDashboardProps {
     isLoggedIn: boolean,
