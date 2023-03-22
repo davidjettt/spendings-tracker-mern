@@ -25,6 +25,7 @@ function App() {
 
   // Authenticates the token in order to provide access to protected routes
   useEffect(() => {
+    console.log('APP USE EFFECT')
     const token = localStorage.getItem('token')
     axios.get('/api/auth/currentUser', {
         headers: {

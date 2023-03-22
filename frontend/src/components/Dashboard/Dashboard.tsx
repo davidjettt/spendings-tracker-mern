@@ -17,8 +17,6 @@ interface IDashboardProps {
 export default function Dashboard ({ setIsLoggedIn }: IDashboardProps) {
   // TODO have a button in transactions section that will only display transactions for a specific month based on the charts (do i need another fetch call for this?)
       // I don't think I need another fetch call. Can just fetch category totals with transactions and flatten transactions array into a list of transactions for that month and pass to transactions component
-  // TODO make another fetch call in dashboard that gets 3 month transaction data and send data to bar chart component to use
-  // TODO Create light/dark mode
     const { currentUser } = useContext(CurrentUserContext)
     const defaultData: ICategoryTotals = {
       'Entertainment': 0,
@@ -100,11 +98,12 @@ export default function Dashboard ({ setIsLoggedIn }: IDashboardProps) {
       <NavBar setIsLoggedIn={setIsLoggedIn} />
         {
             <div
-                className="dashboard w-[95%]"
+                className="dashboard w-[95%] relative flex flex-col items-center"
             >
                 <ChartFilter setFilterMonth={setFilterMonth} setFilterYear={setFilterYear} />
                 <Charts chartData={chartData} threeMonthChartData={threeMonthChartData} />
                 <Transactions setIsLoggedIn={setIsLoggedIn} chartDataQuery={chartDataQuery} />
+                <div className="height[50px]"></div>
             </div>
         }
     </div>
