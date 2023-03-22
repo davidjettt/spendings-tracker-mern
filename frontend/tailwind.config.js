@@ -4,6 +4,7 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
     "./node_modules/react-tailwindcss-datepicker/dist/index.esm.js"
   ],
+  darkMode: "class",
   theme: {
     screens: {
       'phone': '480px',
@@ -13,6 +14,9 @@ module.exports = {
     },
     colors: {
       'offWhite': '#f5f5f5',
+      'bgDarkMode': '#2B2A2B',
+      'transctionsDarkMode': '#424042',
+      'borderLight': '#D6D9DC',
       'blue': '#1fb6ff',
       'purple': '#7e5bef',
       'pink': '#ff49db',

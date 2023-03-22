@@ -38,19 +38,19 @@ export default function TransactionsList (props: ITransactionsListProps) {
                 props?.transactions &&
                 props.transactions?.map((trans, idx) => (
                     <tr key={idx}>
-                        <td>
+                        <td className='dark:text-offWhite'>
                             {trans.date?.slice(0,10)}
                         </td>
-                        <td>
+                        <td className='dark:text-offWhite'>
                             {trans.name}
                         </td>
-                        <td>
+                        <td className='dark:text-offWhite'>
                             {trans.category === 'FoodDrink' ? 'Food & Drink' : trans.category}
                         </td>
                         <td className='text-green'>
                             +${trans.amount}
                         </td>
-                        <td>
+                        <td className='dark:text-offWhite'>
                             {trans.notes}
                         </td>
                     </tr>

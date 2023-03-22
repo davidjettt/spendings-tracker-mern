@@ -1,4 +1,5 @@
 import { Chart } from 'react-google-charts'
+import { useTheme } from '../../context/ThemeContext'
 
 interface IBarChartProps {
   threeMonthChartData: (string | number)[]
@@ -6,6 +7,8 @@ interface IBarChartProps {
 
 export default function BarChart ({ threeMonthChartData }: IBarChartProps) {
   console.log('BAR CHART', threeMonthChartData)
+  const { theme } = useTheme()
+  const themeColor = theme === 'dark' ? '#f5f5f5' : 'black'
 
   const data = threeMonthChartData.length ? [
     ["Month", "Entertainment", "Food & Drink", "Groceries", "Other", "Shopping", "Travel", "Utilities"],
@@ -18,17 +21,26 @@ export default function BarChart ({ threeMonthChartData }: IBarChartProps) {
 
 
   const options = {
-    title: "Monthly Total",
+    title: "3 Month Total",
+    titleTextStyle: {
+      fontSize: 20,
+      color: '#BFBDBF'
+    },
     chartArea: { width: "50%" },
     isStacked: true,
     hAxis: {
       title: "",
       minValue: 0,
-      format: 'currency'
+      format: 'currency',
+      textStyle: {
+        color: '#BFBDBF'
+      },
     },
-    // vAxis: {
-    //   title: "Month",
-    // },
+    vAxis: {
+      textStyle: {
+        color: '#BFBDBF'
+      }
+    },
     series: {
       0: {color: '#990099'}, // Entertainment
       1: {color: '#DC3913'}, // Food & Drink
@@ -38,7 +50,9 @@ export default function BarChart ({ threeMonthChartData }: IBarChartProps) {
       5: {color: '#3366CC'}, // Travel
       6: {color: '#0199C6'} // Utilities
     },
-    legend: 'none'
+    legend: 'none',
+    backgroundColor: 'none',
+    barSliceBorderColor: 'transparent'
     // 'height': 600
   };
 

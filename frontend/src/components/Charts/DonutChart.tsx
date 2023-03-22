@@ -1,4 +1,5 @@
 import { Chart } from 'react-google-charts'
+import { useTheme } from '../../context/ThemeContext';
 import { ICategoryTotals } from '../../interfaces/ICategoryTotals';
 
 export interface IDonutChartProps {
@@ -7,6 +8,9 @@ export interface IDonutChartProps {
 
 export default function DonutChart ({ chartData }: IDonutChartProps) {
   // console.log('donut', chartData)
+    const { theme } = useTheme()
+    const themeColor = theme === 'dark' ? '#f5f5f5' : 'black'
+
     const data = [
         ["Task", "Hours per Day"],
         ["Entertainment", chartData['Entertainment'] ],
@@ -19,7 +23,11 @@ export default function DonutChart ({ chartData }: IDonutChartProps) {
       ];
 
     const options = {
-        title: "Monthly Spending",
+        title: "Distribution",
+        titleTextStyle: {
+          fontSize: 20,
+          color: '#BFBDBF'
+        },
         pieHole: 0.4,
         is3D: false,
         slices: {
@@ -32,12 +40,14 @@ export default function DonutChart ({ chartData }: IDonutChartProps) {
             6: {color: '#90A4AF'}
           },
         legend: 'none',
+        backgroundColor: 'none',
+        pieSliceBorderColor: 'transparent'
         // 'height': 500
       };
 
   return (
     <div
-      className='donut-chart-container w-[33%] h-[90%]'
+      className='donut-chart-container w-[33%] h-[90%] dark:bg-bgDarkMode'
     >
       <Chart
         chartType="PieChart"

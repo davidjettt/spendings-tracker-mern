@@ -35,7 +35,7 @@ export default function Dashboard ({ setIsLoggedIn }: IDashboardProps) {
         id: localStorage.getItem('id'),
         email: localStorage.getItem('email')
     })
-    // console.log('DASHBOARD CURRENT USER', currentUser)
+    console.log('DASHBOARD CURRENT USER', currentUser)
     // console.log('USER LOCAL STORAGE', user)
 
     const [filterMonth, setFilterMonth] = useState<string>('1')
@@ -97,7 +97,7 @@ export default function Dashboard ({ setIsLoggedIn }: IDashboardProps) {
 
   return (
     <div
-        className="dashboard-main-container flex h-[100%] overflow-hidden dark:bg-purple"
+        className="dashboard-main-container bg-offWhite flex h-[100%] overflow-hidden dark:bg-bgDarkMode"
     >
       <NavBar setIsLoggedIn={setIsLoggedIn} />
         {

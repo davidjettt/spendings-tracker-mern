@@ -13,7 +13,7 @@ export default function Charts ({chartData, threeMonthChartData}: IChartsProps) 
 
   return (
     <div
-      className='charts-main-container w-full flex flex-wrap content-start h-[60%]'
+      className='charts-main-container w-full flex flex-wrap content-start h-[60%] dark:bg-bgDarkMode'
     >
       <DonutChart chartData={chartData} />
       <ColumnChart chartData={chartData}/>

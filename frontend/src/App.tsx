@@ -10,6 +10,7 @@ import NavBar from "./components/NavBar/NavBar";
 import AuthRoute from "./components/auth/AuthRoute";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import ThemeProvider from "./context/ThemeContext";
 
 
 function App() {
@@ -39,27 +40,29 @@ function App() {
     <div className="App h-[100vh]">
       <QueryClientProvider client={client}>
         <ReactQueryDevtools />
-        <CurrentUserProvider>
-          <BrowserRouter>
-            {/* {showNavBar && <NavBar setShowNavBar={setShowNavBar} />} */}
-            <Routes>
-              <Route path='/' element={<Splash isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />}/>
-              <Route path='/signup' element={
-                <AuthRoute isLoggedIn={isLoggedIn}>
-                  <Signup />
-                </AuthRoute>
-              }
-              />
-              <Route path='/dashboard' element={
-                <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <Dashboard isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-                </ProtectedRoute>
-              }
-              />
-              <Route path="*" element={<Navigate to="/dashboard" replace />} />
-            </Routes>
-          </BrowserRouter>
-        </CurrentUserProvider>
+        <ThemeProvider>
+          <CurrentUserProvider>
+            <BrowserRouter>
+              {/* {showNavBar && <NavBar setShowNavBar={setShowNavBar} />} */}
+              <Routes>
+                <Route path='/' element={<Splash isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />}/>
+                <Route path='/signup' element={
+                  <AuthRoute isLoggedIn={isLoggedIn}>
+                    <Signup />
+                  </AuthRoute>
+                }
+                />
+                <Route path='/dashboard' element={
+                  <ProtectedRoute isLoggedIn={isLoggedIn}>
+                    <Dashboard isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+                  </ProtectedRoute>
+                }
+                />
+                <Route path="*" element={<Navigate to="/dashboard" replace />} />
+              </Routes>
+            </BrowserRouter>
+          </CurrentUserProvider>
+        </ThemeProvider>
       </QueryClientProvider>
     </div>
   );
