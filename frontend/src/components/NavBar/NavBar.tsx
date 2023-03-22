@@ -1,6 +1,8 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useCurrentUser } from "../../context/CurrentUserContext";
+import { useTheme } from "../../context/ThemeContext";
 
 interface INavbarProps {
     setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
@@ -9,6 +11,7 @@ interface INavbarProps {
 export default function NavBar ({setIsLoggedIn}: INavbarProps) {
     let navigate = useNavigate()
     const { setCurrentUser } = useCurrentUser()
+    const { theme, setTheme } = useTheme()
 
     const handleLogout = (): void => {
         localStorage.removeItem('token')
@@ -20,9 +23,19 @@ export default function NavBar ({setIsLoggedIn}: INavbarProps) {
         setIsLoggedIn(false)
         navigate('/')
     }
+
+    const handleThemeChange = () => {
+        setTheme(theme === 'light' ? 'dark' : 'light')
+    }
+
+    useEffect(() => {
+        if (theme === 'dark') document.documentElement.classList.add('dark')
+        else document.documentElement.classList.remove('dark')
+    }, [theme])
+
   return (
         <nav
-            className="nav-bar flex flex-col w-[5%] border"
+            className="nav-bar flex flex-col w-[5%] border-borderLight bg-offWhite dark:bg-transctionsDarkMode"
         >
             <Link
                 className="border rounded px-2"
@@ -36,7 +49,12 @@ export default function NavBar ({setIsLoggedIn}: INavbarProps) {
             >
                 LOGOUT
             </button>
-            <button>TOGGLE</button>
+            <button
+                className="theme-btn"
+                onClick={handleThemeChange}
+            >
+                {theme === 'light'? 'Dark mode' : 'Light mode'}
+            </button>
         </nav>
   );
 }

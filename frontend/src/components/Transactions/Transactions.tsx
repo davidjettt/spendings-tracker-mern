@@ -30,10 +30,10 @@ export default function Transactions (props: ITransactionsProps) {
 
   return (
     <div
-        className="transactions-main-container border h-[40%] p-5 pb-20 overflow-auto"
+        className="transactions-main-container bg-offWhite dark:bg-transctionsDarkMode border h-[40%] p-5 pb-20 overflow-auto"
     >
         <button
-            className="transactions-toggle-button border bg-royalBlue text-offWhite p-2 rounded-md"
+            className="transactions-toggle-button border-royalBlue bg-royalBlue text-offWhite p-2 rounded-md"
             onClick={() => setShowForm(!showForm)}
         >
             {!showForm ? 'Post a Transaction' : 'See Transactions'}
