@@ -22,9 +22,11 @@ export default function ChartFilter (props: IChartFilterProps) {
         >
             <label
                 className="flex flex-col"
+                htmlFor="year-filter"
             >
                 Year
                 <select
+                    id='year-filter'
                     className="year-filter"
                     onChange={handleYearChange}
                 >
@@ -35,9 +37,11 @@ export default function ChartFilter (props: IChartFilterProps) {
             </label>
             <label
                 className="flex flex-col"
+                htmlFor="month-filter"
             >
                 Month
                 <select
+                    id='month-filter'
                     className="month-filter"
                     onChange={handleMonthChange}
                 >

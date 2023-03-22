@@ -71,10 +71,12 @@ export default function TransactionForm ({chartDataQuery, setIsLoggedIn}: ITrans
           <form onSubmit={handleSubmit}>
             <label
               className='transaction-name-label flex flex-col'
+              htmlFor='transaction-name'
             >
               Name
               <input
                 className='transaction-name-input border'
+                id='transaction-name'
                 type='text'
                 name='name'
                 placeholder='Transaction Name'
@@ -99,11 +101,13 @@ export default function TransactionForm ({chartDataQuery, setIsLoggedIn}: ITrans
             </select>
             <label
               className='transaction-date-label flex flex-col'
+              htmlFor='transaction-date'
             >
               Date
               <input
                 className='transaction-date-input border p-1'
                 type='date'
+                id='transaction-date'
                 name='date'
                 value={transactionData.date}
                 onChange={handleInputChange}
@@ -113,11 +117,13 @@ export default function TransactionForm ({chartDataQuery, setIsLoggedIn}: ITrans
             {/* <DatePicker name='date' className='border' selected={new Date() || transactionData.date} onChange={handleInputChange} /> */}
             <label
               className='transaction-amount-label flex flex-col'
+              htmlFor='transaction-amount'
             >
               Amount
               <input
                 className='transaction-amount-input border'
                 type='number'
+                id='transaction-amount'
                 name='amount'
                 placeholder='amount'
                 value={transactionData.amount}
@@ -126,10 +132,12 @@ export default function TransactionForm ({chartDataQuery, setIsLoggedIn}: ITrans
             </label>
             <label
               className='transaction-notes-label flex flex-col'
+              htmlFor='transaction-notes'
             >
               Notes
               <textarea
                 className='transaction-notes-input border'
+                id='transaction-notes'
                 name='notes'
                 placeholder='notes'
                 value={transactionData.notes}
