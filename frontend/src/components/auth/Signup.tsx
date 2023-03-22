@@ -64,7 +64,7 @@ export default function Signup ({ setIsLoggedIn }: ISignupProps) {
             className="signup-inner-container flex flex-col items-center justify-center border p-5 h-[36em] w-[30em] rounded-md"
         >
             <h1
-                className="signup-title text-4xl text-royalBlue font-sans w-[82%] align-top mb-10"
+                className="signup-title text-4xl font-bold text-royalBlue font-sans w-[82%] align-top mb-10"
             >
                 Spendings Tracker
             </h1>

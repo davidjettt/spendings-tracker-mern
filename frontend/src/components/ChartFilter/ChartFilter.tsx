@@ -1,35 +1,33 @@
 import { ChangeEvent } from "react";
 import { useTheme } from "../../context/ThemeContext";
 
-export interface IChartFilterProps {
+interface IChartFilterProps {
     setFilterMonth: React.Dispatch<React.SetStateAction<string>>
     setFilterYear: React.Dispatch<React.SetStateAction<string>>
 }
 
 export default function ChartFilter (props: IChartFilterProps) {
-    const { theme } = useTheme()
-
+    // const { theme } = useTheme()
+    const theme = localStorage.getItem('theme')
     const handleMonthChange = (e: ChangeEvent<HTMLSelectElement>) => {
         props.setFilterMonth(e.target.value)
     }
-
     const handleYearChange = (e: ChangeEvent<HTMLSelectElement>) => {
         props.setFilterYear(e.target.value)
     }
-
 
   return (
         <div
             className="date-filter-container w-[97%] flex justify-start gap-2 ml-5 mt-2"
         >
             <label
-                className="flex flex-col items-center text-darkGray"
+                className="flex flex-col items-center text-gray75"
                 htmlFor="year-filter"
             >
                 Year
                 <select
                     id='year-filter'
-                    className={`year-filter bg-${theme === 'dark' ? 'bgDarkMode' : 'offWhite'} rounded-md focus:outline-none p-2 border`}
+                    className={`year-filter ${theme === 'dark' ? 'bg-bgDarkMode' : 'bg-offWhite'} rounded-md focus:outline-none p-2 border`}
                     onChange={handleYearChange}
                 >
                     <option value='2023'>2023</option>
@@ -38,7 +36,7 @@ export default function ChartFilter (props: IChartFilterProps) {
                 </select>
             </label>
             <label
-                className="flex flex-col items-center text-darkGray"
+                className="flex flex-col items-center text-gray75"
                 htmlFor="month-filter"
             >
                 Month

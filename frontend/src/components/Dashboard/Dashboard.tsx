@@ -93,7 +93,7 @@ export default function Dashboard ({ setIsLoggedIn }: IDashboardProps) {
 
   return (
     <div
-        className="dashboard-main-container bg-offWhite flex h-[100%] overflow-hidden dark:bg-bgDarkMode"
+        className="dashboard-main-container bg-white flex h-[100%] overflow-hidden dark:bg-bgDarkMode"
     >
       <NavBar setIsLoggedIn={setIsLoggedIn} />
         {
@@ -102,7 +102,7 @@ export default function Dashboard ({ setIsLoggedIn }: IDashboardProps) {
             >
                 <ChartFilter setFilterMonth={setFilterMonth} setFilterYear={setFilterYear} />
                 <Charts chartData={chartData} threeMonthChartData={threeMonthChartData} />
-                <Transactions setIsLoggedIn={setIsLoggedIn} chartDataQuery={chartDataQuery} />
+                <Transactions setIsLoggedIn={setIsLoggedIn} chartDataQuery={chartDataQuery} threeMonthChartDataQuery={threeMonthChartDataQuery} />
                 <div className="height[50px]"></div>
             </div>
         }

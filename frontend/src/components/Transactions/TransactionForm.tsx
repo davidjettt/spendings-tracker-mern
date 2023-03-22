@@ -8,9 +8,10 @@ import { useMutation, useQueryClient, UseQueryResult } from '@tanstack/react-que
 interface ITransactionFormProps {
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
   chartDataQuery: UseQueryResult<void, unknown>
+  threeMonthChartDataQuery: UseQueryResult<void, unknown>
 }
 
-export default function TransactionForm ({chartDataQuery, setIsLoggedIn}: ITransactionFormProps) {
+export default function TransactionForm ({chartDataQuery, threeMonthChartDataQuery, setIsLoggedIn}: ITransactionFormProps) {
   const [ user ] = useState({
     id: localStorage.getItem('id'),
     email: localStorage.getItem('email')
@@ -55,6 +56,7 @@ export default function TransactionForm ({chartDataQuery, setIsLoggedIn}: ITrans
 
     newTransactionMutation.mutate(transactionData)
     chartDataQuery?.refetch()
+    threeMonthChartDataQuery?.refetch()
     setTransactionData(defaultData)
   }
 

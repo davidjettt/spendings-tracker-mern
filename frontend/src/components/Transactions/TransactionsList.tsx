@@ -26,10 +26,25 @@ export default function TransactionsList (props: ITransactionsListProps) {
                 >
                     Transactions
                 </h1>
-                <input
-                    className='search-bar border focus:outline-none rounded-md h-[2em] pl-3'
-                    type='search'
-                />
+                <div
+                    className='transactions-list-top-left'
+                >
+                    <div
+                        className='search-bar-container flex flex-col'
+                    >
+                        <label
+                            htmlFor='search-bar'
+                            className='text-gray75'
+                        >
+                            Search Transaction
+                        </label>
+                        <input
+                            id='search-bar'
+                            className='search-bar focus:outline-none border-none rounded-md h-[2em] pl-3 dark:bg-bgDarkMode dark:text-gray75'
+                            type='search'
+                        />
+                    </div>
+                </div>
 
             </div>
 
@@ -56,22 +71,22 @@ export default function TransactionsList (props: ITransactionsListProps) {
                     props?.transactions &&
                     props.transactions?.map((trans, idx) => (
                         <tr
-                            className='bg-offWhite odd:bg-darkGray dark:bg-transctionsDarkMode dark:odd:bg-bgDarkMode'
+                            className='bg-offWhite odd:bg-white dark:bg-transctionsDarkMode dark:odd:bg-bgDarkMode'
                             key={idx}
                         >
-                            <td className='dark:text-offWhite px-4 py-2'>
+                            <td className='dark:text-gray75 px-4 py-2'>
                                 {trans.date?.slice(0,10)}
                             </td>
-                            <td className='dark:text-offWhite px-4 py-2'>
+                            <td className='dark:text-gray75 px-4 py-2'>
                                 {trans.name}
                             </td>
-                            <td className='dark:text-offWhite px-4 py-2'>
+                            <td className='dark:text-gray75 px-4 py-2'>
                                 {trans.category === 'FoodDrink' ? 'Food & Drink' : trans.category}
                             </td>
                             <td className='text-green px-4 py-2'>
                                 +${trans.amount}
                             </td>
-                            <td className='dark:text-offWhite px-4 py-2'>
+                            <td className='dark:text-gray75 px-4 py-2'>
                                 {trans.notes}
                             </td>
                         </tr>

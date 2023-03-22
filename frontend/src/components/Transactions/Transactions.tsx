@@ -8,6 +8,7 @@ import axios from 'axios'
 interface ITransactionsProps {
     setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
     chartDataQuery: UseQueryResult<void, unknown>
+    threeMonthChartDataQuery: UseQueryResult<void, unknown>
 }
 
 export default function Transactions (props: ITransactionsProps) {
@@ -30,7 +31,7 @@ export default function Transactions (props: ITransactionsProps) {
 
   return (
     <div
-        className="transactions-main-container bg-offWhite dark:bg-transctionsDarkMode border w-[95%] h-[40%] pt-5 pl-5 pb-10"
+        className="transactions-main-container bg-offWhite dark:bg-transctionsDarkMode w-[95%] h-[40%] pt-5 pl-5 pb-10 rounded-t-xl shadow-customLight dark:shadow-customDark"
     >
         <button
             className="transactions-toggle-button border-royalBlue bg-royalBlue text-offWhite p-2 rounded-md"
@@ -42,7 +43,7 @@ export default function Transactions (props: ITransactionsProps) {
             !showForm ?
                 <TransactionsList transactions={transactionsQuery.data} setIsLoggedIn={props.setIsLoggedIn} chartDataQuery={props.chartDataQuery}/>
                 :
-                <TransactionForm chartDataQuery={props.chartDataQuery} setIsLoggedIn={props.setIsLoggedIn} />
+                <TransactionForm chartDataQuery={props.chartDataQuery} threeMonthChartDataQuery={props.threeMonthChartDataQuery} setIsLoggedIn={props.setIsLoggedIn} />
         }
     </div>
   );
