@@ -4,13 +4,17 @@ import { useNavigate } from "react-router-dom";
 import { IAxiosError } from "../../interfaces/IAxiosError";
 import { Link } from "react-router-dom";
 
-export interface ISignupCredentials {
+interface ISignupCredentials {
     email: string,
     password: string,
     repeatPassword: string
 }
 
-export default function Signup () {
+interface ISignupProps {
+    setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export default function Signup ({ setIsLoggedIn }: ISignupProps) {
     let navigate = useNavigate()
     const defaultSignupData: ISignupCredentials = {
         email: '',
@@ -40,11 +44,11 @@ export default function Signup () {
 
         axios.post('/api/auth/signup', signupCredentials)
             .then((user) => {
+                setIsLoggedIn(true)
                 localStorage.setItem('token', user.data.token)
                 navigate('/dashboard')
             })
             .catch((err: IAxiosError) => {
-                console.log('axio err', err)
                 console.log('errors', [...err.response.data.errors])
                 setErrors([...err.response.data.errors])
             })

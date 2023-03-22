@@ -35,7 +35,7 @@ export default function NavBar ({setIsLoggedIn}: INavbarProps) {
 
   return (
         <nav
-            className="nav-bar flex flex-col w-[5%] border-borderLight bg-offWhite dark:bg-transctionsDarkMode"
+            className="nav-bar flex flex-col w-[5%] border-r border-borderLight bg-offWhite dark:bg-transctionsDarkMode"
         >
             <Link
                 className="border rounded px-2"

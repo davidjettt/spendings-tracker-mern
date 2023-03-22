@@ -48,7 +48,7 @@ function App() {
                 <Route path='/' element={<Splash isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />}/>
                 <Route path='/signup' element={
                   <AuthRoute isLoggedIn={isLoggedIn}>
-                    <Signup />
+                    <Signup setIsLoggedIn={setIsLoggedIn} />
                   </AuthRoute>
                 }
                 />
