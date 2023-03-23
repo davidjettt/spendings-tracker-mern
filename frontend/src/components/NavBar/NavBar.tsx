@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useCurrentUser } from "../../context/CurrentUserContext";
 import { useTheme } from "../../context/ThemeContext";
+import lightIcon from '../../assets/lightActiveIcon.svg'
+import darkIcon from '../../assets/darkActiveIcon.svg'
 
 interface INavbarProps {
     setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
@@ -38,26 +40,37 @@ export default function NavBar ({setIsLoggedIn}: INavbarProps) {
 
   return (
         <nav
-            className="nav-bar flex flex-col w-[5%] bg-offWhite dark:bg-transctionsDarkMode dark:border-ray75"
+            className="nav-bar flex flex-col items-center w-[5%] bg-offWhite dark:bg-transctionsDarkMode dark:border-ray75"
         >
-            <Link
-                className="border rounded px-2"
-                to='/dashboard'
+            <div
+                className=""
             >
-                Dashboard
-            </Link>
-            <button
-                className="logout-button border rounded px-2"
-                onClick={handleLogout}
-            >
-                LOGOUT
-            </button>
-            <button
-                className="theme-btn"
-                onClick={handleThemeChange}
-            >
-                {theme === 'light'? 'Dark mode' : 'Light mode'}
-            </button>
+                <Link
+                    className="border rounded px-2"
+                    to='/dashboard'
+                >
+                    Dashboard
+                </Link>
+                <button
+                    className="logout-button border rounded px-2"
+                    onClick={handleLogout}
+                >
+                    LOGOUT
+                </button>
+                <button
+                    className="theme-btn"
+                    onClick={handleThemeChange}
+                >
+                    {/* {theme === 'light'? 'Dark mode' : 'Light mode'} */}
+                    {
+                        theme === 'light' ?
+                            <img className="w-[50px]" src={darkIcon} alt='dark icon' />
+                        :
+                            <img className="w-[50px]" src={lightIcon} alt='light icon' />
+                    }
+                </button>
+
+            </div>
         </nav>
   );
 }

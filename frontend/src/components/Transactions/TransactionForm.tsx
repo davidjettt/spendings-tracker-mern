@@ -76,27 +76,27 @@ export default function TransactionForm ({chartDataQuery, setShowForm, threeMont
           Post a transaction
         </h1>
         <button
-            className="transactions-toggle-button border-royalBlue bg-royalBlue text-offWhite p-1 rounded-md"
+            className="transactions-toggle-button border-royalBlue bg-royalBlue text-offWhite p-1.5 rounded-md"
             onClick={() => setShowForm(false)}
         >
             See transactions
         </button>
       </div>
         <div
-          className='transaction-form-container w-[95%] h-full'
+          className='transaction-form-container w-[95%] h-full flex items-center'
         >
           <form
-            className='trans-form w-[100%] flex flex-col items-center justify-center h-full'
+            className='trans-form w-[100%] flex flex-col items-center justify-center h-[90%]'
             onSubmit={handleSubmit}
           >
             <div
-              className='form-container w-[50%] h-full grid grid-cols-3'
+              className='form-container w-[90%] h-[200px] grid grid-cols-5'
             >
                 <div
-                  className='trans-name-container'
+                  className='trans-name-container col-span-2'
                 >
                   <label
-                    className='transaction-name-label flex flex-col dark:text-gray75'
+                    className='transaction-name-label flex flex-col dark:text-gray75 '
                     htmlFor='transaction-name'
                   >
                     Name
@@ -106,7 +106,6 @@ export default function TransactionForm ({chartDataQuery, setShowForm, threeMont
                     id='transaction-name'
                     type='text'
                     name='name'
-                    placeholder='Name'
                     value={transactionData.name}
                     onChange={handleInputChange}
                   />
@@ -118,19 +117,18 @@ export default function TransactionForm ({chartDataQuery, setShowForm, threeMont
                     Category
                   </label>
                   <select
-                    className='border p-2 rounded-md font-sans dark:border-none dark:bg-bgDarkMode dark:text-gray75'
+                    className='border p-2.5 rounded-md font-sans dark:border-none dark:bg-bgDarkMode dark:text-gray75'
                     name='category'
                     value={transactionData.category}
                     onChange={handleInputChange}
                   >
-                    <option value='' defaultValue=''>Category</option>
-                    <option value='Utilities'>Utilities</option>
                     <option value='Entertainment'>Entertainment</option>
-                    <option value='Travel'>Travel</option>
                     <option value='FoodDrink'>Food & Drink</option>
                     <option value='Groceries'>Groceries</option>
-                    <option value='Shopping'>Shopping</option>
                     <option value='Other'>Other</option>
+                    <option value='Shopping'>Shopping</option>
+                    <option value='Travel'>Travel</option>
+                    <option value='Utilities'>Utilities</option>
                   </select>
                 </div>
                 <div
@@ -162,7 +160,7 @@ export default function TransactionForm ({chartDataQuery, setShowForm, threeMont
                     Amount
                   </label>
                   <input
-                    className='transaction-amount-input shadow appearance-none border dark:border-none focus:outline-none pl-2 py-1 rounded-md font-sans dark:bg-bgDarkMode dark:text-gray75'
+                    className='transaction-amount-input shadow appearance-none border dark:border-none focus:outline-none pl-2 py-2 rounded-md font-sans dark:bg-bgDarkMode dark:text-gray75'
                     type='number'
                     id='transaction-amount'
                     name='amount'
@@ -172,7 +170,7 @@ export default function TransactionForm ({chartDataQuery, setShowForm, threeMont
                   />
                 </div>
                 <div
-                  className='trans-notes-container'
+                  className='trans-notes-container col-span-2'
                 >
                   <label
                     className='transaction-notes-label flex flex-col dark:text-gray75'
@@ -181,22 +179,21 @@ export default function TransactionForm ({chartDataQuery, setShowForm, threeMont
                     Notes
                   </label>
                   <textarea
-                    className='transaction-notes-input rounded-md dark:border-none p-2 resize-x dark:bg-bgDarkMode dark:text-gray75 focus:outline-none'
+                    className='transaction-notes-input overflow-y-auto rounded-md dark:border-none p-2 resize-none dark:bg-bgDarkMode dark:text-gray75 focus:outline-none'
                     cols={55}
                     id='transaction-notes'
                     name='notes'
-                    placeholder='notes'
                     value={transactionData.notes}
                     onChange={handleInputChange}
                   />
                 </div>
-            </div>
             <button
-              className={`transaction-form-button bg-royalBlue text-offWhite p-2 rounded-md disabled:${newTransactionMutation.isLoading ? 'opacity-70' : 'opacity-100'}`}
+              className={`transaction-form-button w-fit h-fit justify-self-center self-center bg-royalBlue text-offWhite p-3 rounded-xl disabled:${newTransactionMutation.isLoading ? 'opacity-70' : 'opacity-100'}`}
               disabled={newTransactionMutation.isLoading}
             >
-              Submit
+              Post transaction
             </button>
+            </div>
           </form>
 
         </div>
