@@ -31,9 +31,6 @@ export default function Dashboard ({ setIsLoggedIn }: IDashboardProps) {
         id: localStorage.getItem('id'),
         email: localStorage.getItem('email')
     })
-    console.log('DASHBOARD CURRENT USER', currentUser)
-    // console.log('USER LOCAL STORAGE', user)
-
     const [filterMonth, setFilterMonth] = useState<string>('1')
     const [filterYear, setFilterYear] = useState<string>('2023')
     const [chartData, setChartData] = useState<ICategoryTotals>(defaultData)
@@ -81,15 +78,12 @@ export default function Dashboard ({ setIsLoggedIn }: IDashboardProps) {
     })
 
     useEffect(() => {
-      // fetchChartData()
-      // fetchThreeMonthChartData()
       chartDataQuery.refetch()
       threeMonthChartDataQuery.refetch()
     },[filterMonth, filterYear])
 
 
     // if (chartDataQuery.isLoading) console.log('loading')
-
 
   return (
     <div

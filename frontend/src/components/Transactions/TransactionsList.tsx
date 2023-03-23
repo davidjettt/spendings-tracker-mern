@@ -8,11 +8,11 @@ interface ITransactionsListProps {
     setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
     chartDataQuery: UseQueryResult<void, unknown>
     transactions: ITransactionData[]
+    setShowForm: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 
 export default function TransactionsList (props: ITransactionsListProps) {
-    const {theme} = useTheme()
   return (
     <>
         <div
@@ -21,11 +21,22 @@ export default function TransactionsList (props: ITransactionsListProps) {
             <div
                 className='transactions-list-top flex justify-between'
             >
-                <h1
-                    className='transactions-list-title text-royalBlue text-2xl mb-5 font-[600]'
+                <div
+                    className='transactions-list-right flex h-fit gap-2'
                 >
-                    Transactions
-                </h1>
+                    <h1
+                        className='transactions-list-title text-royalBlue text-2xl font-bold'
+                    >
+                        Transactions
+                    </h1>
+                    <button
+                        className="transactions-toggle-button border-royalBlue bg-royalBlue text-offWhite p-1 rounded-md"
+                        onClick={() => props.setShowForm(true)}
+                    >
+                        Post transaction
+                    </button>
+
+                </div>
                 <div
                     className='transactions-list-top-left'
                 >
@@ -36,7 +47,7 @@ export default function TransactionsList (props: ITransactionsListProps) {
                             htmlFor='search-bar'
                             className='text-gray75'
                         >
-                            Search Transaction
+                            Search by name
                         </label>
                         <input
                             id='search-bar'
@@ -50,7 +61,7 @@ export default function TransactionsList (props: ITransactionsListProps) {
 
         </div>
         <div
-            className={`h-[100%] overflow-y-auto ${theme === 'dark' ? 'scrollbar': ''}`}
+            className={`h-[100%] overflow-y-auto dark:scrollbar`}
         >
             <table className='transaction-table w-full h-[80%] border-collapse'>
                 <thead

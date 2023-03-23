@@ -42,7 +42,7 @@ function App() {
     <div className="App h-[100vh]">
       <QueryClientProvider client={client}>
         <ReactQueryDevtools />
-        {/* <ThemeProvider> */}
+        <ThemeProvider>
           <CurrentUserProvider>
             <BrowserRouter>
               <Routes>
@@ -63,7 +63,7 @@ function App() {
               </Routes>
             </BrowserRouter>
           </CurrentUserProvider>
-        {/* </ThemeProvider> */}
+        </ThemeProvider>
       </QueryClientProvider>
     </div>
   );

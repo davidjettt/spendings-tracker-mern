@@ -13,7 +13,7 @@ interface ITransactionsProps {
 
 export default function Transactions (props: ITransactionsProps) {
     const [showForm, setShowForm] = useState<boolean>(false)
-    const [transactions, setTransactions] = useState<ITransactionData[]>([])
+    // const [transactions, setTransactions] = useState<ITransactionData[]>([])
     const [user] = useState({
         id: localStorage.getItem('id')
     })
@@ -31,19 +31,19 @@ export default function Transactions (props: ITransactionsProps) {
 
   return (
     <div
-        className="transactions-main-container bg-offWhite dark:bg-transctionsDarkMode w-[95%] h-[40%] pt-5 pl-5 pb-10 rounded-t-xl shadow-customLight dark:shadow-customDark"
+        className="transactions-main-container bg-offWhite dark:bg-transctionsDarkMode w-[95%] h-[40%] pt-3 pl-5 pb-10 rounded-t-xl shadow-customLight dark:shadow-customDark"
     >
-        <button
-            className="transactions-toggle-button border-royalBlue bg-royalBlue text-offWhite p-2 rounded-md"
+        {/* <button
+            className="transactions-toggle-button border-royalBlue bg-royalBlue text-offWhite p-1 rounded-md"
             onClick={() => setShowForm(!showForm)}
         >
-            {!showForm ? 'Post a Transaction' : 'See Transactions'}
-        </button>
+            {!showForm ? 'Post Transaction' : 'See Transactions'}
+        </button> */}
         {
             !showForm ?
-                <TransactionsList transactions={transactionsQuery.data} setIsLoggedIn={props.setIsLoggedIn} chartDataQuery={props.chartDataQuery}/>
+                <TransactionsList setShowForm={setShowForm} transactions={transactionsQuery.data} setIsLoggedIn={props.setIsLoggedIn} chartDataQuery={props.chartDataQuery}/>
                 :
-                <TransactionForm chartDataQuery={props.chartDataQuery} threeMonthChartDataQuery={props.threeMonthChartDataQuery} setIsLoggedIn={props.setIsLoggedIn} />
+                <TransactionForm setShowForm={setShowForm} chartDataQuery={props.chartDataQuery} threeMonthChartDataQuery={props.threeMonthChartDataQuery} setIsLoggedIn={props.setIsLoggedIn} />
         }
     </div>
   );

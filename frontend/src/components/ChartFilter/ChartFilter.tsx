@@ -8,7 +8,7 @@ interface IChartFilterProps {
 
 export default function ChartFilter (props: IChartFilterProps) {
     // const { theme } = useTheme()
-    const theme = localStorage.getItem('theme')
+
     const handleMonthChange = (e: ChangeEvent<HTMLSelectElement>) => {
         props.setFilterMonth(e.target.value)
     }
@@ -27,7 +27,7 @@ export default function ChartFilter (props: IChartFilterProps) {
                 Year
                 <select
                     id='year-filter'
-                    className={`year-filter ${theme === 'dark' ? 'bg-bgDarkMode' : 'bg-offWhite'} rounded-md focus:outline-none p-2 border`}
+                    className={`year-filter bg-offWhite dark:bg-bgDarkMode rounded-md focus:outline-none p-2 border`}
                     onChange={handleYearChange}
                 >
                     <option value='2023'>2023</option>
@@ -42,7 +42,7 @@ export default function ChartFilter (props: IChartFilterProps) {
                 Month
                 <select
                     id='month-filter'
-                    className={`month-filter bg-${theme === 'dark' ? 'bgDarkMode' : 'offWhite'} rounded-md focus:outline-none p-2 border`}
+                    className={`month-filter bg-offWhite dark:bg-bgDarkMode rounded-md focus:outline-none p-2 border`}
                     onChange={handleMonthChange}
                 >
                     <option value='1'>1</option>
