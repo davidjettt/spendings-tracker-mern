@@ -27,3 +27,7 @@
       background: #424042;
     }
   }
+
+  .logout-icon {
+    filter: hue-rotate(180deg) brightness(70%) contrast(120%);
+  }

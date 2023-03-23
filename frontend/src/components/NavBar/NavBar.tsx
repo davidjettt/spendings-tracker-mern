@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useCurrentUser } from "../../context/CurrentUserContext";
 import { useTheme } from "../../context/ThemeContext";
 import lightIcon from '../../assets/lightActiveIcon.svg'
 import darkIcon from '../../assets/darkActiveIcon.svg'
+import logoutIcon from '../../assets/logoutIcon.svg'
+import '../../index.css'
 
 interface INavbarProps {
     setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
@@ -43,20 +44,8 @@ export default function NavBar ({setIsLoggedIn}: INavbarProps) {
             className="nav-bar flex flex-col items-center w-[5%] bg-offWhite dark:bg-transctionsDarkMode dark:border-ray75"
         >
             <div
-                className=""
+                className="flex flex-col h-[20%] justify-evenly"
             >
-                <Link
-                    className="border rounded px-2"
-                    to='/dashboard'
-                >
-                    Dashboard
-                </Link>
-                <button
-                    className="logout-button border rounded px-2"
-                    onClick={handleLogout}
-                >
-                    LOGOUT
-                </button>
                 <button
                     className="theme-btn"
                     onClick={handleThemeChange}
@@ -68,6 +57,12 @@ export default function NavBar ({setIsLoggedIn}: INavbarProps) {
                         :
                             <img className="w-[50px]" src={lightIcon} alt='light icon' />
                     }
+                </button>
+                <button
+                    className="logout-button"
+                    onClick={handleLogout}
+                >
+                    <img className="logout-icon" src={logoutIcon} alt='logout' />
                 </button>
 
             </div>
