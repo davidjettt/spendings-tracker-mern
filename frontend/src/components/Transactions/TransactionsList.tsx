@@ -103,6 +103,26 @@ export default function TransactionsList (props: ITransactionsListProps) {
                         </tr>
                     ))
                 }
+                        <tr
+                            className='bg-offWhite odd:bg-white dark:bg-transctionsDarkMode dark:odd:bg-bgDarkMode'
+
+                        >
+                            <td className='dark:text-gray75 px-4 py-2'>
+
+                            </td>
+                            <td className='dark:text-gray75 px-4 py-2'>
+
+                            </td>
+                            <td className='dark:text-gray75 px-4 py-2'>
+
+                            </td>
+                            <td className='text-green px-4 py-2'>
+
+                            </td>
+                            <td className='dark:text-gray75 px-4 py-2'>
+
+                            </td>
+                        </tr>
                 </tbody>
             </table>
         </div>

@@ -27,6 +27,7 @@ export default function Dashboard ({ setIsLoggedIn }: IDashboardProps) {
       'Shopping': 0,
       'Other': 0
   }
+  if (!localStorage.getItem('theme')) localStorage.setItem('theme', 'dark')
     const [ user ] = useState({
         id: localStorage.getItem('id'),
         email: localStorage.getItem('email')
