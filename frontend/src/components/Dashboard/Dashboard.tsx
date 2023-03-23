@@ -31,9 +31,6 @@ export default function Dashboard ({ setIsLoggedIn }: IDashboardProps) {
         id: localStorage.getItem('id'),
         email: localStorage.getItem('email')
     })
-    console.log('DASHBOARD CURRENT USER', currentUser)
-    // console.log('USER LOCAL STORAGE', user)
-
     const [filterMonth, setFilterMonth] = useState<string>('1')
     const [filterYear, setFilterYear] = useState<string>('2023')
     const [chartData, setChartData] = useState<ICategoryTotals>(defaultData)
@@ -81,8 +78,6 @@ export default function Dashboard ({ setIsLoggedIn }: IDashboardProps) {
     })
 
     useEffect(() => {
-      // fetchChartData()
-      // fetchThreeMonthChartData()
       chartDataQuery.refetch()
       threeMonthChartDataQuery.refetch()
     },[filterMonth, filterYear])
@@ -90,10 +85,9 @@ export default function Dashboard ({ setIsLoggedIn }: IDashboardProps) {
 
     // if (chartDataQuery.isLoading) console.log('loading')
 
-
   return (
     <div
-        className="dashboard-main-container bg-offWhite flex h-[100%] overflow-hidden dark:bg-bgDarkMode"
+        className="dashboard-main-container bg-white flex h-[100%] overflow-hidden dark:bg-bgDarkMode"
     >
       <NavBar setIsLoggedIn={setIsLoggedIn} />
         {
@@ -102,7 +96,7 @@ export default function Dashboard ({ setIsLoggedIn }: IDashboardProps) {
             >
                 <ChartFilter setFilterMonth={setFilterMonth} setFilterYear={setFilterYear} />
                 <Charts chartData={chartData} threeMonthChartData={threeMonthChartData} />
-                <Transactions setIsLoggedIn={setIsLoggedIn} chartDataQuery={chartDataQuery} />
+                <Transactions setIsLoggedIn={setIsLoggedIn} chartDataQuery={chartDataQuery} threeMonthChartDataQuery={threeMonthChartDataQuery} />
                 <div className="height[50px]"></div>
             </div>
         }

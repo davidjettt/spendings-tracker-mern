@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useCurrentUser } from "../../context/CurrentUserContext";
@@ -11,7 +11,8 @@ interface INavbarProps {
 export default function NavBar ({setIsLoggedIn}: INavbarProps) {
     let navigate = useNavigate()
     const { setCurrentUser } = useCurrentUser()
-    const { theme, setTheme } = useTheme()
+    // const { theme, setTheme } = useTheme()
+    const [ theme, setTheme ] = useState(localStorage.getItem('theme'))
 
     const handleLogout = (): void => {
         localStorage.removeItem('token')
@@ -25,7 +26,9 @@ export default function NavBar ({setIsLoggedIn}: INavbarProps) {
     }
 
     const handleThemeChange = () => {
+        // setTheme(theme === 'light' ? 'dark' : 'light')
         setTheme(theme === 'light' ? 'dark' : 'light')
+        localStorage.setItem('theme', theme === 'light' ? 'dark' : 'light')
     }
 
     useEffect(() => {
@@ -35,7 +38,7 @@ export default function NavBar ({setIsLoggedIn}: INavbarProps) {
 
   return (
         <nav
-            className="nav-bar flex flex-col w-[5%] border-r border-borderLight bg-offWhite dark:bg-transctionsDarkMode"
+            className="nav-bar flex flex-col w-[5%] bg-offWhite dark:bg-transctionsDarkMode dark:border-ray75"
         >
             <Link
                 className="border rounded px-2"

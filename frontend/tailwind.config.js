@@ -16,10 +16,11 @@ module.exports = {
     colors: {
       'offWhite': '#f5f5f5',
       'bgDarkMode': '#2B2A2B',
-      'darkGray': '#BFBDBF',
+      'gray75': '#BFBDBF',
       'transctionsDarkMode': '#424042',
       'borderLight': '#D6D9DC',
       'blue': '#1fb6ff',
+      'white': '#ffffff',
       'red': '#FF0000',
       'purple': '#7e5bef',
       'pink': '#ff49db',
@@ -53,7 +54,11 @@ module.exports = {
       },
       borderRadius: {
         '4xl': '4rem',
-      }
+      },
+      boxShadow: {
+        'customDark': '1px 1px 1px 2px rgb(66,64,66)',
+        'customLight': '1px 1px 1px 2px rgb(255,255,255)',
+      },
     },
     variants: {
       extend: {

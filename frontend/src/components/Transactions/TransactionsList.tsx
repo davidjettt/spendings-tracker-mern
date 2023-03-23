@@ -8,11 +8,11 @@ interface ITransactionsListProps {
     setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
     chartDataQuery: UseQueryResult<void, unknown>
     transactions: ITransactionData[]
+    setShowForm: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 
 export default function TransactionsList (props: ITransactionsListProps) {
-    const {theme} = useTheme()
   return (
     <>
         <div
@@ -21,21 +21,47 @@ export default function TransactionsList (props: ITransactionsListProps) {
             <div
                 className='transactions-list-top flex justify-between'
             >
-                <h1
-                    className='transactions-list-title text-royalBlue text-2xl mb-5 font-[600]'
+                <div
+                    className='transactions-list-right flex h-fit gap-2'
                 >
-                    Transactions
-                </h1>
-                <input
-                    className='search-bar border focus:outline-none rounded-md h-[2em] pl-3'
-                    type='search'
-                />
+                    <h1
+                        className='transactions-list-title text-royalBlue text-2xl font-bold'
+                    >
+                        Transactions
+                    </h1>
+                    <button
+                        className="transactions-toggle-button border-royalBlue bg-royalBlue text-offWhite p-1 rounded-md"
+                        onClick={() => props.setShowForm(true)}
+                    >
+                        Post transaction
+                    </button>
+
+                </div>
+                <div
+                    className='transactions-list-top-left'
+                >
+                    <div
+                        className='search-bar-container flex flex-col'
+                    >
+                        <label
+                            htmlFor='search-bar'
+                            className='text-gray75'
+                        >
+                            Search by name
+                        </label>
+                        <input
+                            id='search-bar'
+                            className='search-bar focus:outline-none border-none rounded-md h-[2em] pl-3 dark:bg-bgDarkMode dark:text-gray75'
+                            type='search'
+                        />
+                    </div>
+                </div>
 
             </div>
 
         </div>
         <div
-            className={`h-[100%] overflow-y-auto ${theme === 'dark' ? 'scrollbar': ''}`}
+            className={`h-[100%] overflow-y-auto dark:scrollbar`}
         >
             <table className='transaction-table w-full h-[80%] border-collapse'>
                 <thead
@@ -56,22 +82,22 @@ export default function TransactionsList (props: ITransactionsListProps) {
                     props?.transactions &&
                     props.transactions?.map((trans, idx) => (
                         <tr
-                            className='bg-offWhite odd:bg-darkGray dark:bg-transctionsDarkMode dark:odd:bg-bgDarkMode'
+                            className='bg-offWhite odd:bg-white dark:bg-transctionsDarkMode dark:odd:bg-bgDarkMode'
                             key={idx}
                         >
-                            <td className='dark:text-offWhite px-4 py-2'>
+                            <td className='dark:text-gray75 px-4 py-2'>
                                 {trans.date?.slice(0,10)}
                             </td>
-                            <td className='dark:text-offWhite px-4 py-2'>
+                            <td className='dark:text-gray75 px-4 py-2'>
                                 {trans.name}
                             </td>
-                            <td className='dark:text-offWhite px-4 py-2'>
+                            <td className='dark:text-gray75 px-4 py-2'>
                                 {trans.category === 'FoodDrink' ? 'Food & Drink' : trans.category}
                             </td>
                             <td className='text-green px-4 py-2'>
                                 +${trans.amount}
                             </td>
-                            <td className='dark:text-offWhite px-4 py-2'>
+                            <td className='dark:text-gray75 px-4 py-2'>
                                 {trans.notes}
                             </td>
                         </tr>
