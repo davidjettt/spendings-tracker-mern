@@ -32,8 +32,10 @@ function App() {
             Authorization: token
         }
     }).then(res => {
+      console.log('VALID')
       setIsLoggedIn(true)
     }).catch(err => {
+      console.log('CATCH')
       setIsLoggedIn(false)
     })
   },[])
@@ -46,7 +48,11 @@ function App() {
           <CurrentUserProvider>
             <BrowserRouter>
               <Routes>
-                <Route path='/' element={<Splash isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />}/>
+                <Route path='/' element={
+                  <AuthRoute isLoggedIn={isLoggedIn}>
+                    <Splash isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+                  </AuthRoute>
+                }/>
                 <Route path='/signup' element={
                   <AuthRoute isLoggedIn={isLoggedIn}>
                     <Signup setIsLoggedIn={setIsLoggedIn} />
