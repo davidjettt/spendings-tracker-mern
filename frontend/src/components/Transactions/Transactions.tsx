@@ -6,7 +6,7 @@ import TransactionsList from "./TransactionsList";
 import axios from 'axios'
 
 interface ITransactionsProps {
-    setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
+    // setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
     chartDataQuery: UseQueryResult<void, unknown>
     threeMonthChartDataQuery: UseQueryResult<void, unknown>
 }
@@ -41,9 +41,9 @@ export default function Transactions (props: ITransactionsProps) {
         </button> */}
         {
             !showForm ?
-                <TransactionsList setShowForm={setShowForm} transactions={transactionsQuery.data} setIsLoggedIn={props.setIsLoggedIn} chartDataQuery={props.chartDataQuery}/>
+                <TransactionsList setShowForm={setShowForm} transactions={transactionsQuery.data} chartDataQuery={props.chartDataQuery}/>
                 :
-                <TransactionForm setShowForm={setShowForm} chartDataQuery={props.chartDataQuery} threeMonthChartDataQuery={props.threeMonthChartDataQuery} setIsLoggedIn={props.setIsLoggedIn} />
+                <TransactionForm setShowForm={setShowForm} chartDataQuery={props.chartDataQuery} threeMonthChartDataQuery={props.threeMonthChartDataQuery} />
         }
     </div>
   );

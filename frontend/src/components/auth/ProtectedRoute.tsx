@@ -1,17 +1,26 @@
-import { useState } from 'react'
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
-export interface IProtectedRouteProps {
-    children: JSX.Element,
+interface ProtectedRouteProps {
+    // redirectedPath: string;
+    // isLoggedIn: boolean;
+    // outlet: JSX.Element
     isLoggedIn: boolean
+    children: JSX.Element
 }
 
-export default function ProtectedRoute (props: IProtectedRouteProps) {
-    const [ loadPage, setLoadPage ] = useState<boolean>(false)
-    let location = useLocation()
-
+export default function ProtectedRoute (props: ProtectedRouteProps) {
     if (!props.isLoggedIn) {
-        return <Navigate to='/' state={{ from: location }} replace />
+      return <Navigate to='/' replace />
     }
-  return props.children
-}
+    return props.children
+  }
+
+// const ProtectedRoute: React.FC<ProtectedRouteProps> = ({isLoggedIn, redirectedPath, outlet}) => {
+//   if (isLoggedIn) {
+//     return outlet
+//   } else {
+//     return <Navigate to={redirectedPath} replace />
+//   }
+// };
+
+// export default ProtectedRoute;

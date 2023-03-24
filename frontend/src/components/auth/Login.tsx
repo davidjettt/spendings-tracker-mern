@@ -10,11 +10,11 @@ interface ILoginCredentials {
 }
 
 interface ILoginProps {
-    isLoggedIn: boolean,
+    // isLoggedIn: boolean,
     setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function Login ({ isLoggedIn, setIsLoggedIn }: ILoginProps) {
+export default function Login ({ setIsLoggedIn }: ILoginProps) {
     let navigate = useNavigate()
     const { setCurrentUser } = useCurrentUser()
     const [ loadPage, setLoadPage ] = useState<boolean>(false)
@@ -69,7 +69,6 @@ export default function Login ({ isLoggedIn, setIsLoggedIn }: ILoginProps) {
 
   return (
     <>
- {!isLoggedIn ?
         <div
             className="login-container w-[80%] h-[60%]"
         >
@@ -123,7 +122,7 @@ export default function Login ({ isLoggedIn, setIsLoggedIn }: ILoginProps) {
                     Demo Login
                 </button>
             </form>
-        </div> : <Navigate to='/dashboard' replace />}
+        </div>
     </>
   );
 }

@@ -6,13 +6,13 @@ import "react-datepicker/dist/react-datepicker.css"
 import { useMutation, useQueryClient, UseQueryResult } from '@tanstack/react-query'
 
 interface ITransactionFormProps {
-  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
+  // setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
   chartDataQuery: UseQueryResult<void, unknown>
   threeMonthChartDataQuery: UseQueryResult<void, unknown>
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function TransactionForm ({chartDataQuery, setShowForm, threeMonthChartDataQuery, setIsLoggedIn}: ITransactionFormProps) {
+export default function TransactionForm ({chartDataQuery, setShowForm, threeMonthChartDataQuery}: ITransactionFormProps) {
   const [ user ] = useState({
     id: localStorage.getItem('id'),
     email: localStorage.getItem('email')

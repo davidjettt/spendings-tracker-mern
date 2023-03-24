@@ -5,7 +5,7 @@ import '../../index.css'
 import { useTheme } from '../../context/ThemeContext';
 
 interface ITransactionsListProps {
-    setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
+    // setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
     chartDataQuery: UseQueryResult<void, unknown>
     transactions: ITransactionData[]
     setShowForm: React.Dispatch<React.SetStateAction<boolean>>

@@ -5,7 +5,7 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import Signup from "./components/auth/Signup";
 import Splash from "./components/Splash/Splash";
-import CurrentUserProvider from "./context/CurrentUserContext";
+import CurrentUserProvider, { useCurrentUser } from "./context/CurrentUserContext";
 import AuthRoute from "./components/auth/AuthRoute";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -23,9 +23,10 @@ function App() {
   })
   const [ isLoggedIn, setIsLoggedIn ] = useState<boolean>(false)
 
-  // Authenticates the token in order to provide access to protected routes
+  // // Authenticates the token in order to provide access to protected routes
   useEffect(() => {
-    console.log('APP USE EFFECT')
+    console.log('APP MOUNTED')
+    // console.log(currentUser)
     const token = localStorage.getItem('token')
     axios.get('/api/auth/currentUser', {
         headers: {
@@ -50,7 +51,7 @@ function App() {
               <Routes>
                 <Route path='/' element={
                   <AuthRoute isLoggedIn={isLoggedIn}>
-                    <Splash isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+                    <Splash setIsLoggedIn={setIsLoggedIn} />
                   </AuthRoute>
                 }/>
                 <Route path='/signup' element={
@@ -61,10 +62,13 @@ function App() {
                 />
                 <Route path='/dashboard' element={
                   <ProtectedRoute isLoggedIn={isLoggedIn}>
-                    <Dashboard isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+                    <Dashboard setIsLoggedIn={setIsLoggedIn} />
                   </ProtectedRoute>
                 }
                 />
+                {/* <Route path='/' element={<Splash setIsLoggedIn={setIsLoggedIn} />} />
+                <Route path='/signup' element={<Signup setIsLoggedIn={setIsLoggedIn} />} /> */}
+                {/* <Route path='/dashboard' element={<ProtectedRoute isLoggedIn={isLoggedIn} redirectedPath='/login' outlet={<Dashboard setIsLoggedIn={setIsLoggedIn} />} />} /> */}
                 <Route path="*" element={<Navigate to="/dashboard" replace />} />
               </Routes>
             </BrowserRouter>

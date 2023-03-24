@@ -2,11 +2,11 @@ import { Link } from "react-router-dom";
 import Login from "../auth/Login";
 
 export interface ISplashProps {
-  isLoggedIn: boolean,
+  // isLoggedIn: boolean,
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function Splash ({ isLoggedIn, setIsLoggedIn }: ISplashProps) {
+export default function Splash ({  setIsLoggedIn }: ISplashProps) {
   return (
     <>
       <div
@@ -23,7 +23,7 @@ export default function Splash ({ isLoggedIn, setIsLoggedIn }: ISplashProps) {
           >
             Sign in to Spendings Tracker
           </h2>
-          <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
+          <Login setIsLoggedIn={setIsLoggedIn}/>
           <span
             className="sign-up-link-text mt-2"
           >

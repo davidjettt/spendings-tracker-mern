@@ -10,7 +10,7 @@ import NavBar from "../NavBar/NavBar";
 import ChartFilter from "../ChartFilter/ChartFilter";
 
 interface IDashboardProps {
-    isLoggedIn: boolean,
+    // isLoggedIn: boolean,
     setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
 }
 
@@ -97,7 +97,7 @@ export default function Dashboard ({ setIsLoggedIn }: IDashboardProps) {
             >
                 <ChartFilter setFilterMonth={setFilterMonth} setFilterYear={setFilterYear} />
                 <Charts chartData={chartData} threeMonthChartData={threeMonthChartData} />
-                <Transactions setIsLoggedIn={setIsLoggedIn} chartDataQuery={chartDataQuery} threeMonthChartDataQuery={threeMonthChartDataQuery} />
+                <Transactions chartDataQuery={chartDataQuery} threeMonthChartDataQuery={threeMonthChartDataQuery} />
                 <div className="height[50px]"></div>
             </div>
         }
