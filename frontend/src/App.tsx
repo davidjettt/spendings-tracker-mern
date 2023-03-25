@@ -21,7 +21,7 @@ function App() {
       }
     }
   })
-  const [ isLoggedIn, setIsLoggedIn ] = useState<boolean>(false)
+  const [ isLoggedIn, setIsLoggedIn ] = useState<boolean>(localStorage.getItem('token') !== '')
 
   // // Authenticates the token in order to provide access to protected routes
   useEffect(() => {

@@ -2,17 +2,16 @@ import { Link } from "react-router-dom";
 import Login from "../auth/Login";
 
 export interface ISplashProps {
-  // isLoggedIn: boolean,
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function Splash ({  setIsLoggedIn }: ISplashProps) {
+export default function Splash ({ setIsLoggedIn }: ISplashProps) {
   return (
     <>
       <div
-          className="splash-page-container h-screen flex justify-center items-center"
+          className="splash-page-container h-screen flex justify-center items-center dark:bg-bgDarkMode"
       >
-        <div className="splash-page-inner-container flex flex-col items-center justify-center border px-5 h-[35em] w-[30em] rounded-md">
+        <div className="splash-page-inner-container flex flex-col items-center justify-center border px-5 h-[35em] w-[30em] rounded-md dark:bg-transctionsDarkMode">
           <h1
               className="text-3xl font-bold text-royalBlue font-sans w-[82%] align-top mb-10"
           >

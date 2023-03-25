@@ -1,6 +1,6 @@
-import { useState, useEffect, ChangeEvent } from "react";
+import { useState, ChangeEvent } from "react";
 import axios from "axios";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { IAxiosError } from "../../interfaces/IAxiosError";
 import { useCurrentUser } from "../../context/CurrentUserContext";
 
@@ -17,23 +17,8 @@ interface ILoginProps {
 export default function Login ({ setIsLoggedIn }: ILoginProps) {
     let navigate = useNavigate()
     const { setCurrentUser } = useCurrentUser()
-    const [ loadPage, setLoadPage ] = useState<boolean>(false)
     const [ loginCredentials, setLoginCredentials ] = useState<ILoginCredentials>({email: '', password: ''})
     const [ errors, setErrors ] = useState<string[]>([])
-
-    // checks if token in local storage is a valid token
-    // useEffect(() => {
-    //     const token = localStorage.getItem('token')
-    //     axios.get('/api/auth/currentUser', {
-    //         headers: {
-    //             Authorization: token
-    //         }
-    //     }).then(res => {
-    //         navigate('/dashboard')
-    //     }).catch(err => {
-    //         setLoadPage(true)
-    //     })
-    // },[navigate])
 
     // Stores user credentials in state
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -81,7 +66,7 @@ export default function Login ({ setIsLoggedIn }: ILoginProps) {
                 >
                     <label
                         htmlFor="login-email"
-                        className={`login-email-label flex flex-col font-sans ${errors.length > 0 ? 'text-red' : 'text-black'}`}
+                        className={`login-email-label flex flex-col font-sans ${errors.length > 0 ? 'text-red' : 'text-black'} dark:text-gray75`}
                     >
                         Email {errors.length ? `- ${errors[0]}` : ''}
                     </label>
@@ -96,7 +81,7 @@ export default function Login ({ setIsLoggedIn }: ILoginProps) {
                     />
                     <label
                         htmlFor="login-pw"
-                        className={`login-pw-label flex flex-col font-sans ${errors.length > 0 ? 'text-red' : 'text-black'}`}
+                        className={`login-pw-label flex flex-col font-sans ${errors.length > 0 ? 'text-red' : 'text-black'} dark:text-gray75`}
                     >
                         Password {errors.length ? `- ${errors[0]}` : ''}
                     </label>
