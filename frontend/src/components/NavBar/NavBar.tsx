@@ -11,7 +11,7 @@ interface INavbarProps {
     setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function NavBar ({setIsLoggedIn}: INavbarProps) {
+export default function NavBar ({ setIsLoggedIn }: INavbarProps) {
     let navigate = useNavigate()
     const { setCurrentUser } = useCurrentUser()
     // const { theme, setTheme } = useTheme()
