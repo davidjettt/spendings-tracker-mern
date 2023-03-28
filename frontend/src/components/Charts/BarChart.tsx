@@ -6,7 +6,6 @@ interface IBarChartProps {
 }
 
 export default function BarChart ({ threeMonthChartData }: IBarChartProps) {
-  console.log('BAR CHART', threeMonthChartData)
   const { theme } = useTheme()
   const themeColor = theme === 'dark' ? '#f5f5f5' : 'black'
 
