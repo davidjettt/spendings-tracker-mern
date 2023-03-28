@@ -21,11 +21,11 @@ function App() {
       }
     }
   })
-  const [ isLoggedIn, setIsLoggedIn ] = useState<boolean>(localStorage.getItem('token') !== '')
-
+  const [ isLoggedIn, setIsLoggedIn ] = useState<boolean>(false)
+  // axios.defaults.withCredentials = true
   // // Authenticates the token in order to provide access to protected routes
   useEffect(() => {
-    console.log('APP MOUNTED')
+    // console.log('APP MOUNTED')
     // console.log(currentUser)
     const token = localStorage.getItem('token')
     axios.get('/api/auth/currentUser', {
@@ -33,10 +33,10 @@ function App() {
             Authorization: token
         }
     }).then(res => {
-      console.log('VALID')
+      // console.log('VALID')
       setIsLoggedIn(true)
     }).catch(err => {
-      console.log('CATCH')
+      // console.log('CATCH')
       setIsLoggedIn(false)
     })
   },[])

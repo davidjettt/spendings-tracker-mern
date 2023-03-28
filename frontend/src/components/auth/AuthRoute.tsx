@@ -7,11 +7,9 @@ interface IAuthRouteProps {
 }
 
 export default function AuthRoute (props: IAuthRouteProps) {
-  console.log('IN AUTH ROUTE')
   if (props.isLoggedIn) {
     return <Navigate to='/dashboard' replace />
   }
-  console.log('HERE')
   return props.children
 }
 
