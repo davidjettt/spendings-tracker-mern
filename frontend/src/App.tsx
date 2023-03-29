@@ -1,16 +1,15 @@
-import { useState, useEffect, useLayoutEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Dashboard from "./components/Dashboard/Dashboard";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import Signup from "./components/auth/Signup";
 import Splash from "./components/Splash/Splash";
-import CurrentUserProvider, { useCurrentUser } from "./context/CurrentUserContext";
+import CurrentUserProvider from "./context/CurrentUserContext";
 import AuthRoute from "./components/auth/AuthRoute";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import ThemeProvider from "./context/ThemeContext";
-
 
 function App() {
   // Initializes new instance of Query client for the entire app
@@ -21,28 +20,28 @@ function App() {
       }
     }
   })
-  const [ isLoggedIn, setIsLoggedIn ] = useState<boolean>(false)
+
+
+  const storedUser: string | null = localStorage.getItem('currentUser')
+  const [ isLoggedIn, setIsLoggedIn ] = useState<boolean>(storedUser ? JSON.parse(storedUser!).isLoggedIn : false)
+
   // axios.defaults.withCredentials = true
   // // Authenticates the token in order to provide access to protected routes
   useEffect(() => {
-    // console.log('APP MOUNTED')
-    // console.log(currentUser)
-    const token = localStorage.getItem('token')
+    const token = JSON.parse(storedUser!)?.token || ''
     axios.get('/api/auth/currentUser', {
         headers: {
             Authorization: token
         }
-    }).then(res => {
-      // console.log('VALID')
+    }).then(response => {
       setIsLoggedIn(true)
-    }).catch(err => {
-      // console.log('CATCH')
+    }).catch(error => {
       setIsLoggedIn(false)
     })
   },[])
 
   return (
-    <div className="App h-[100vh]">
+    <div className="App h-[100vh] dark:bg-bgDarkMode">
       <QueryClientProvider client={client}>
         <ReactQueryDevtools />
         <ThemeProvider>

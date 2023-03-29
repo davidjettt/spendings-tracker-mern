@@ -4,19 +4,17 @@ import { ITransactionData } from '../../interfaces/ITransactionData'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
 import { useMutation, useQueryClient, UseQueryResult } from '@tanstack/react-query'
+import { ICurrentUser } from "../../interfaces/ICurrentUser";
 
 interface ITransactionFormProps {
-  // setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
   chartDataQuery: UseQueryResult<void, unknown>
   threeMonthChartDataQuery: UseQueryResult<void, unknown>
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function TransactionForm ({chartDataQuery, setShowForm, threeMonthChartDataQuery}: ITransactionFormProps) {
-  const [ user ] = useState({
-    id: localStorage.getItem('id'),
-    email: localStorage.getItem('email')
-})
+  const storedUser: string | null = localStorage.getItem('currentUser')
+  const user: ICurrentUser = JSON.parse(storedUser!)
 
   const defaultData = {
     name: '',
@@ -28,7 +26,7 @@ export default function TransactionForm ({chartDataQuery, setShowForm, threeMont
   }
 
   function addTransaction(data: ITransactionData) {
-    return axios.post(`/api/users/${user.id}/transactions`, data)
+    return axios.post(`/api/users/${user?.id}/transactions`, data)
   }
 
   const [ transactionData, setTransactionData ] = useState<ITransactionData>(defaultData)
@@ -52,8 +50,6 @@ export default function TransactionForm ({chartDataQuery, setShowForm, threeMont
 
   const handleSubmit = (e: ChangeEvent<HTMLFormElement>): void => {
     e.preventDefault()
-
-    console.log('data before submitting', transactionData)
 
     newTransactionMutation.mutate(transactionData)
     chartDataQuery?.refetch()

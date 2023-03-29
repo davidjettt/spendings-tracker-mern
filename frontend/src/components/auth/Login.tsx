@@ -33,9 +33,11 @@ export default function Login ({ setIsLoggedIn }: ILoginProps) {
 
         axios.post('/api/auth/login', loginCredentials)
         .then((response) =>{
-            localStorage.setItem('token', response.data.token)
-            localStorage.setItem('email', response.data.email)
-            localStorage.setItem('id', response.data.id)
+            const user = {
+                ...response.data,
+                isLoggedIn: true
+            }
+            localStorage.setItem('currentUser', JSON.stringify(user))
             setCurrentUser(response.data)
             setIsLoggedIn(true)
             navigate('/dashboard')
