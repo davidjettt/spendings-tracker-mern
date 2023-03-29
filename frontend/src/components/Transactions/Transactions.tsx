@@ -1,27 +1,23 @@
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
-import { useState, useEffect } from "react";
-import { ITransactionData } from "../../interfaces/ITransactionData";
+import { useState } from "react";
 import TransactionForm from "./TransactionForm";
 import TransactionsList from "./TransactionsList";
 import axios from 'axios'
+import { ICurrentUser } from "../../interfaces/ICurrentUser";
 
 interface ITransactionsProps {
-    // setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
     chartDataQuery: UseQueryResult<void, unknown>
     threeMonthChartDataQuery: UseQueryResult<void, unknown>
 }
 
 export default function Transactions (props: ITransactionsProps) {
     const [showForm, setShowForm] = useState<boolean>(false)
-    // const [transactions, setTransactions] = useState<ITransactionData[]>([])
-    const [user] = useState({
-        id: localStorage.getItem('id')
-    })
+    const storedUser: string | null = localStorage.getItem('currentUser')
+    const user: ICurrentUser = JSON.parse(storedUser!)
 
     async function getTransactions() {
         const response = await axios.get(`/api/users/${user.id}/transactions`)
         return response.data
-        // return axios.get(`/api/users/${user.id}/transactions`).then(res => res.data)
     }
 
     const transactionsQuery = useQuery({
@@ -33,12 +29,6 @@ export default function Transactions (props: ITransactionsProps) {
     <div
         className="transactions-main-container bg-offWhite dark:bg-transctionsDarkMode w-[95%] h-[40%] pt-3 pl-5 pb-10 rounded-t-xl shadow-customLight dark:shadow-customDark"
     >
-        {/* <button
-            className="transactions-toggle-button border-royalBlue bg-royalBlue text-offWhite p-1 rounded-md"
-            onClick={() => setShowForm(!showForm)}
-        >
-            {!showForm ? 'Post Transaction' : 'See Transactions'}
-        </button> */}
         {
             !showForm ?
                 <TransactionsList setShowForm={setShowForm} transactions={transactionsQuery.data} chartDataQuery={props.chartDataQuery}/>

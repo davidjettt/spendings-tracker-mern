@@ -18,9 +18,7 @@ export default function NavBar ({ setIsLoggedIn }: INavbarProps) {
     const [ theme, setTheme ] = useState(localStorage.getItem('theme'))
 
     const handleLogout = (): void => {
-        localStorage.removeItem('token')
-        localStorage.removeItem('email')
-        localStorage.removeItem('id')
+        localStorage.removeItem('currentUser')
         setCurrentUser(null)
         // console.log('axios header', axios.defaults.headers.common['Authorization'])
         // delete axios.defaults.headers.common['Authorization']

@@ -8,9 +8,9 @@ import Charts from "../Charts/Charts";
 import Transactions from "../Transactions/Transactions";
 import NavBar from "../NavBar/NavBar";
 import ChartFilter from "../ChartFilter/ChartFilter";
+import { ICurrentUser } from "../../interfaces/ICurrentUser";
 
 interface IDashboardProps {
-    // isLoggedIn: boolean,
     setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
 }
 
@@ -28,19 +28,18 @@ export default function Dashboard ({ setIsLoggedIn }: IDashboardProps) {
       'Other': 0
   }
   if (!localStorage.getItem('theme')) localStorage.setItem('theme', 'dark')
-    const [ user ] = useState({
-        id: localStorage.getItem('id'),
-        email: localStorage.getItem('email')
-    })
+    const storedUser: string | null = localStorage.getItem('currentUser')
+    const user: ICurrentUser = JSON.parse(storedUser!)
+
+
     const [filterMonth, setFilterMonth] = useState<string>('1')
     const [filterYear, setFilterYear] = useState<string>('2023')
     const [chartData, setChartData] = useState<ICategoryTotals>(defaultData)
     const [threeMonthChartData, setThreeMonthChartData] = useState<(string | number)[]>([])
 
     async function fetchChartData() {
-      const response = await axios.get(`/api/users/${user.id}/transactions/categories/total?year=${filterYear}&month=${filterMonth}`)
+      const response = await axios.get(`/api/users/${user?.id}/transactions/categories/total?year=${filterYear}&month=${filterMonth}`)
       const data = response.data
-      // console.log('FETCH RESPONSE', response.data)
       if (data.length === 0) {
         setChartData(defaultData)
         return
@@ -61,7 +60,7 @@ export default function Dashboard ({ setIsLoggedIn }: IDashboardProps) {
       return data
     }
     async function fetchThreeMonthChartData() {
-      const response = await axios.get(`/api/users/${user.id}/transactions/categories/total/threeMonths?year=${filterYear}&month=${filterMonth}`)
+      const response = await axios.get(`/api/users/${user?.id}/transactions/categories/total/threeMonths?year=${filterYear}&month=${filterMonth}`)
       const data = response.data
       if (data.length === 0) {
         // TODO handle situation where no data gets returned (show message, etc.)

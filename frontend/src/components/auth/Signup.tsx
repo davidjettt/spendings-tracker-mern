@@ -36,7 +36,6 @@ export default function Signup ({ setIsLoggedIn }: ISignupProps) {
     const handleSubmit = (e: ChangeEvent<HTMLFormElement>): void => {
         setErrors([])
         e.preventDefault()
-        console.log('signup data:', signupCredentials)
 
         if (signupCredentials.password !== signupCredentials.repeatPassword) {
             setErrors(['Passwords need to be the same'])
@@ -44,16 +43,19 @@ export default function Signup ({ setIsLoggedIn }: ISignupProps) {
         }
 
         axios.post('/api/auth/signup', signupCredentials)
-            .then((user) => {
+            .then((response) => {
                 setIsLoggedIn(true)
-                localStorage.setItem('token', user.data.token)
+                const user = {
+                    ...response.data,
+                    isLoggedIn: true
+                }
+                localStorage.setItem('currentUser', JSON.stringify(user))
                 navigate('/dashboard')
             })
             .catch((err: IAxiosError) => {
                 console.log('errors', [...err.response.data.errors])
                 setErrors([...err.response.data.errors])
             })
-
     }
 
 
