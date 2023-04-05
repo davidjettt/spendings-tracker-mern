@@ -22,3 +22,6 @@ to visit live site
 - React (Typescript)
 - Google Charts
 - TailwindCSS
+
+## Dashboard Screenshot
+![Dashboard image](https://res.cloudinary.com/dtjyf5kpn/image/upload/v1680052671/spendings-tracker-ss/spendings-tracker-dashboard_w6tj6f.png)
