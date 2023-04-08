@@ -331,7 +331,7 @@ router.post('/:userId/transactions', async (req, res) => {
     const newTransaction = await Transaction.create({
         name,
         category,
-        amount: parseInt(amount),
+        amount: parseFloat(amount),
         notes,
         userId,
         date
