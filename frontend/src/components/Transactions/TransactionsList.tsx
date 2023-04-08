@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { ITransactionData } from '../../interfaces/ITransactionData';
 import { UseQueryResult } from '@tanstack/react-query';
 import 'date-fns'
@@ -13,6 +14,8 @@ interface ITransactionsListProps {
 
 
 export default function TransactionsList (props: ITransactionsListProps) {
+    const [ searchTerm, setSearchTerm ] = useState<string>('')
+
   return (
     <>
         <div
@@ -41,18 +44,20 @@ export default function TransactionsList (props: ITransactionsListProps) {
                     className='transactions-list-top-left'
                 >
                     <div
-                        className='search-bar-container flex flex-col'
+                        className='search-bar-container w-[200px] flex flex-col'
                     >
-                        <label
+                        {/* <label
                             htmlFor='search-bar'
                             className='text-gray75'
                         >
                             Search by name
-                        </label>
+                        </label> */}
                         <input
+                            placeholder='Transaction name...'
                             id='search-bar'
-                            className='search-bar focus:outline-none border-none rounded-md h-[2em] pl-3 dark:bg-bgDarkMode dark:text-gray75'
+                            className='search-bar w-full focus:outline-none border-none rounded-md h-[2em] pl-3 dark:bg-bgDarkMode dark:text-gray75'
                             type='search'
+                            onChange={(e) => setSearchTerm(e.target.value)}
                         />
                     </div>
                 </div>
@@ -70,17 +75,20 @@ export default function TransactionsList (props: ITransactionsListProps) {
                     <tr
                         className='text-[#bfbfbf]'
                     >
-                        <th className='w-[10%] text-left px-4 py-2'>Date</th>
-                        <th className='w-[30%] text-left px-4 py-2'>Name</th>
-                        <th className='w-[10%] text-left px-4 py-2'>Category</th>
-                        <th className='w-[10%] text-left px-4 py-2'>Amount</th>
-                        <th className='w-[40%] text-left px-4 py-2'>Notes</th>
+                        <th className='w-[10%] text-left px-4 py-2 font-bold'>Date</th>
+                        <th className='w-[30%] text-left px-4 py-2 font-bold'>Name</th>
+                        <th className='w-[10%] text-left px-4 py-2 font-bold'>Category</th>
+                        <th className='w-[10%] text-left px-4 py-2 font-bold'>Amount</th>
+                        <th className='w-[40%] text-left px-4 py-2 font-bold'>Notes</th>
                     </tr>
                 </thead>
                 <tbody className=''>
                 {
                     props?.transactions &&
-                    props.transactions?.map((trans, idx) => (
+                    props.transactions.filter(transaction => {
+                        if (searchTerm === '') return transaction
+                        else if (transaction.name.toLowerCase().includes(searchTerm.toLowerCase())) return transaction
+                    }).map((trans, idx) => (
                         <tr
                             className='bg-offWhite odd:bg-white dark:bg-transctionsDarkMode dark:odd:bg-bgDarkMode'
                             key={idx}
