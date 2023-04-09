@@ -24,4 +24,4 @@ to visit live site
 - TailwindCSS
 
 ## Dashboard Screenshot
-![Dashboard image](https://res.cloudinary.com/dtjyf5kpn/image/upload/v1680052671/spendings-tracker-ss/spendings-tracker-dashboard_w6tj6f.png)
+![Dashboard image](https://res.cloudinary.com/dtjyf5kpn/image/upload/v1681002929/spendings-tracker-ss/spendings-tracker-dashboard-2_wz402t.png)
