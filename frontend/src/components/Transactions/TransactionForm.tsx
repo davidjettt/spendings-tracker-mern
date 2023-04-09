@@ -1,7 +1,6 @@
 import { ChangeEvent, useState } from 'react'
 import axios from 'axios'
 import { ITransactionData } from '../../interfaces/ITransactionData'
-import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
 import { useMutation, useQueryClient, UseQueryResult } from '@tanstack/react-query'
 import { ICurrentUser } from "../../interfaces/ICurrentUser";
@@ -86,10 +85,10 @@ export default function TransactionForm ({chartDataQuery, setShowForm, threeMont
             onSubmit={handleSubmit}
           >
             <div
-              className='form-container w-[90%] h-[200px] grid grid-cols-5'
+              className='form-container w-[50em] h-[15em] grid grid-cols-2'
             >
                 <div
-                  className='trans-name-container col-span-2'
+                  className='trans-name-container col-span-4'
                 >
                   <label
                     className='transaction-name-label flex flex-col dark:text-gray75 '
@@ -184,7 +183,7 @@ export default function TransactionForm ({chartDataQuery, setShowForm, threeMont
                   />
                 </div>
             <button
-              className={`transaction-form-button w-fit h-fit justify-self-center self-center bg-royalBlue text-offWhite p-3 rounded-xl disabled:${newTransactionMutation.isLoading ? 'opacity-70' : 'opacity-100'}`}
+              className={`transaction-form-button w-fit h-fit col-span-2 justify-self-center self-center bg-royalBlue text-offWhite p-3 rounded-xl disabled:${newTransactionMutation.isLoading ? 'opacity-70' : 'opacity-100'}`}
               disabled={newTransactionMutation.isLoading}
             >
               Post transaction

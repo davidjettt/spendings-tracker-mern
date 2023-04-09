@@ -20,6 +20,11 @@ export default function BarChart ({ threeMonthChartData }: IBarChartProps) {
 
 
   const options = {
+    animation: {
+      startup: true,
+      duration: 1000,
+      easing: 'out',
+    },
     title: "3 Month Total",
     titleTextStyle: {
       fontSize: 20,
