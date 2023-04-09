@@ -1,5 +1,4 @@
 import { Chart } from 'react-google-charts'
-import { useState } from 'react'
 import { ICategoryTotals } from '../../interfaces/ICategoryTotals'
 import { useTheme } from '../../context/ThemeContext'
 
@@ -8,15 +7,6 @@ export interface IColumnChartProps {
 }
 
 export default function ColumnChart ({ chartData }: IColumnChartProps) {
-
-    const [ mealsTotal, setMealsTotal ] = useState(0)
-    const [ travelTotal, setTravelTotal ] = useState(0)
-    const [ electronicsTotal, setElectronicsTotal ] = useState(0)
-    const [ groceriesTotal, setGroceriesTotal ] = useState(0)
-    const [ entertainmentTotal, setEntertainmentTotal ] = useState(0)
-    const [ shoppingTotal, setShoppingTotal ] = useState(0)
-    const [ otherTotal, setOtherTotal ] = useState(0)
-
     const { theme } = useTheme()
     const themeColor = theme === 'dark' ? '#f5f5f5' : 'black'
     const data = [
