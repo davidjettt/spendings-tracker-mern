@@ -103,6 +103,7 @@ export default function TransactionForm ({chartDataQuery, setShowForm, threeMont
                     name='name'
                     value={transactionData.name}
                     onChange={handleInputChange}
+                    required
                   />
                 </div>
                 <div
@@ -142,6 +143,7 @@ export default function TransactionForm ({chartDataQuery, setShowForm, threeMont
                     name='date'
                     value={transactionData.date}
                     onChange={handleInputChange}
+                    required
                   />
 
                 </div>
@@ -162,6 +164,7 @@ export default function TransactionForm ({chartDataQuery, setShowForm, threeMont
                     placeholder='amount'
                     value={transactionData.amount}
                     onChange={handleInputChange}
+                    required
                   />
                 </div>
                 <div
