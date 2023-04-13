@@ -65,9 +65,6 @@ function App() {
                   </ProtectedRoute>
                 }
                 />
-                {/* <Route path='/' element={<Splash setIsLoggedIn={setIsLoggedIn} />} />
-                <Route path='/signup' element={<Signup setIsLoggedIn={setIsLoggedIn} />} /> */}
-                {/* <Route path='/dashboard' element={<ProtectedRoute isLoggedIn={isLoggedIn} redirectedPath='/login' outlet={<Dashboard setIsLoggedIn={setIsLoggedIn} />} />} /> */}
                 <Route path="*" element={<Navigate to="/dashboard" replace />} />
               </Routes>
             </BrowserRouter>

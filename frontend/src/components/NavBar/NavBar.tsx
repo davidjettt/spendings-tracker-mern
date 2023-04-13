@@ -62,7 +62,6 @@ export default function NavBar ({ setIsLoggedIn }: INavbarProps) {
                 >
                     <img className="logout-icon" src={logoutIcon} alt='logout' />
                 </button>
-
             </div>
         </nav>
   );
