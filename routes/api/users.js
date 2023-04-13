@@ -121,66 +121,9 @@ router.get('/:userId/transactions/categories/total/threeMonths', async (req, res
     const userId = req.params.userId
 
     // const startDate = new Date(`${year}-${month.padStart(2, '0')}-01T00:00:00Z`)
-    const startDate = new Date(parseInt(year), parseInt(month) - 1, 1)
     // const endDate = new Date(`${endYear}-${endMonth.padStart(2, '0')}-01T00:00:00Z`)
+    const startDate = new Date(parseInt(year), parseInt(month) - 1, 1)
     const endDate = new Date(startDate.getFullYear(), startDate.getMonth() + 3, 0);
-    // // Aggregate query to get category totals grouped by month
-    // const transactions = await Transaction.aggregate([
-    //     // Match documents within the last year
-    //     {
-    //       $match: {
-    //         date: {
-    //           $gte: startDate,
-    //           $lte: endDate
-    //         },
-    //         userId: userId
-    //       }
-    //     },
-    //     // Group by month and category, summing the amount field
-    //     {
-    //       $group: {
-    //         _id: {
-    //           category: '$category',
-    //           month: { $month: '$date' },
-    //           year: { $year: '$date' }
-    //         },
-    //         total: { $sum: '$amount' }
-    //       }
-    //     },
-    //     // Project the month and category as separate fields
-    //     {
-    //       $project: {
-    //         _id: 0,
-    //         category: '$_id.category',
-    //         month: '$_id.month',
-    //         monthNum: '$_id.month',
-    //         year: '$_id.year',
-    //         total: 1
-    //       }
-    //     },
-    //     // Adds the name of the month as a string
-    //     {
-    //         $addFields: {
-    //             month: {
-    //                 $let: {
-    //                     vars: {
-    //                         monthsInString: [,'January','Feburary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',' November', 'December']
-    //                     },
-    //                     in: {
-    //                         $arrayElemAt: ['$$monthsInString', '$month']
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     },
-    //     // Sort by year and month ascending
-    //     {
-    //       $sort: {
-    //         year: 1,
-    //         monthNum: 1
-    //       }
-    //     }
-    //   ])
 
     // Aggregate query to get category totals grouped by month
       const categoryTotalsWithMonth = await Transaction.aggregate([

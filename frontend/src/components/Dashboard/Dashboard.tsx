@@ -26,12 +26,10 @@ export default function Dashboard ({ setIsLoggedIn }: IDashboardProps) {
       'Travel': 0,
       'Shopping': 0,
       'Other': 0
-  }
-  if (!localStorage.getItem('theme')) localStorage.setItem('theme', 'dark')
+    }
+    if (!localStorage.getItem('theme')) localStorage.setItem('theme', 'dark')
     const storedUser: string | null = localStorage.getItem('currentUser')
     const user: ICurrentUser = JSON.parse(storedUser!)
-
-
     const [filterMonth, setFilterMonth] = useState<string>('1')
     const [filterYear, setFilterYear] = useState<string>('2023')
     const [chartData, setChartData] = useState<ICategoryTotals>(defaultData)
@@ -59,6 +57,7 @@ export default function Dashboard ({ setIsLoggedIn }: IDashboardProps) {
       setChartData(categoryTotals)
       return data
     }
+
     async function fetchThreeMonthChartData() {
       const response = await axios.get(`/api/users/${user?.id}/transactions/categories/total/threeMonths?year=${filterYear}&month=${filterMonth}`)
       const data = response.data
