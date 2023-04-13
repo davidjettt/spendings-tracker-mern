@@ -102,7 +102,7 @@ export default function Signup ({ setIsLoggedIn }: ISignupProps) {
                             </label>
                             <input
                                 id='signup-email'
-                                className="signup-email dark:bg-bgDarkMode shadow appearance-none border rounded-md focus:outline-none pl-2 py-3 font-sans mb-2"
+                                className="signup-email dark:bg-bgDarkMode dark:text-gray75 dark:border-none shadow appearance-none border rounded-md focus:outline-none pl-2 py-3 font-sans mb-2"
                                 type='text'
                                 placeholder='Email'
                                 value={signupCredentials.email || ''}
@@ -117,7 +117,7 @@ export default function Signup ({ setIsLoggedIn }: ISignupProps) {
                             </label>
                             <input
                                 id='signup-pw'
-                                className="signup-pw-input dark:bg-bgDarkMode shadow appearance-none border rounded-md focus:outline-none pl-2 py-3 font-sans mb-2"
+                                className="signup-pw-input dark:bg-bgDarkMode dark:text-gray75 dark:border-none shadow appearance-none border rounded-md focus:outline-none pl-2 py-3 font-sans mb-2"
                                 type='password'
                                 placeholder='Password'
                                 value={signupCredentials.password || ''}
@@ -132,14 +132,13 @@ export default function Signup ({ setIsLoggedIn }: ISignupProps) {
                             </label>
                             <input
                                 id='repeat-pw'
-                                className="repeat-pw-input dark:bg-bgDarkMode shadow appearance-none border rounded-md focus:outline-none pl-2 py-3 font-sans"
+                                className="repeat-pw-input dark:bg-bgDarkMode dark:text-gray75 dark:border-none shadow appearance-none border rounded-md focus:outline-none pl-2 py-3 font-sans"
                                 type='password'
                                 placeholder='Repeat Password'
                                 value={signupCredentials.repeatPassword || ''}
                                 onChange={handleInputChange}
                                 name='repeatPassword'
                             />
-
                         </div>
                         <button
                             className="signup-btn border-royalBlue rounded-4xl py-2 bg-royalBlue text-offWhite font-san mt-1"
@@ -149,10 +148,10 @@ export default function Signup ({ setIsLoggedIn }: ISignupProps) {
                     </form>
                 </div>
                 <span
-                    className="sign-up-link-text mt-2 dark:text-offWhite"
+                    className="sign-up-link-text mt-2 dark:text-gray75"
                 >
                 Already have an account?
-                <Link className="ml-1 text-royalBlue font-bold" to='/'>
+                <Link className="ml-1 text-royalBlue font-bold border-b-2" to='/'>
                 Log In
                 </Link>
             </span>

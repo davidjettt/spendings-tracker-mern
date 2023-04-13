@@ -74,7 +74,7 @@ export default function Login ({ setIsLoggedIn }: ILoginProps) {
                     </label>
                     <input
                         id='login-email'
-                        className={`login-email-input dark:bg-bgDarkMode shadow appearance-none border rounded-md focus:outline-none pl-2 py-3 font-sans mb-2`}
+                        className={`login-email-input dark:bg-bgDarkMode dark:text-gray75 shadow appearance-none border dark:border-none rounded-md focus:outline-none pl-2 py-3 font-sans mb-2`}
                         type='text'
                         placeholder='Email'
                         value={loginCredentials.email || ''}
@@ -89,7 +89,7 @@ export default function Login ({ setIsLoggedIn }: ILoginProps) {
                     </label>
                     <input
                         id='login-pw'
-                        className={`login-pw-input dark:bg-bgDarkMode shadow appearance-none border border-${errors?.length > 0 ? 'red-700' : 'black-500'} rounded-md focus:outline-none py-3 pl-2 font-sans`}
+                        className={`login-pw-input dark:bg-bgDarkMode dark:text-gray75 shadow appearance-none border dark:border-none border-${errors?.length > 0 ? 'red-700' : 'black-500'} rounded-md focus:outline-none py-3 pl-2 font-sans`}
                         type='password'
                         placeholder='Password'
                         value={loginCredentials.password || ''}
