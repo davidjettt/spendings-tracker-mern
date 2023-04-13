@@ -1,7 +1,7 @@
-import ColumnChart from './ColumnChart'
-import DonutChart from './DonutChart'
-import ChartLegend from './ChartLegend'
-import BarChart from './BarChart'
+import ColumnChart from './ColumnChart/ColumnChart'
+import DonutChart from './DonutChart/DonutChart'
+import ChartLegend from './ChartLegend/ChartLegend'
+import BarChart from './BarChart/BarChart'
 import { ICategoryTotals } from '../../interfaces/ICategoryTotals'
 
 interface IChartsProps {

@@ -1,7 +1,7 @@
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { useState } from "react";
-import TransactionForm from "./TransactionForm";
-import TransactionsList from "./TransactionsList";
+import TransactionForm from "./TransactionForm/TransactionForm";
+import TransactionsList from "./TransactionsList/TransactionsList";
 import axios from 'axios'
 import { ICurrentUser } from "../../interfaces/ICurrentUser";
 

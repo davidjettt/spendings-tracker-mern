@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { ITransactionData } from '../../interfaces/ITransactionData';
+import { ITransactionData } from '../../../interfaces/ITransactionData';
 import { UseQueryResult } from '@tanstack/react-query';
 import 'date-fns'
-import '../../index.css'
-import { useTheme } from '../../context/ThemeContext';
+import '../../../index.css'
+import { useTheme } from '../../../context/ThemeContext';
 
 interface ITransactionsListProps {
     // setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>

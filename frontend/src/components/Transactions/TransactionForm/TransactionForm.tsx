@@ -1,9 +1,9 @@
 import { ChangeEvent, useState } from 'react'
 import axios from 'axios'
-import { ITransactionData } from '../../interfaces/ITransactionData'
+import { ITransactionData } from '../../../interfaces/ITransactionData'
 import "react-datepicker/dist/react-datepicker.css"
 import { useMutation, useQueryClient, UseQueryResult } from '@tanstack/react-query'
-import { ICurrentUser } from "../../interfaces/ICurrentUser";
+import { ICurrentUser } from "../../../interfaces/ICurrentUser";
 
 interface ITransactionFormProps {
   chartDataQuery: UseQueryResult<void, unknown>

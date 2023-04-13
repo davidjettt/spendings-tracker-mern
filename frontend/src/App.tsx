@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Dashboard from "./components/Dashboard/Dashboard";
-import ProtectedRoute from "./components/auth/ProtectedRoute";
-import Signup from "./components/auth/Signup";
+import ProtectedRoute from "./components/auth/ProtectedRoute/ProtectedRoute";
+import Signup from "./components/auth/Signup/Signup";
 import Splash from "./components/Splash/Splash";
 import CurrentUserProvider from "./context/CurrentUserContext";
-import AuthRoute from "./components/auth/AuthRoute";
+import AuthRoute from "./components/auth/AuthRoute/AuthRoute";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import ThemeProvider from "./context/ThemeContext";
