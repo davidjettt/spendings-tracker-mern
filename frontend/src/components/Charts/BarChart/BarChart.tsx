@@ -1,5 +1,5 @@
 import { Chart } from 'react-google-charts'
-import { useTheme } from '../../context/ThemeContext'
+import { useTheme } from '../../../context/ThemeContext'
 
 interface IBarChartProps {
   threeMonthChartData: (string | number)[]

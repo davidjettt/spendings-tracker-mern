@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from "react";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
-import { IAxiosError } from "../../interfaces/IAxiosError";
+import { IAxiosError } from "../../../interfaces/IAxiosError";
 import { Link } from "react-router-dom";
 
 interface ISignupCredentials {

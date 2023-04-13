@@ -1,6 +1,6 @@
 import { Chart } from 'react-google-charts'
-import { useTheme } from '../../context/ThemeContext';
-import { ICategoryTotals } from '../../interfaces/ICategoryTotals';
+import { useTheme } from '../../../context/ThemeContext';
+import { ICategoryTotals } from '../../../interfaces/ICategoryTotals';
 
 export interface IDonutChartProps {
   chartData: ICategoryTotals

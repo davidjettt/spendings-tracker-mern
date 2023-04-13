@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Login from "../auth/Login";
+import Login from "../auth/Login/Login";
 
 export interface ISplashProps {
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>

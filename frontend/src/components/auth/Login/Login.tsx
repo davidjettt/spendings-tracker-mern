@@ -1,8 +1,8 @@
 import { useState, ChangeEvent } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { IAxiosError } from "../../interfaces/IAxiosError";
-import { useCurrentUser } from "../../context/CurrentUserContext";
+import { IAxiosError } from "../../../interfaces/IAxiosError";
+import { useCurrentUser } from "../../../context/CurrentUserContext";
 
 interface ILoginCredentials {
     email: string,
