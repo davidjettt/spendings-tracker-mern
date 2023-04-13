@@ -68,13 +68,13 @@ export default function Login ({ setIsLoggedIn }: ILoginProps) {
                 >
                     <label
                         htmlFor="login-email"
-                        className={`login-email-label flex flex-col font-sans ${errors.length > 0 ? 'text-red' : 'text-black'} dark:text-gray75`}
+                        className={`login-email-label flex flex-col font-sans ${errors.length > 0 ? 'text-red dark:text-red': 'text-black'} dark:text-gray75`}
                     >
                         Email {errors.length ? `- ${errors[0]}` : ''}
                     </label>
                     <input
                         id='login-email'
-                        className={`login-email-input shadow appearance-none border rounded-md focus:outline-none pl-2 py-3 font-sans mb-2`}
+                        className={`login-email-input dark:bg-bgDarkMode dark:text-gray75 shadow appearance-none border dark:border-none rounded-md focus:outline-none pl-2 py-3 font-sans mb-2`}
                         type='text'
                         placeholder='Email'
                         value={loginCredentials.email || ''}
@@ -83,13 +83,13 @@ export default function Login ({ setIsLoggedIn }: ILoginProps) {
                     />
                     <label
                         htmlFor="login-pw"
-                        className={`login-pw-label flex flex-col font-sans ${errors.length > 0 ? 'text-red' : 'text-black'} dark:text-gray75`}
+                        className={`login-pw-label flex flex-col font-sans ${errors.length > 0 ? 'text-red dark:text-red' : 'text-black'} dark:text-gray75`}
                     >
                         Password {errors.length ? `- ${errors[0]}` : ''}
                     </label>
                     <input
                         id='login-pw'
-                        className={`login-pw-input shadow appearance-none border border-${errors?.length > 0 ? 'red-700' : 'black-500'} rounded-md focus:outline-none py-3 pl-2 font-sans`}
+                        className={`login-pw-input dark:bg-bgDarkMode dark:text-gray75 shadow appearance-none border dark:border-none border-${errors?.length > 0 ? 'red-700' : 'black-500'} rounded-md focus:outline-none py-3 pl-2 font-sans`}
                         type='password'
                         placeholder='Password'
                         value={loginCredentials.password || ''}

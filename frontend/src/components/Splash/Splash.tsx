@@ -24,10 +24,10 @@ export default function Splash ({ setIsLoggedIn }: ISplashProps) {
           </h2>
           <Login setIsLoggedIn={setIsLoggedIn}/>
           <span
-            className="sign-up-link-text mt-2"
+            className="sign-up-link-text mt-2 dark:text-gray75"
           >
             Don't have an account?
-            <Link className="ml-1 text-royalBlue font-bold" to='/signup'>
+            <Link className="ml-1 text-royalBlue font-bold border-b-2" to='/signup'>
               Sign up
             </Link>
           </span>
