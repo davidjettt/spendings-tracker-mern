@@ -46,12 +46,6 @@ export default function TransactionsList (props: ITransactionsListProps) {
                     <div
                         className='search-bar-container w-[200px] flex flex-col'
                     >
-                        {/* <label
-                            htmlFor='search-bar'
-                            className='text-gray75'
-                        >
-                            Search by name
-                        </label> */}
                         <input
                             placeholder='Transaction name...'
                             id='search-bar'

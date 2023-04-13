@@ -17,7 +17,7 @@ export default function TransactionForm ({chartDataQuery, setShowForm, threeMont
 
   const defaultData = {
     name: '',
-    category: '',
+    category: 'Entertainment',
     date: '',
     amount: 0,
     notes: '',
@@ -49,14 +49,11 @@ export default function TransactionForm ({chartDataQuery, setShowForm, threeMont
 
   const handleSubmit = (e: ChangeEvent<HTMLFormElement>): void => {
     e.preventDefault()
-
-    newTransactionMutation.mutate(transactionData)
+    newTransactionMutation?.mutate(transactionData)
     chartDataQuery?.refetch()
     threeMonthChartDataQuery?.refetch()
     setTransactionData(defaultData)
   }
-
-  if (newTransactionMutation.isLoading) return <h1>.......LOADING..........</h1>
 
   return (
     <div
@@ -186,14 +183,13 @@ export default function TransactionForm ({chartDataQuery, setShowForm, threeMont
                   />
                 </div>
             <button
-              className={`transaction-form-button w-fit h-fit col-span-2 justify-self-center self-center bg-royalBlue text-offWhite p-3 rounded-xl disabled:${newTransactionMutation.isLoading ? 'opacity-70' : 'opacity-100'}`}
+              className={`transaction-form-button w-fit h-fit col-span-2 justify-self-center self-center bg-royalBlue text-offWhite p-3 rounded-xl ${newTransactionMutation.isLoading ? 'opacity-60' : 'opacity-100'}`}
               disabled={newTransactionMutation.isLoading}
             >
-              Post transaction
+              {newTransactionMutation.isLoading ? 'Processing...' : 'Post Transaction'}
             </button>
             </div>
           </form>
-
         </div>
     </div>
   );
