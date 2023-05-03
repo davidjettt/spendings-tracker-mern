@@ -14,18 +14,11 @@ const app = express()
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('frontend/build'));
   app.get(/^\/(?!api|static).*/, (req, res) => {
-    // console.log('PATH>>>>>>', path.resolve(__dirname, 'frontend', 'build', 'index.html'))
     res.sendFile(path.join(__dirname, 'frontend/build', 'index.html'));
   })
 } else {
   app.use(cors())
 }
-
-
-
-// console.log('DIR name', __dirname)
-// console.log('PATH>>>>>>', path.resolve(__dirname, 'frontend', 'build', 'index.html'))
-// console.log('PATH>>>>>>', path.join(__dirname, 'frontend/build', 'index.html'))
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
