@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { ITransactionData } from '../../../interfaces/ITransactionData';
 import { UseQueryResult } from '@tanstack/react-query';
 import 'date-fns'
@@ -12,9 +12,40 @@ interface ITransactionsListProps {
     setShowForm: React.Dispatch<React.SetStateAction<boolean>>
 }
 
+enum SortOption {
+    DATEASC = 'date-asc',
+    DATEDESC = 'date-desc',
+    NAMEASC = 'name-asc',
+    NAMEDESC = 'name-desc',
+    AMOUNTHIGH = 'amount-high',
+    AMOUNTLOW = 'amount-low'
+}
 
-export default function TransactionsList (props: ITransactionsListProps) {
+
+export default function TransactionsList ({ chartDataQuery, transactions, setShowForm }: ITransactionsListProps) {
+    // chartDataQuery.data contains transaction data for selected month
+
     const [ searchTerm, setSearchTerm ] = useState<string>('')
+    const [ sortOption, setSortOption ] = useState<SortOption>(SortOption.DATEDESC)
+
+    // recomputes appropriate order of transactions everytime new transaction gets add/edited or sort option changes
+    const sortedTransactions = useMemo(() => {
+        switch (sortOption) {
+            case SortOption.DATEASC:
+                return transactions?.slice().sort((a, b) => Date.parse(a.date) - Date.parse(b.date))
+            case SortOption.DATEDESC:
+                return transactions?.slice().sort((a, b) => Date.parse(b.date) - Date.parse(a.date))
+            case SortOption.NAMEASC:
+                return transactions?.slice().sort((a, b) => a.name.localeCompare(b.name))
+            case SortOption.NAMEDESC:
+                return transactions?.slice().sort((a, b) => b.name.localeCompare(a.name))
+            case SortOption.AMOUNTHIGH:
+                return transactions?.slice().sort((a, b) => b.amount - a.amount)
+            case SortOption.AMOUNTLOW:
+                return transactions?.slice().sort((a, b) => a.amount - b.amount)
+        }
+
+    }, [transactions, sortOption])
 
   return (
     <>
@@ -34,15 +65,30 @@ export default function TransactionsList (props: ITransactionsListProps) {
                     </h1>
                     <button
                         className="transactions-toggle-button border-royalBlue bg-royalBlue text-offWhite p-1 rounded-md"
-                        onClick={() => props.setShowForm(true)}
+                        onClick={() => setShowForm(true)}
                     >
                         Post transaction
                     </button>
 
                 </div>
                 <div
-                    className='transactions-list-top-left'
+                    className='transactions-list-top-left flex'
                 >
+                     <div>
+                        <select
+                            id='sort'
+                            className='dark:bg-bgDarkMode focus:outline-none rounded-md dark:text-gray75 h-[2em] p-1 mr-3'
+                            onChange={(e) => setSortOption(e.target.value as SortOption)}
+                            value={sortOption}
+                        >
+                            <option value={SortOption.DATEDESC}>Date descending</option>
+                            <option value={SortOption.DATEASC}>Date ascending</option>
+                            <option value={SortOption.NAMEASC}>Name (a - z)</option>
+                            <option value={SortOption.NAMEDESC}>Name (z - a)</option>
+                            <option value={SortOption.AMOUNTHIGH}>Amount highest</option>
+                            <option value={SortOption.AMOUNTLOW}>Amount lowest</option>
+                        </select>
+                    </div>
                     <div
                         className='search-bar-container w-[200px] flex flex-col'
                     >
@@ -78,8 +124,8 @@ export default function TransactionsList (props: ITransactionsListProps) {
                 </thead>
                 <tbody className=''>
                 {
-                    props?.transactions &&
-                    props.transactions.filter(transaction => {
+                    sortedTransactions &&
+                    sortedTransactions.filter(transaction => {
                         if (searchTerm === '') return transaction
                         else if (transaction.name.toLowerCase().includes(searchTerm.toLowerCase())) return transaction
                     }).map((trans, idx) => (
