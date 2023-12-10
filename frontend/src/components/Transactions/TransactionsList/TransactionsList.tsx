@@ -64,10 +64,10 @@ export default function TransactionsList ({ chartDataQuery, transactions, setSho
                         Transactions
                     </h1>
                     <button
-                        className="transactions-toggle-button border-royalBlue bg-royalBlue text-offWhite p-1 rounded-md"
+                        className="transactions-toggle-button text-green text-3xl ml-1"
                         onClick={() => setShowForm(true)}
                     >
-                        Post transaction
+                        +
                     </button>
 
                 </div>
